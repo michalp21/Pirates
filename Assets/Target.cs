@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -8,9 +8,10 @@ public class Target : MonoBehaviour {
 	private int currentLevel;
 
 	public float targetRange;
+	public string enemyID; //not used or implemented yet
 
-	private isTargeting;
-	private isManual;
+	private bool isTargeting;
+	private bool isManual; //if false: auto targeting
 
 	void Start () {
 		
@@ -26,6 +27,19 @@ public class Target : MonoBehaviour {
 	}
 
 	void autoTarget()
+	{
+		Collider[] hitColliders = Physics.OverlapSphere(gameObject.transform.position,targetRange);
+		int i = 0;
+		while (i < hitColliders.Length) {
+			if (hitColliders [i].gameObject.tag.Contains (enemyID) &&
+			    weaponsInRange.Contains (hitColliders [i].gameObject)) {
+				weaponsInRange.Add (hitColliders [i].gameObject);
+			}
+			i++;
+		}
+	}
+
+	void manualTarget()
 	{
 		Collider[] hitColliders = Physics.OverlapSphere(gameObject.transform.position,targetRange);
 		int i = 0;

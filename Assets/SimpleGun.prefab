@@ -70,9 +70,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentLevel: 0
+  playerID: 
   weaponName: 
   rarity: 0
-  muzzlePoint: {fileID: 0}
+  muzzlePoint: {fileID: 430092, guid: 998ff4d92cb574f89a4e215693b4c91c, type: 2}
   typeOfWeapon: 0
   usePooling: 0
   infiniteAmmo: 0
@@ -82,7 +83,6 @@ MonoBehaviour:
     amount: 0
     type: 0
   maxPenetration: 0
-  targetRange: 0
   disappearRange: 0
   spread: 0
   projectileSpeed: 0
@@ -177,6 +177,10 @@ Prefab:
       propertyPath: projectile
       value: 
       objectReference: {fileID: 160682, guid: 4e270f2a1335145059da6e040659179b, type: 2}
+    - target: {fileID: 0}
+      propertyPath: muzzlePoint
+      value: 
+      objectReference: {fileID: 430092, guid: 998ff4d92cb574f89a4e215693b4c91c, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 157696}
