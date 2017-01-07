@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public class Health : MonoBehaviour
 {
-	public int currentLevel;
 	public WeaponStatsBase weaponStats;
 
 	public bool useObjectPooling;
@@ -19,11 +18,9 @@ public class Health : MonoBehaviour
 	protected float maxHealth = 100.0f;
 	public float health = 100.0f;
 
-	public virtual void initHealth(int cl)
+	public virtual void initHealth()
 	{
-		currentLevel = cl;
 		weaponStats = GetComponent<WeaponStatsBase>(); //maybe change to 2nd parameter (See above)
-		weaponStats.initWeaponStats(currentLevel);
 
 		useObjectPooling = weaponStats.usePooling;
 		myResistances = weaponStats.myResistances;

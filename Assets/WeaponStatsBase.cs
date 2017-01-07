@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class WeaponStatsBase
+public abstract class WeaponStatsBase : MonoBehaviour
 {
 	public int currentLevel;
 	public string weaponName;                         // Name of this weapon

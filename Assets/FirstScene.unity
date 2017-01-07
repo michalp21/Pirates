@@ -85,47 +85,6 @@ NavMeshSettings:
     cellSize: .166666672
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &130377594
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 131402, guid: ef3421a3ae7e14d63876b88123db56ee, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 130377595}
-  - 135: {fileID: 130377596}
-  m_Layer: 0
-  m_Name: target_range
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &130377595
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 497450, guid: ef3421a3ae7e14d63876b88123db56ee, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 130377594}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1670388121}
-  m_RootOrder: 0
---- !u!135 &130377596
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 13514108, guid: ef3421a3ae7e14d63876b88123db56ee,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 130377594}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &264291546
 GameObject:
   m_ObjectHideFlags: 0
@@ -501,48 +460,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1670388121}
-  m_RootOrder: 2
---- !u!1 &900428778
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 100916, guid: ef3421a3ae7e14d63876b88123db56ee, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 900428780}
-  - 65: {fileID: 900428779}
-  m_Layer: 0
-  m_Name: weapon_collider
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!65 &900428779
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6564498, guid: ef3421a3ae7e14d63876b88123db56ee,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 900428778}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: .5, y: .5, z: .5}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!4 &900428780
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 426392, guid: ef3421a3ae7e14d63876b88123db56ee, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 900428778}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1670388121}
-  m_RootOrder: 1
+  m_RootOrder: 0
 --- !u!1 &997341891
 GameObject:
   m_ObjectHideFlags: 0
@@ -740,11 +658,13 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1670388121}
+  - 65: {fileID: 1670388126}
   - 212: {fileID: 1670388124}
   - 114: {fileID: 1670388123}
   - 114: {fileID: 1670388122}
+  - 114: {fileID: 1670388125}
   m_Layer: 0
-  m_Name: SimpleGun
+  m_Name: SimpleGun_lv1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -760,8 +680,6 @@ Transform:
   m_LocalPosition: {x: 1.33000004, y: 1.01999998, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 130377595}
-  - {fileID: 900428780}
   - {fileID: 685895207}
   m_Father: {fileID: 546981282}
   m_RootOrder: 0
@@ -777,7 +695,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09a8b523bae64b94aaba13dcb40f2c8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentLevel: 0
+  weaponStats: {fileID: 0}
   useObjectPooling: 0
   myResistances:
     normal: 0
@@ -803,23 +721,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentLevel: 0
   playerID: 
-  weaponName: 
-  rarity: 0
-  muzzlePoint: {fileID: 430092, guid: 998ff4d92cb574f89a4e215693b4c91c, type: 2}
-  typeOfWeapon: 0
-  usePooling: 0
-  infiniteAmmo: 0
-  maxLevel: 0
-  psurvive: 0
-  damage:
-    amount: 0
-    type: 0
-  maxPenetration: 0
-  disappearRange: 0
-  spread: 0
-  projectileSpeed: 0
-  projectileLifeTime: 0
-  baseFireRate: 0
+  weaponStats: {fileID: 0}
   projectile: {fileID: 160682, guid: 4e270f2a1335145059da6e040659179b, type: 2}
 --- !u!212 &1670388124
 SpriteRenderer:
@@ -848,3 +750,52 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 5ee18db5dd87145648ff7804a5489321, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &1670388125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1670388120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cacf14ee189d4126bbd6e0f2847a15c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentLevel: 0
+  weaponName: 
+  rarity: 0
+  muzzlePoint: {fileID: 685895207}
+  typeOfWeapon: 0
+  usePooling: 0
+  infiniteAmmo: 0
+  maxLevel: 0
+  psurvive: 0
+  damage:
+    amount: 0
+    type: 0
+  myResistances:
+    normal: 0
+    fire: 0
+    ice: 0
+    acid: 0
+    electric: 0
+    poison: 0
+  maxPenetration: 0
+  targetRange: 0
+  disappearRange: 0
+  spread: 0
+  projectileSpeed: 0
+  projectileLifeTime: 0
+  baseFireRate: 0
+--- !u!65 &1670388126
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1670388120}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: .5, y: .5, z: .5}
+  m_Center: {x: 0, y: 0, z: 0}

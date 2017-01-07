@@ -11,10 +11,10 @@ public class Gun_Physical : Gun {
     }
 	
 	protected override void FireOneShot () {
-        Vector2 pos = muzzlePoint.position; // position to spawn bullet is at the muzzle point of the gun       
-        Quaternion rot = muzzlePoint.rotation; // spawn bullet with the muzzle's rotation
+		Vector2 pos = weaponStats.muzzlePoint.position; // position to spawn bullet is at the muzzle point of the gun       
+		Quaternion rot = weaponStats.muzzlePoint.rotation; // spawn bullet with the muzzle's rotation
 
-		bulletInfo.spread = spread; // set this bullet's info to the gun's current spread
+		bulletInfo.spread = weaponStats.spread; // set this bullet's info to the gun's current spread
         GameObject newBullet;
 
         if (weaponStats.usePooling)
@@ -37,6 +37,6 @@ public class Gun_Physical : Gun {
 	}
 	
 	public override void StopBoost () {
-		fireRate = baseFireRate;
+		fireRate = weaponStats.baseFireRate;
 	}
 }

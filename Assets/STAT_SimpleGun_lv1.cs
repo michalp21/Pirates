@@ -2,7 +2,7 @@
 using System.Collections;
 
 //POSSIBLY SPLIT THIS SCRIPT INTO SMALLER SCRIPTS FOR EACH LEVEL FOR USE WITH PREFABS
-public class SimpleGunStats : WeaponStatsBase {
+public class STAT_SimpleGun_lv1 : WeaponStatsBase {
 	
 	// Use this for initialization
 	void Start () {
