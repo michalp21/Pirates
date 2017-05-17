@@ -9,7 +9,7 @@ public class RigidProjectile : Projectile
     {
         base.SetUp(info);
         myRigid = GetComponent<Rigidbody>();       
-        myRigid.velocity = velocity; 
+		myRigid.velocity = velocity;
     }
 
 	void OnTriggerEnter(Collider other)

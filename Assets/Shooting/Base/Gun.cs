@@ -49,15 +49,16 @@ public class Gun : MonoBehaviour {
 	//and I'm too lazy to make it work with Start()
     protected virtual void Start()
     {
-
+		weaponStats = GetComponent<WeaponStatsBase>();
+		fireRate = weaponStats.baseFireRate;
     }
 
 	//Call initGun() after instantiating the GameObject with this Gun script attached
 	protected void initGun(string id) //maybe add parameter for WeaponStatsBase component
 	{
 		playerID = id; //"Player1" or "Player2"
-		weaponStats = GetComponent<WeaponStatsBase>();
-		fireRate = weaponStats.baseFireRate;
+		//weaponStats = GetComponent<WeaponStatsBase>();
+		//fireRate = weaponStats.baseFireRate;
 	}
 
 	public void LevelUp()

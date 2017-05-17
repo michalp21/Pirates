@@ -14,15 +14,14 @@ public class PlayerInput : MonoBehaviour {
 	// CHANGE LATER SO IT DOESNT FIRE BASED ON BUTTON PRESS
 	void Update () {
         if (myGun)
-        {
-			Debug.Log (myGun);
+        {	
+			Debug.Log (myGun.weaponStats);
             if (myGun.weaponStats.typeOfWeapon == WeaponType.FULLAUTO)
             {
 				//Can use GetButton or GetKey
                 if (Input.GetKey(KeyCode.Space))
                 {
                     myGun.Fire();
-					Debug.Log("Fire");
                 }
             }
             else

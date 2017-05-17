@@ -28,7 +28,7 @@ public class WeaponManager : MonoBehaviour {
 		AssignTags();
 	}
 
-	public void AssignTags() {
+	private void AssignTags() {
 		foreach(KeyValuePair<Vector2, GameObject> entry in weaponDict)
 		{
 			entry.Value.tag = playerID+"-Weapon"; //playerID needs to be implemented later

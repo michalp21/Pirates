@@ -24,4 +24,4 @@ public abstract class WeaponStatsBase : MonoBehaviour
 	public float baseFireRate;
 }
 
-//freeze blast
+//freeze blast		

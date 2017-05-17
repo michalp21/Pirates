@@ -5,11 +5,11 @@ using System.Collections;
 public class STAT_SimpleGun_lv1 : WeaponStatsBase {
 	
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		currentLevel = 1;
 		weaponName = "Simple Gun";
 		rarity = 1;
-		muzzlePoint = null;
+		//muzzlePoint = null;
 		typeOfWeapon = WeaponType.FULLAUTO;
 		usePooling = false;
 		infiniteAmmo = true;

@@ -96,7 +96,6 @@ public class Target : MonoBehaviour {
 	IEnumerator RotateTo() {
 		float i = 0.0f;
 		float rate = 1.0f / 1;
-		Debug.Log ("Starting Rotate");
 
 		while (i < 1.0) {
 			Vector3 lookDirection = target.transform.position - transform.position;
@@ -132,10 +131,10 @@ public class Target : MonoBehaviour {
 			getInRangeTarget ();
 			target = findClosestInRange();
 			weaponsInRange.Clear();
-			isTargeting = true;
-			//fromRotate = transform.rotation;
-			//t = Time.time;
-			currentCoroutine = StartCoroutine (RotateTo());
+			if (target != null) {
+				isTargeting = true;
+				currentCoroutine = StartCoroutine (RotateTo ());
+			}
 		} else {
 			if (target == null || target.activeSelf == false || target.GetComponent<Health> ().isDead ||
 				Vector3.Distance (gameObject.transform.position, target.transform.position) > weaponStats.targetRange) {

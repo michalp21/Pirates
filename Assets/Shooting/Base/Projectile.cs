@@ -9,7 +9,7 @@ using System.Collections.Generic;
 public class Projectile : MonoBehaviour {
 
     protected ProjectileInfo myInfo = new ProjectileInfo();
-    protected Vector2 velocity;
+    protected Vector3 velocity;
     protected int hitCount = 0;
     protected List<Collider> collidersToIgnore = new List<Collider>();
     protected List<Collider> backCollidersToIgnore = new List<Collider>();
@@ -19,8 +19,7 @@ public class Projectile : MonoBehaviour {
     {
         myInfo = info;
         hitCount = 0;
-        //velocity = myInfo.speed * transform.forward + transform.TransformDirection(Random.Range(-myInfo.maxSpread, myInfo.maxSpread) * myInfo.spread, Random.Range(-myInfo.maxSpread, myInfo.maxSpread) * myInfo.spread, 1);
-		velocity = myInfo.speed * transform.forward;
+		velocity = myInfo.speed * transform.right + transform.TransformDirection(0, Random.Range(-myInfo.spread/2, myInfo.spread/2), 0);
 		collidersToIgnore.Add (myInfo.owner.GetComponent<Collider>());
 		backCollidersToIgnore.Add (myInfo.owner.GetComponent<Collider>());
         Invoke("Recycle", myInfo.projectileLifeTime); // set a life time for this projectile
@@ -54,7 +53,7 @@ public class ProjectileInfo
     public Damage damage = new Damage();
     public int maxPenetration;
     public float spread;
-    public float speed;
+	public float speed;
     public bool usePool;
     public float projectileLifeTime;
 }
