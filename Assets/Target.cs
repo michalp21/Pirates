@@ -14,12 +14,17 @@ public class Target : MonoBehaviour {
 	private bool isManual; //if false: auto targeting
 	private GameObject target;
 	private Collider[] hitColliders;
+	private Coroutine currentCoroutine;
 	
 	private Vector3 targetPoint;
 	private Quaternion targetRotation;
-	
+
+	//Eventually get rid of this crap
 	void Start () {
-		
+		weaponStats = GetComponent<WeaponStatsBase> ();
+		//target = null;
+		isTargeting = false;
+		currentCoroutine = null;
 	}
 
 	protected void initTarget(string id)
@@ -27,15 +32,25 @@ public class Target : MonoBehaviour {
 		enemyID = id;
 		weaponStats = GetComponent<WeaponStatsBase> ();
 		target = null;
+		isTargeting = false;
+		currentCoroutine = null;
 	}
 
-	protected void pointToTarget()
+	protected void pointToTarget(Quaternion fromRotate, float startTime)
 	{
 		//Maybe have to move this back into Update()
-		var newRotation = Quaternion.LookRotation(target.transform.position - transform.position);
-		newRotation.x = 0.0f;
-		newRotation.y = 0.0f;
-		transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.deltaTime * .5f);
+		Vector3 lookDirection = target.transform.position - transform.position;
+		float angle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
+		Quaternion newRotation = Quaternion.AngleAxis(angle, Vector3.forward);
+		transform.rotation = Quaternion.Slerp(fromRotate, newRotation, (Time.time - startTime) * 2f);
+
+		/*Vector3 lookDirection = target.transform.position - transform.position;
+		lookDirection.z = 0;// always pivot on z axis
+		if(lookDirection.sqrMagnitude <= float.Epsilon)
+			return;// can't rotate, since two points are along the same Z-axis, thus do nothing
+		Quaternion newRotation = Quaternion.LookRotation(transform.forward, lookDirection.normalized);
+		transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.time * .5f);*/
+		//transform.LookAt(target.transform);
 	}
 	
 	protected GameObject findClosestInRange()
@@ -64,6 +79,9 @@ public class Target : MonoBehaviour {
 			int i = 0;
 			while (i < hitColliders.Length) {
 				GameObject objectInRange = hitColliders[i].gameObject;
+				if (objectInRange == this.gameObject) {
+					i++; continue;
+				}
 				Gun gun = objectInRange.GetComponent<Gun>();
 				if (gun != null &&								//is a gun
 				    objectInRange.tag.Contains (enemyID) &&		//is an enemy
@@ -75,23 +93,58 @@ public class Target : MonoBehaviour {
 		}
 	}
 
-	void manualTarget()
-	{
+	IEnumerator RotateTo() {
+		float i = 0.0f;
+		float rate = 1.0f / 1;
+		Debug.Log ("Starting Rotate");
 
+		while (i < 1.0) {
+			Vector3 lookDirection = target.transform.position - transform.position;
+			float angle = Mathf.Atan2 (lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
+			Quaternion newRotation = Quaternion.AngleAxis (angle, Vector3.forward);
+			Quaternion fromRotation = gameObject.transform.rotation;
+
+			i += Time.deltaTime * rate;
+			transform.rotation = Quaternion.Slerp (fromRotation, newRotation, i);
+			yield return null;
+		}
+		while (true) {
+			Vector3 lookDirection = target.transform.position - transform.position;
+			float angle = Mathf.Atan2 (lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
+			Quaternion newRotation = Quaternion.AngleAxis (angle, Vector3.forward);
+
+			gameObject.transform.rotation = newRotation;
+			yield return null;
+		}
+	}
+
+	public void manualTarget()
+	{
+		
 	}
 
 	// Update is called once per frame
 	void Update () {
-		if (!isTargeting) {
+		//float t = 0f;
+		//Quaternion fromRotate = transform.rotation;
+
+		if (isTargeting == false) {
 			getInRangeTarget ();
 			target = findClosestInRange();
 			weaponsInRange.Clear();
 			isTargeting = true;
+			//fromRotate = transform.rotation;
+			//t = Time.time;
+			currentCoroutine = StartCoroutine (RotateTo());
 		} else {
-			if (target == null || target.activeSelf == false || target.GetComponent<Health>().isDead)
+			if (target == null || target.activeSelf == false || target.GetComponent<Health> ().isDead ||
+				Vector3.Distance (gameObject.transform.position, target.transform.position) > weaponStats.targetRange) {
 				isTargeting = false;
-			else
-				pointToTarget ();
+				StopCoroutine (currentCoroutine);
+			} else {
+				//pointToTarget (fromRotate, t);
+				//StartCoroutine (RotateTo());
+			}
 		}
 	}
 }
