@@ -15,6 +15,7 @@ public class PlayerInput : MonoBehaviour {
 	void Update () {
         if (myGun)
         {
+			Debug.Log (myGun);
             if (myGun.weaponStats.typeOfWeapon == WeaponType.FULLAUTO)
             {
 				//Can use GetButton or GetKey

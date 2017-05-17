@@ -23,3 +23,5 @@ public abstract class WeaponStatsBase : MonoBehaviour
 	public float projectileLifeTime;     // how long before the projectile is considered gone and recycleable
 	public float baseFireRate;
 }
+
+//freeze blast

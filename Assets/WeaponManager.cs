@@ -12,7 +12,7 @@ public class WeaponManager : MonoBehaviour {
 	private int playerID;
 
 	//dictionary with x,y position as key and GameObject as value
-	private Dictionary<Vector2, GameObject> weaponDict = new Dictionary<Vector2, GameObject>();
+	public Dictionary<Vector2, GameObject> weaponDict = new Dictionary<Vector2, GameObject>();
 
 	void Awake() {
 		_myShip = GetComponent<BaseShip> ();
@@ -28,7 +28,7 @@ public class WeaponManager : MonoBehaviour {
 		AssignTags();
 	}
 
-	private void AssignTags() {
+	public void AssignTags() {
 		foreach(KeyValuePair<Vector2, GameObject> entry in weaponDict)
 		{
 			entry.Value.tag = playerID+"-Weapon"; //playerID needs to be implemented later
@@ -36,7 +36,7 @@ public class WeaponManager : MonoBehaviour {
 	}
 
 	//loop through, call fire() on all wpwns
-	private void FireAll() {
+	public void FireAll() {
 		foreach(KeyValuePair<Vector2, GameObject> entry in weaponDict)
 		{
 			entry.Value.GetComponent<Gun>().Fire();
@@ -44,7 +44,7 @@ public class WeaponManager : MonoBehaviour {
 		}
 	}
 
-	private void StartBoostAll(){
+	public void StartBoostAll(){
 		//loop through, call boost() on all wpwns
 		foreach(KeyValuePair<Vector2, GameObject> entry in weaponDict)
 		{
@@ -53,7 +53,7 @@ public class WeaponManager : MonoBehaviour {
 		}
 	}
 
-	private void StopBoostAll(){
+	public void StopBoostAll(){
 		//loop through, call boost() on all wpwns
 		foreach(KeyValuePair<Vector2, GameObject> entry in weaponDict)
 		{
