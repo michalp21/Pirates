@@ -21,7 +21,6 @@ public class Health : MonoBehaviour
 	public virtual void initHealth()
 	{
 		weaponStats = GetComponent<WeaponStatsBase>(); //maybe change to 2nd parameter (See above)
-
 		useObjectPooling = weaponStats.usePooling;
 		myResistances = weaponStats.myResistances;
 	}
@@ -68,7 +67,7 @@ public class Health : MonoBehaviour
                     break;
             }
 
-            health -= damage;            
+            health -= damage;
 
             if (health <= 0)
             {

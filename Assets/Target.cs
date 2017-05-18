@@ -8,7 +8,7 @@ public class Target : MonoBehaviour {
 	private WeaponStatsBase weaponStats;
 	//maybe add a targeting variable to weaponStats (enemy or player)
 	
-	public string enemyID; //not used or implemented yet
+	//public string enemyID; //not used or implemented yet
 
 	private bool isTargeting;
 	private bool isManual; //if false: auto targeting
@@ -29,7 +29,7 @@ public class Target : MonoBehaviour {
 
 	protected void initTarget(string id)
 	{
-		enemyID = id;
+		//enemyID = id;
 		weaponStats = GetComponent<WeaponStatsBase> ();
 		target = null;
 		isTargeting = false;
@@ -84,7 +84,7 @@ public class Target : MonoBehaviour {
 				}
 				Gun gun = objectInRange.GetComponent<Gun>();
 				if (gun != null &&								//is a gun
-				    objectInRange.tag.Contains (enemyID) &&		//is an enemy
+					objectInRange.layer != gameObject.layer &&  //is an enemy
 				    !weaponsInRange.Contains (objectInRange)) {	//is not already in DS
 					weaponsInRange.Add (objectInRange);			//add to DS
 				}

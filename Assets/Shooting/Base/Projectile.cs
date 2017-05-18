@@ -48,7 +48,7 @@ public class ProjectileInfo
 {
 	public ProjectileSurvive psurvive;
     public GameObject owner;
-	public string enemyID;
+	//public string enemyID;
     public string name;
     public Damage damage = new Damage();
     public int maxPenetration;

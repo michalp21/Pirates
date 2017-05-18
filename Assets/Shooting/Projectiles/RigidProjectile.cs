@@ -14,17 +14,17 @@ public class RigidProjectile : Projectile
 
 	void OnTriggerEnter(Collider other)
 	{
-		if (other.gameObject.CompareTag("Water") &&
+		// if we hit water... kill the bullet IF it won't survive underwater (not fully implemented yet)
+		/*if (other.gameObject.CompareTag("Water") &&
 		   (myInfo.psurvive == ProjectileSurvive.AIR))
-		{// if we hit water... kill the bullet IF it won't survive underwater (not fully implemented yet)
+		{
 			CancelInvoke("Recycle");
 			Recycle();
-		}
+		}*/
 
 		//do one for air too
 
-		else if (other.gameObject.tag.Contains(myInfo.enemyID) &&
-				 other.gameObject.tag.Contains("Weapon"))
+		if (other.gameObject.tag.Contains("Weapon"))
 		{
 			//coll.GetComponent<healthScript>().health -= 1;
 
@@ -33,7 +33,7 @@ public class RigidProjectile : Projectile
 			
 			hitCount++; // add a hit
 			
-			if (hitCount > myInfo.maxPenetration)
+			if (hitCount >= myInfo.maxPenetration)
 			{
 				CancelInvoke("Recycle");
 				Recycle(); // if hit count exceeds max hits.... kill the bullet

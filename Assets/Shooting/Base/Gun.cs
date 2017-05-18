@@ -37,7 +37,7 @@ public enum WeaponType
 [RequireComponent (typeof (WeaponStatsBase))]
 public class Gun : MonoBehaviour {
 	public int currentLevel;
-	public string playerID;
+	public bool isSelf; //as opposed to the opponent
 	public WeaponStatsBase weaponStats;
 
 	//Below variables should not be public
@@ -54,9 +54,9 @@ public class Gun : MonoBehaviour {
     }
 
 	//Call initGun() after instantiating the GameObject with this Gun script attached
-	protected void initGun(string id) //maybe add parameter for WeaponStatsBase component
+	protected void initGun(bool i) //maybe add parameter for WeaponStatsBase component
 	{
-		playerID = id; //"Player1" or "Player2"
+		isSelf = i;
 		//weaponStats = GetComponent<WeaponStatsBase>();
 		//fireRate = weaponStats.baseFireRate;
 	}
@@ -106,7 +106,7 @@ public class Gun : MonoBehaviour {
 		bulletInfo.projectileLifeTime = weaponStats.projectileLifeTime; // how long till this bullet just goes away
 		bulletInfo.usePool = weaponStats.usePooling;                // do we use object pooling
 
-		if (gameObject.tag.Contains("Player1")){bulletInfo.enemyID = "Player2";}
-		else if (gameObject.tag.Contains("Player2")){bulletInfo.enemyID = "Player1";}
+		//if (gameObject.tag.Contains("Layer")){bulletInfo.enemyID = "Player2";}
+		//else if (gameObject.tag.Contains("Player2")){bulletInfo.enemyID = "Player1";}
     }
 }
