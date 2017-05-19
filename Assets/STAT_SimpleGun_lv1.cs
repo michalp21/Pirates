@@ -31,5 +31,7 @@ public class STAT_SimpleGun_lv1 : WeaponStatsBase {
 		projectileSpeed = 3;
 		projectileLifeTime = 5;
 		baseFireRate = 1;
+
+		health = 100;
 	}
 }

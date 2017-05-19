@@ -1,34 +1,55 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
 	public WeaponStatsBase weaponStats;
+	public WeaponManager weaponManager;
 
-	public bool useObjectPooling;
     // my resistance to different damage types 
     // you basically want resistances between 0 and 2, where 0 is totally immune to damage type,
     // 1 takes straight damage as in no resistance or weakness and 2 is take double damage
 	public Resistance myResistances;
-	
+
+	public bool useObjectPooling;
     public int regenAmount = 1;
     public bool isDead = false;
 	protected bool isInvincible = false;
-	protected float maxHealth = 100.0f;
-	public float health = 100.0f;
+	protected float maxHealth;
+	public float health;
 
-	public virtual void initHealth()
+	public Slider healthBarSlider;
+
+	//deal with this later
+	void Start ()
 	{
-		weaponStats = GetComponent<WeaponStatsBase>(); //maybe change to 2nd parameter (See above)
+		weaponStats = GetComponentInChildren<WeaponStatsBase> (); //maybe change to 2nd parameter (See above)
 		useObjectPooling = weaponStats.usePooling;
 		myResistances = weaponStats.myResistances;
+		maxHealth = weaponStats.health;
+		healthBarSlider = GetComponentInChildren<Slider> ();
+		healthBarSlider.value = healthBarSlider.maxValue = health = maxHealth;
+
+		weaponManager = GetComponentInParent<WeaponManager> ();
 	}
+
+	/*public virtual void initHealth()
+	{
+		weaponStats = GetComponentInChildren<WeaponStatsBase>(); //maybe change to 2nd parameter (See above)
+		useObjectPooling = weaponStats.usePooling;
+		myResistances = weaponStats.myResistances;
+		maxHealth = weaponStats.health;
+		healthBarSlider = GetComponentInChildren<Slider> ();
+		healthBarSlider.value = healthBarSlider.maxValue = health = maxHealth;
+	}*/
 
     public virtual void ResetMe()
     {
         isDead = false; // make sure its not dead to start 
         health = maxHealth;
+		healthBarSlider.value = health;
     }
 
     public virtual void Hit(ProjectileInfo info)
@@ -68,8 +89,10 @@ public class Health : MonoBehaviour
             }
 
             health -= damage;
+			weaponManager.TakeDamage (damage);
+			healthBarSlider.value -= damage;
 
-            if (health <= 0)
+			if (health <= 0)
             {
                 health = 0;
                 isDead = true;
@@ -104,7 +127,8 @@ public class Health : MonoBehaviour
         }
     }
 }
-
+		
+		
 
 [System.Serializable]
 public class Resistance

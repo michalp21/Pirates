@@ -19,22 +19,21 @@ public class Target : MonoBehaviour {
 	private Vector3 targetPoint;
 	private Quaternion targetRotation;
 
-	//Eventually get rid of this crap
 	void Start () {
-		weaponStats = GetComponent<WeaponStatsBase> ();
+		weaponStats = GetComponentInParent<WeaponStatsBase> ();
 		//target = null;
 		isTargeting = false;
 		currentCoroutine = null;
 	}
 
-	protected void initTarget(string id)
+	/*protected void initTarget(string id)
 	{
 		//enemyID = id;
-		weaponStats = GetComponent<WeaponStatsBase> ();
+		weaponStats = GetComponentInParent<WeaponStatsBase> ();
 		target = null;
 		isTargeting = false;
 		currentCoroutine = null;
-	}
+	}*/
 
 	protected void pointToTarget(Quaternion fromRotate, float startTime)
 	{
@@ -52,7 +51,31 @@ public class Target : MonoBehaviour {
 		transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.time * .5f);*/
 		//transform.LookAt(target.transform);
 	}
-	
+
+	//call once before attacking
+	protected void getInRangeTarget()
+	{
+		hitColliders = Physics.OverlapSphere(gameObject.transform.position,
+			weaponStats.targetRange);
+		if (hitColliders != null) {
+			int i = 0;
+			while (i < hitColliders.Length) {
+				GameObject objectInRange = hitColliders[i].gameObject;
+				if (objectInRange == this.gameObject) {
+					i++; continue;
+				}
+				Gun gun = objectInRange.GetComponent<Gun>();
+				if (gun != null &&										//is a gun
+					objectInRange.gameObject.tag.Contains("Weapon") &&	//is the parent object
+					objectInRange.layer != gameObject.layer &&  		//is an enemy
+					!weaponsInRange.Contains (objectInRange)) {			//is not already in DS
+					weaponsInRange.Add (objectInRange);					//add to DS
+				}
+				i++;
+			}
+		}
+	}
+
 	protected GameObject findClosestInRange()
 	{
 		//loop through all gameobjects in DS and find closest one
@@ -68,29 +91,6 @@ public class Target : MonoBehaviour {
 		}
 
 		return closestObject;
-	}
-
-	//call once before attacking
-	protected void getInRangeTarget()
-	{
-		hitColliders = Physics.OverlapSphere(gameObject.transform.position,
-		                                     weaponStats.targetRange);
-		if (hitColliders != null) {
-			int i = 0;
-			while (i < hitColliders.Length) {
-				GameObject objectInRange = hitColliders[i].gameObject;
-				if (objectInRange == this.gameObject) {
-					i++; continue;
-				}
-				Gun gun = objectInRange.GetComponent<Gun>();
-				if (gun != null &&								//is a gun
-					objectInRange.layer != gameObject.layer &&  //is an enemy
-				    !weaponsInRange.Contains (objectInRange)) {	//is not already in DS
-					weaponsInRange.Add (objectInRange);			//add to DS
-				}
-				i++;
-			}
-		}
 	}
 
 	IEnumerator RotateTo() {
