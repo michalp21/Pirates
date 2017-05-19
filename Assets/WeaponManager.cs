@@ -10,34 +10,38 @@ using UnityEngine.UI;
 public class WeaponManager : MonoBehaviour {
 	private int _maxWeapons;
 	private BaseShip _myShip;
-	private Gun[] weaponsList;
 	private int maxHealth;
 	//private int playerID;
 
 	public Slider healthBarSlider;
 
-	//dictionary with x,y position as key and GameObject as value
-	public Dictionary<Vector3, GameObject> weaponDict;
+	private Gun[] weaponsList;
+	public Dictionary<Vector3, Gun> weaponDict;
 
 	void Awake() {
 		_myShip = GetComponent<BaseShip> ();
 	}
-	
+
 	void Start () {
-		weaponDict = new Dictionary<Vector3, GameObject> ();
+		weaponDict = new Dictionary<Vector3, Gun> ();
 		AddWeapons ();
 		//healthBarSlider = GetComponentInChildren<Slider> ();
 		healthBarSlider.value = healthBarSlider.maxValue = maxHealth;
+		Debug.Log ("dict " + weaponDict);
 	}
 
 	public void AddWeapons () {
 		weaponsList = GetComponentsInChildren<Gun> ();
 		foreach (Gun weapon in weaponsList)
 		{
-			weaponDict.Add (weapon.gameObject.transform.position, weapon.gameObject);
+			weaponDict.Add (weapon.gameObject.transform.position, weapon);
 			maxHealth += weapon.GetComponent<WeaponStatsBase> ().health;
 			Debug.Log (maxHealth);
 		}
+	}
+
+	public void RemoveWeapon(Vector3 v) {
+		weaponDict.Remove (v);
 	}
 
 	//Call this when adding the WeaponManager script
@@ -59,30 +63,45 @@ public class WeaponManager : MonoBehaviour {
 		healthBarSlider.value -= damage;
 	}
 
+
+
 	//loop through, call fire() on all wpwns
 	public void FireAll() {
-		foreach(KeyValuePair<Vector3, GameObject> entry in weaponDict)
+		foreach(KeyValuePair<Vector3, Gun> weapon in weaponDict)
 		{
-			entry.Value.GetComponent<Gun>().Fire();
+			//weapon.Value.Fire();
 			// do something with entry.Value or entry.Key
+
+			if (weapon.Value.GetComponent<WeaponStatsBase> ().typeOfWeapon == WeaponType.FULLAUTO)
+			{
+				weapon.Value.Fire();
+			}
+			else
+			{
+				Debug.Log("Chaw haw haw, it's not FULLAUTO");
+			}
 		}
 	}
 
 	public void StartBoostAll() {
 		//loop through, call boost() on all wpwns
-		foreach(KeyValuePair<Vector3, GameObject> entry in weaponDict)
+		foreach(KeyValuePair<Vector3, Gun> entry in weaponDict)
 		{
-			entry.Value.GetComponent<Gun>().StartBoost();
+			entry.Value.StartBoost();
 			// do something with entry.Value or entry.Key
 		}
 	}
 
 	public void StopBoostAll() {
 		//loop through, call boost() on all wpwns
-		foreach(KeyValuePair<Vector3, GameObject> entry in weaponDict)
+		foreach(KeyValuePair<Vector3, Gun> entry in weaponDict)
 		{
-			entry.Value.GetComponent<Gun>().StopBoost();
+			entry.Value.StopBoost();
 			// do something with entry.Value or entry.Key
 		}
+	}
+
+	void Update () {
+		FireAll ();
 	}
 }

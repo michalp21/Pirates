@@ -97,6 +97,7 @@ public class Health : MonoBehaviour
                 health = 0;
                 isDead = true;
                 Die();
+				weaponManager.RemoveWeapon (transform.position);
             }
         }
     }
