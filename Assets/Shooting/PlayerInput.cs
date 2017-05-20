@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
+//Will handle boost, weaponSelection, panning, etc
 public class PlayerInput : MonoBehaviour {
 
     public Gun myGun;
@@ -10,7 +11,7 @@ public class PlayerInput : MonoBehaviour {
         myGun = GetComponentInChildren<Gun>(); // grab a gun script from player on start
 	}
 	
-	// Update is called once per frame
+	// Now used for boost
 	// CHANGE LATER SO IT DOESNT FIRE BASED ON BUTTON PRESS
 	void Update () {
         if (myGun)
@@ -20,7 +21,7 @@ public class PlayerInput : MonoBehaviour {
 				//Can use GetButton or GetKey
                 if (Input.GetKey(KeyCode.Space))
                 {
-                    myGun.Fire();
+					myGun.StartBoost();
                 }
             }
             else

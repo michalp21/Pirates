@@ -1,34 +1,38 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 //Probably only used for the booster class
-public class PointerListener : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+public class PointerListener : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler
 {
-	public bool _pressed = false;
+	//[HideInInspector]
+	public bool pressed = false;
+
+	public UnityEvent onPressed;
+	public UnityEvent onUnPressed;
 
 	public void OnPointerDown(PointerEventData eventData)
 	{
-		_pressed = true;
+		onPressed.Invoke();
+		pressed = true;
 	}
 	public void OnPointerExit(PointerEventData eventData)
 	{
-		_pressed = false;
+		onUnPressed.Invoke();
+		pressed = false;
 	}
 	public void OnPointerUp(PointerEventData eventData)
 	{
-		_pressed = false;
+		onUnPressed.Invoke();
+		pressed = false;
 	}
 	
 	void Update()
 	{
-		if (!_pressed)
-			return;
-
-
-//		switch(Direction){
-//		case eMovementDirection.Up:
-//			break;
-//		}
+		/*if (pressed)
+		{
+			onPressed.Invoke();
+		}*/
 	}
 }

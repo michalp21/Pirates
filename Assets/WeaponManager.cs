@@ -9,7 +9,7 @@ using UnityEngine.UI;
 [RequireComponent (typeof (BaseShip))]
 public class WeaponManager : MonoBehaviour {
 	private int _maxWeapons;
-	private BaseShip _myShip;
+	//private BaseShip _myShip;
 	private int maxHealth;
 	//private int playerID;
 
@@ -19,7 +19,7 @@ public class WeaponManager : MonoBehaviour {
 	public Dictionary<Vector3, Gun> weaponDict;
 
 	void Awake() {
-		_myShip = GetComponent<BaseShip> ();
+		//_myShip = GetComponent<BaseShip> ();
 	}
 
 	void Start () {
