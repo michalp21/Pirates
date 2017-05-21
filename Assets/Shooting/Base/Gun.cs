@@ -2,6 +2,12 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+public struct GridPosition
+{
+	public int row;
+	public int col;
+}
+
 [System.Serializable]
 public class Damage
 {
@@ -38,7 +44,9 @@ public enum WeaponType
 public class Gun : MonoBehaviour {
 	public int currentLevel;
 	public bool isSelf; //as opposed to the opponent
+	public bool isSelected;
 	public WeaponStatsBase weaponStats;
+	public GridPosition gridPosition;
 
 	//Below variables should not be public
 	protected float fireRate;               // time betwen shots
@@ -74,6 +82,16 @@ public class Gun : MonoBehaviour {
 
 	// everything fires a single round the same
 	protected virtual void FireOneShot()
+	{
+		
+	}
+
+	public virtual void Select()
+	{
+		
+	}
+
+	public virtual void DeSelect()
 	{
 		
 	}

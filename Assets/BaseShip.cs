@@ -3,11 +3,11 @@ using System.Collections;
 
 public abstract class BaseShip : MonoBehaviour {
 	
-	public int WeaponSpace_x { get; set; }
-	public int WeaponSpace_y { get; set; }
-	public int PeopleSpace { get; set; }
-	public string ShipName { get; set; }
-	public int Rarity { get; set; }
+	public int weaponSpace_cols { get; set; }
+	public int weaponSpace_rows { get; set; }
+	public int peopleSpace { get; set; }
+	public string shipName { get; set; }
+	public int rarity { get; set; }
 	
 	public abstract void fireMainWeapon();
 }

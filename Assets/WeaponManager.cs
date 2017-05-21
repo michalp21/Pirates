@@ -3,45 +3,51 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-//At the beginning of each match, each player will be assigned an ID (Player1 or Player2) and
-//WeaponManager will use these to make tags for all the weapons.
-
-[RequireComponent (typeof (BaseShip))]
 public class WeaponManager : MonoBehaviour {
-	private int _maxWeapons;
-	//private BaseShip _myShip;
+	private int maxWeapons;
+	private BaseShip myShip;
 	private int maxHealth;
 	//private int playerID;
 
 	public Slider healthBarSlider;
 
-	private Gun[] weaponsList;
-	public Dictionary<Vector3, Gun> weaponDict;
+	private Gun[] childrenWeapons;
+	//public Dictionary<Vector3, Gun> weaponDict;
+	public Gun[,] weaponGrid;
+
+	//TEMPORARY
+	public Gun gun1;
+	public Gun gun2;
 
 	void Awake() {
-		//_myShip = GetComponent<BaseShip> ();
+		myShip = GetComponent<BaseShip> ();
 	}
 
 	void Start () {
-		weaponDict = new Dictionary<Vector3, Gun> ();
+		weaponGrid = new Gun[myShip.weaponSpace_rows, myShip.weaponSpace_cols];
+		//TEMPORARY
+		weaponGrid[0,0] = gun1;
+		weaponGrid[0,1] = gun2;
+		weaponGrid[0,2] = null;
+
 		AddWeapons ();
 		//healthBarSlider = GetComponentInChildren<Slider> ();
 		healthBarSlider.value = healthBarSlider.maxValue = maxHealth;
-		Debug.Log ("dict " + weaponDict);
 	}
 
 	public void AddWeapons () {
-		weaponsList = GetComponentsInChildren<Gun> ();
-		foreach (Gun weapon in weaponsList)
+		childrenWeapons = GetComponentsInChildren<Gun> ();
+		foreach (Gun weapon in childrenWeapons)
 		{
-			weaponDict.Add (weapon.gameObject.transform.position, weapon);
+			//weaponGrid.Add (weapon.gameObject.transform.position, weapon);
 			maxHealth += weapon.GetComponent<WeaponStatsBase> ().health;
 			Debug.Log (maxHealth);
 		}
 	}
 
-	public void RemoveWeapon(Vector3 v) {
-		weaponDict.Remove (v);
+	public void RemoveWeapon(Gun g) {
+		//weaponDict.Remove (v);
+		weaponGrid[g.gridPosition.row, g.gridPosition.col] = null;
 	}
 
 	//Call this when adding the WeaponManager script
@@ -67,7 +73,7 @@ public class WeaponManager : MonoBehaviour {
 
 	//loop through, call fire() on all wpwns
 	public void FireAll() {
-		foreach(KeyValuePair<Vector3, Gun> weapon in weaponDict)
+		/*foreach(KeyValuePair<Vector3, Gun> weapon in weaponDict)
 		{
 			//weapon.Value.Fire();
 			// do something with entry.Value or entry.Key
@@ -80,25 +86,57 @@ public class WeaponManager : MonoBehaviour {
 			{
 				Debug.Log("Chaw haw haw, it's not FULLAUTO");
 			}
+		}*/
+		for (int k = 0; k < weaponGrid.GetLength (0); k++) {
+			for (int l = 0; l < weaponGrid.GetLength (1); l++) {
+				if (weaponGrid [k, l] == null)
+					continue;
+				if (weaponGrid[k,l].GetComponent<WeaponStatsBase> ().typeOfWeapon == WeaponType.FULLAUTO)
+				{
+					weaponGrid[k,l].Fire();
+				}
+				else
+				{
+					Debug.Log("Chaw haw haw, it's not FULLAUTO");
+				}
+			}
 		}
+	}
+
+	public void Select() {
+
+	}
+
+	public void DeSelect() {
+
 	}
 
 	public void StartBoostAll() {
 		//loop through, call boost() on all wpwns
-		foreach(KeyValuePair<Vector3, Gun> entry in weaponDict)
+		/*foreach(KeyValuePair<Vector3, Gun> entry in weaponDict)
 		{
 			entry.Value.StartBoost();
 			// do something with entry.Value or entry.Key
-		}
+		}*/
+		for (int k = 0; k < weaponGrid.GetLength (0); k++)
+			for (int l = 0; l < weaponGrid.GetLength (1); l++)
+				weaponGrid [k, l].StartBoost ();
 	}
 
 	public void StopBoostAll() {
 		//loop through, call boost() on all wpwns
-		foreach(KeyValuePair<Vector3, Gun> entry in weaponDict)
+		/*foreach(KeyValuePair<Vector3, Gun> entry in weaponDict)
 		{
 			entry.Value.StopBoost();
 			// do something with entry.Value or entry.Key
-		}
+		}*/
+		for (int k = 0; k < weaponGrid.GetLength (0); k++)
+			for (int l = 0; l < weaponGrid.GetLength (1); l++)
+				weaponGrid [k, l].StopBoost ();
+	}
+
+	public Gun GetWeaponInGrid(int k, int l) {
+		return weaponGrid [k, l];
 	}
 
 	void Update () {

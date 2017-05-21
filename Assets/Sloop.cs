@@ -3,12 +3,12 @@ using System.Collections;
 
 public class Sloop : BaseShip {
 
-	void Start(){
-		WeaponSpace_x = 3;
-		WeaponSpace_y = 1;
-		PeopleSpace = 5;
-		ShipName = "Sloop";
-		Rarity = 1;
+	void Start() {
+		weaponSpace_cols = 3;
+		weaponSpace_rows = 1;
+		peopleSpace = 5;
+		shipName = "Sloop";
+		rarity = 1;
 	}
 
 	public override void fireMainWeapon(){

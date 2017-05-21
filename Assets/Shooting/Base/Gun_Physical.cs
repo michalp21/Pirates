@@ -36,6 +36,14 @@ public class Gun_Physical : Gun {
         newBullet.GetComponent<Projectile>().SetUp(bulletInfo); // send bullet info to spawned projectile
     }
 
+	public override void Select () {
+		isSelected = true;
+	}
+
+	public override void DeSelect () {
+		isSelected = false;
+	}
+
 	public override void StartBoost () {
 		fireRate *= .5f;
 	}
