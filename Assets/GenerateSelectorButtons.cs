@@ -12,31 +12,44 @@ public class GenerateSelectorButtons : MonoBehaviour {
 	public GameObject verticalSelector; //inspector
 	public GameObject horizontalSelector; //inspector
 
+	public Camera camera; //inspector
+
 	private int numCols;
 	private int numRows;
 
-	// Use this for initialization
 	void Start () {
-		numRows = weaponManager.weaponGrid.GetLength(0);
-		numCols = weaponManager.weaponGrid.GetLength(1);
-
-		initVerticalSelectors (numRows);
-		initHorizontalSelectors (numCols);
+		camera = Camera.main;
 	}
 
-	public void initVerticalSelectors (int numRows) {
-		for (int k = 0; k < numCols; k++) {
-			Transform someGun = weaponManager.GetWeaponInGrid (k, 0).gameObject.transform;
-			Button button = Instantiate (horizontalButton, new Vector3(0, someGun.position.y, -1.1f) , Quaternion.identity);
-			button.transform.SetParent (verticalSelector.transform);
+	public void initGenerateSelectorButtons () {
+		numRows = weaponManager.GetNumRowsInGrid();
+		numCols = weaponManager.GetNumColumnsInGrid();
+
+		initVerticalSelectors ();
+		initHorizontalSelectors ();
+	}
+
+	public void initVerticalSelectors () {
+		for (int k = 0; k < numRows; k++) {
+			GameObject someGun = weaponManager.GetWeaponInGrid (k, 0).gameObject;
+			Button button = Instantiate (verticalButton, verticalSelector.transform);
+			//Button button = Instantiate (verticalButton, new Vector3(0, someGun.transform.position.y, -1.1f) , Quaternion.identity);
+			//button.transform.SetParent (verticalSelector.transform);
+			Vector3 screenPos = camera.WorldToScreenPoint(someGun.transform.position);
+			button.transform.position = new Vector3(button.transform.position.x, screenPos.y, button.transform.position.z);
+			button.GetComponent<SelectorPointerListener> ().mimickedGun = someGun;
 		}
 	}
 
-	public void initHorizontalSelectors (int numCols) {
+	public void initHorizontalSelectors () {
 		for (int l = 0; l < numCols; l++) {
-			Transform someGun = weaponManager.GetWeaponInGrid (0, l).gameObject.transform;
-			Button button = Instantiate (horizontalButton, new Vector3(someGun.position.x, 0, -1.1f) , Quaternion.identity);
-			button.transform.SetParent (horizontalSelector.transform);
+			GameObject someGun = weaponManager.GetWeaponInGrid (0, l).gameObject;
+			Button button = Instantiate (horizontalButton, horizontalSelector.transform);
+			//Button button = Instantiate (horizontalButton, new Vector3(someGun.transform.position.x, 0, -1.1f), Quaternion.identity);
+			//button.transform.SetParent (horizontalSelector.transform);
+			Vector3 screenPos = camera.WorldToScreenPoint(someGun.transform.position);
+			button.transform.position = new Vector3(screenPos.x, button.transform.position.y, button.transform.position.z);
+			button.GetComponent<SelectorPointerListener> ().mimickedGun = someGun;
 		}
 	}
 	

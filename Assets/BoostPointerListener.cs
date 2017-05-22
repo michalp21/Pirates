@@ -4,7 +4,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 //Probably only used for the booster class
-public class PointerListener : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler
+public class BoostPointerListener : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler
 {
 	//[HideInInspector]
 	public bool pressed = false;

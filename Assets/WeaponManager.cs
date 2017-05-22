@@ -9,30 +9,40 @@ public class WeaponManager : MonoBehaviour {
 	private int maxHealth;
 	//private int playerID;
 
-	public Slider healthBarSlider;
+	public Slider healthBarSlider; //inspector
+	public GenerateSelectorButtons selectorScript; //inspector
+	public bool isSelf; //TEMPORARY 
 
 	private Gun[] childrenWeapons;
 	//public Dictionary<Vector3, Gun> weaponDict;
-	public Gun[,] weaponGrid;
+	private Gun[,] weaponGrid;
+	public List<Gun> SelectedWeapons; 
 
 	//TEMPORARY
 	public Gun gun1;
 	public Gun gun2;
+	public Gun gun3;
 
 	void Awake() {
 		myShip = GetComponent<BaseShip> ();
 	}
 
 	void Start () {
+		//Debug.Log (myShip.weaponSpace_rows + " " + myShip.weaponSpace_cols);
 		weaponGrid = new Gun[myShip.weaponSpace_rows, myShip.weaponSpace_cols];
 		//TEMPORARY
 		weaponGrid[0,0] = gun1;
 		weaponGrid[0,1] = gun2;
-		weaponGrid[0,2] = null;
+		weaponGrid[0,2] = gun3;
 
 		AddWeapons ();
+
+		SelectedWeapons = new List<Gun> ();
 		//healthBarSlider = GetComponentInChildren<Slider> ();
 		healthBarSlider.value = healthBarSlider.maxValue = maxHealth;
+
+		if (isSelf)
+			selectorScript.initGenerateSelectorButtons ();
 	}
 
 	public void AddWeapons () {
@@ -41,7 +51,6 @@ public class WeaponManager : MonoBehaviour {
 		{
 			//weaponGrid.Add (weapon.gameObject.transform.position, weapon);
 			maxHealth += weapon.GetComponent<WeaponStatsBase> ().health;
-			Debug.Log (maxHealth);
 		}
 	}
 
@@ -103,11 +112,19 @@ public class WeaponManager : MonoBehaviour {
 		}
 	}
 
-	public void Select() {
+	public void SelectRow() {
+		
+	}
+
+	public void DeselectRow() {
 
 	}
 
-	public void DeSelect() {
+	public void SelectColumn() {
+
+	}
+
+	public void DeselectColumn() {
 
 	}
 
@@ -135,7 +152,16 @@ public class WeaponManager : MonoBehaviour {
 				weaponGrid [k, l].StopBoost ();
 	}
 
+	public int GetNumRowsInGrid() {
+		return weaponGrid.GetLength(0);
+	}
+
+	public int GetNumColumnsInGrid() {
+		return weaponGrid.GetLength(1);
+	}
+
 	public Gun GetWeaponInGrid(int k, int l) {
+		Debug.Log ("Get weapon in Grid: " + k + "," + l);
 		return weaponGrid [k, l];
 	}
 

@@ -4,8 +4,13 @@ using System.Collections.Generic;
 
 public struct GridPosition
 {
-	public int row;
-	public int col;
+	public int row { get; set; }
+	public int col { get; set; }
+
+	public GridPosition(int r, int c) {
+		row = r;
+		col = c;
+	}
 }
 
 [System.Serializable]
@@ -43,8 +48,8 @@ public enum WeaponType
 [RequireComponent (typeof (WeaponStatsBase))]
 public class Gun : MonoBehaviour {
 	public int currentLevel;
-	public bool isSelf; //as opposed to the opponent
-	public bool isSelected;
+	public bool isSelf; //as opposed to the opponent //isSelf will also be a variable in weaponstatsmanager when I get to networking
+	//public bool isSelected;
 	public WeaponStatsBase weaponStats;
 	public GridPosition gridPosition;
 
@@ -53,8 +58,6 @@ public class Gun : MonoBehaviour {
 	protected float nextFireTime = 0.0f;        // able to fire again on this frame
     protected ProjectileInfo bulletInfo = new ProjectileInfo(); // all info about gun that's sent to each projectile
 
-	//wont use this because I need an init function with parameters
-	//and I'm too lazy to make it work with Start()
     protected virtual void Start()
     {
 		weaponStats = GetComponent<WeaponStatsBase>();
@@ -62,7 +65,7 @@ public class Gun : MonoBehaviour {
     }
 
 	//Call initGun() after instantiating the GameObject with this Gun script attached
-	protected void initGun(bool i) //maybe add parameter for WeaponStatsBase component
+	protected void initGun(bool i) 
 	{
 		isSelf = i;
 		//weaponStats = GetComponent<WeaponStatsBase>();
@@ -86,7 +89,7 @@ public class Gun : MonoBehaviour {
 		
 	}
 
-	public virtual void Select()
+	/*public virtual void Select()
 	{
 		
 	}
@@ -94,7 +97,7 @@ public class Gun : MonoBehaviour {
 	public virtual void DeSelect()
 	{
 		
-	}
+	}*/
 
 	public virtual void StartBoost ()
 	{
