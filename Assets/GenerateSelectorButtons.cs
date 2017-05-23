@@ -9,6 +9,7 @@ public class GenerateSelectorButtons : MonoBehaviour {
 	public Button verticalButton; //inspector
 	public Button horizontalButton; //inspector
 
+	//These are actually the masks, not exactly the "VerticalSelector" and "HorizontalSelector" themselves
 	public GameObject verticalSelector; //inspector
 	public GameObject horizontalSelector; //inspector
 
