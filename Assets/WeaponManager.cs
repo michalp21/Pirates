@@ -113,27 +113,26 @@ public class WeaponManager : MonoBehaviour {
 
 	public void SelectRow(GridPosition gp) {
 		for (int l = 0; l < weaponGrid.GetLength (1); l++)
-			SelectedWeapons.Add (weaponGrid [gp.row, l]);
-		foreach(Gun str in SelectedWeapons)
-			Debug.Log (str);
+			if (weaponGrid [gp.row, l] != null)
+				SelectedWeapons.Add (weaponGrid [gp.row, l]);
 	}
 
 	public void DeselectRow(GridPosition gp) {
 		for (int l = 0; l < weaponGrid.GetLength (1); l++)
-			SelectedWeapons.Remove (weaponGrid [gp.row, l]);
-		Debug.Log ("REMOVING");
-		foreach(Gun str in SelectedWeapons)
-			Debug.Log (str);
+			if (weaponGrid [gp.row, l] != null)
+				SelectedWeapons.Remove (weaponGrid [gp.row, l]);
 	}
 
 	public void SelectColumn(GridPosition gp) {
 		for (int k = 0; k < weaponGrid.GetLength (0); k++)
-			SelectedWeapons.Add (weaponGrid [k, gp.col]);
+			if (weaponGrid [k, gp.col] != null)
+				SelectedWeapons.Add (weaponGrid [k, gp.col]);
 	}
 
 	public void DeselectColumn(GridPosition gp) {
 		for (int k = 0; k < weaponGrid.GetLength (0); k++)
-			SelectedWeapons.Remove (weaponGrid [k, gp.col]);
+			if (weaponGrid [k, gp.col] != null)
+				SelectedWeapons.Remove (weaponGrid [k, gp.col]);
 	}
 
 	public void StartBoostAll() {
@@ -145,7 +144,8 @@ public class WeaponManager : MonoBehaviour {
 		}*/
 		for (int k = 0; k < weaponGrid.GetLength (0); k++)
 			for (int l = 0; l < weaponGrid.GetLength (1); l++)
-				weaponGrid [k, l].StartBoost ();
+				if (weaponGrid [k, l] != null)
+					weaponGrid [k, l].StartBoost ();
 	}
 
 	public void StopBoostAll() {
@@ -157,7 +157,8 @@ public class WeaponManager : MonoBehaviour {
 		}*/
 		for (int k = 0; k < weaponGrid.GetLength (0); k++)
 			for (int l = 0; l < weaponGrid.GetLength (1); l++)
-				weaponGrid [k, l].StopBoost ();
+				if (weaponGrid [k, l] != null)
+					weaponGrid [k, l].StopBoost ();
 	}
 
 	public int GetNumRowsInGrid() {
@@ -169,7 +170,7 @@ public class WeaponManager : MonoBehaviour {
 	}
 
 	public Gun GetWeaponInGrid(int k, int l) {
-		Debug.Log ("Get weapon in Grid: " + k + "," + l);
+		//Debug.Log ("Get weapon in Grid: " + k + "," + l);
 		return weaponGrid [k, l];
 	}
 

@@ -45,9 +45,13 @@ public class HorizontalSelectorPointerListener : SelectorPointerListener
 
 	protected override void LateUpdate()
 	{
-		if (isSetUp) {
-			Vector3 screenPos = camera.WorldToScreenPoint (mimickedGun.transform.position);
-			transform.position = new Vector3 (screenPos.x, transform.position.y, transform.position.z);
+		if (mimickedGun == null) {
+			gameObject.SetActive (false);
+		} else {
+			if (isSetUp) {
+				Vector3 screenPos = camera.WorldToScreenPoint (mimickedGun.transform.position);
+				transform.position = new Vector3 (screenPos.x, transform.position.y, transform.position.z);
+			}
 		}
 		
 		//follow the scale of mimickedGun
