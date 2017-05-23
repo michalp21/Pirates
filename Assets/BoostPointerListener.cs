@@ -12,6 +12,11 @@ public class BoostPointerListener : MonoBehaviour, IPointerDownHandler, IPointer
 	public UnityEvent onPressed;
 	public UnityEvent onUnPressed;
 
+	public void Start () {
+		
+	}
+
+
 	public void OnPointerDown(PointerEventData eventData)
 	{
 		onPressed.Invoke();

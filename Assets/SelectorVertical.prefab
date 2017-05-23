@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 222532127036299726}
   - component: {fileID: 114761210837611538}
   - component: {fileID: 114888875438168704}
-  - component: {fileID: 114368111982039334}
+  - component: {fileID: 114394622537415884}
   m_Layer: 5
   m_Name: SelectorVertical
   m_TagString: Untagged
@@ -30,7 +30,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &114368111982039334
+--- !u!114 &114394622537415884
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -38,42 +38,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 1003305500063488}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 648d06dffacd046089338c134fa05cf2, type: 3}
+  m_Script: {fileID: 11500000, guid: 93dbc91cc6026412ba2d12a1f154b7e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   selected: 0
   onSelected:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: SelectRow
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   onUnSelected:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: SelectColumn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  camera: {fileID: 0}
 --- !u!114 &114761210837611538
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -12,24 +12,26 @@ public class GenerateSelectorButtons : MonoBehaviour {
 	public GameObject verticalSelector; //inspector
 	public GameObject horizontalSelector; //inspector
 
-	public Camera camera; //inspector
+	public Camera camera;
 
 	private int numCols;
 	private int numRows;
 
 	void Start () {
-		camera = Camera.main;
+		
 	}
 
 	public void initGenerateSelectorButtons () {
+		camera = Camera.main;
+
 		numRows = weaponManager.GetNumRowsInGrid();
 		numCols = weaponManager.GetNumColumnsInGrid();
 
-		initVerticalSelectors ();
-		initHorizontalSelectors ();
+		instantiateVerticalSelectors ();
+		instantiateHorizontalSelectors ();
 	}
 
-	public void initVerticalSelectors () {
+	public void instantiateVerticalSelectors () {
 		for (int k = 0; k < numRows; k++) {
 			GameObject someGun = weaponManager.GetWeaponInGrid (k, 0).gameObject;
 			Button button = Instantiate (verticalButton, verticalSelector.transform);
@@ -37,11 +39,11 @@ public class GenerateSelectorButtons : MonoBehaviour {
 			//button.transform.SetParent (verticalSelector.transform);
 			Vector3 screenPos = camera.WorldToScreenPoint(someGun.transform.position);
 			button.transform.position = new Vector3(button.transform.position.x, screenPos.y, button.transform.position.z);
-			button.GetComponent<SelectorPointerListener> ().mimickedGun = someGun;
+			button.GetComponent<VerticalSelectorPointerListener> ().initSelector (someGun);
 		}
 	}
 
-	public void initHorizontalSelectors () {
+	public void instantiateHorizontalSelectors () {
 		for (int l = 0; l < numCols; l++) {
 			GameObject someGun = weaponManager.GetWeaponInGrid (0, l).gameObject;
 			Button button = Instantiate (horizontalButton, horizontalSelector.transform);
@@ -49,7 +51,7 @@ public class GenerateSelectorButtons : MonoBehaviour {
 			//button.transform.SetParent (horizontalSelector.transform);
 			Vector3 screenPos = camera.WorldToScreenPoint(someGun.transform.position);
 			button.transform.position = new Vector3(screenPos.x, button.transform.position.y, button.transform.position.z);
-			button.GetComponent<SelectorPointerListener> ().mimickedGun = someGun;
+			button.GetComponent<HorizontalSelectorPointerListener> ().initSelector (someGun);
 		}
 	}
 	

@@ -74,7 +74,6 @@ public class WeaponManager : MonoBehaviour {
 	}*/
 
 	public void TakeDamage(int damage) {
-		Debug.Log ("Taking damage");
 		healthBarSlider.value -= damage;
 	}
 
@@ -112,20 +111,29 @@ public class WeaponManager : MonoBehaviour {
 		}
 	}
 
-	public void SelectRow() {
-		
+	public void SelectRow(GridPosition gp) {
+		for (int l = 0; l < weaponGrid.GetLength (1); l++)
+			SelectedWeapons.Add (weaponGrid [gp.row, l]);
+		foreach(Gun str in SelectedWeapons)
+			Debug.Log (str);
 	}
 
-	public void DeselectRow() {
-
+	public void DeselectRow(GridPosition gp) {
+		for (int l = 0; l < weaponGrid.GetLength (1); l++)
+			SelectedWeapons.Remove (weaponGrid [gp.row, l]);
+		Debug.Log ("REMOVING");
+		foreach(Gun str in SelectedWeapons)
+			Debug.Log (str);
 	}
 
-	public void SelectColumn() {
-
+	public void SelectColumn(GridPosition gp) {
+		for (int k = 0; k < weaponGrid.GetLength (0); k++)
+			SelectedWeapons.Add (weaponGrid [k, gp.col]);
 	}
 
-	public void DeselectColumn() {
-
+	public void DeselectColumn(GridPosition gp) {
+		for (int k = 0; k < weaponGrid.GetLength (0); k++)
+			SelectedWeapons.Remove (weaponGrid [k, gp.col]);
 	}
 
 	public void StartBoostAll() {

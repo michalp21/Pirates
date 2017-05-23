@@ -1,33 +1,47 @@
 using UnityEngine;
 using System.Collections;
 
-//Will handle boost, weaponSelection, panning, etc
+//THIS IS JUST FOR TESTING VARIOUS THINGS
 public class PlayerInput : MonoBehaviour {
 
-    public Gun myGun;
+    public Gun[] myGun;
+	public Camera camera;
 
-	// Use this for initialization
 	void Start () {
-        myGun = GetComponentInChildren<Gun>(); // grab a gun script from player on start
+        myGun = GetComponentsInChildren<Gun>();
+		camera = Camera.main;
 	}
-	
-	// Now used for boost
-	// CHANGE LATER SO IT DOESNT FIRE BASED ON BUTTON PRESS
+
 	void Update () {
-        if (myGun)
-        {
-            if (myGun.weaponStats.typeOfWeapon == WeaponType.FULLAUTO)
-            {
-				//Can use GetButton or GetKey
-                if (Input.GetKey(KeyCode.Space))
-                {
-					myGun.StartBoost();
-                }
-            }
-            else
-            {
-				Debug.Log("Chaw haw haw, it's not FULLAUTO");
-            }
-        }
+		/*foreach (Gun weapon in myGun) {
+			if (weapon) {
+				if (weapon.weaponStats.typeOfWeapon == WeaponType.FULLAUTO) {
+					//Can use GetButton or GetKey
+					if (Input.GetKey (KeyCode.Space)) {
+						Debug.Log ("asdf");
+						weapon.transform.position = new Vector3(weapon.transform.position.x + .1f, weapon.transform.position.y + .1f, weapon.transform.position.z);
+					}
+				} else {
+					Debug.Log ("Chaw haw haw, it's not FULLAUTO");
+				}
+			}
+		}*/
+		if(Input.GetKey(KeyCode.RightArrow))
+		{
+			camera.transform.Translate(new Vector3(-3 * Time.deltaTime,0,0));
+		}
+		if(Input.GetKey(KeyCode.LeftArrow))
+		{
+			camera.transform.Translate(new Vector3(3 * Time.deltaTime,0,0));
+		}
+		if(Input.GetKey(KeyCode.DownArrow))
+		{
+			camera.transform.Translate(new Vector3(0,3 * Time.deltaTime,0));
+		}
+		if(Input.GetKey(KeyCode.UpArrow))
+		{
+			camera.transform.Translate(new Vector3(0,-3 * Time.deltaTime,0));
+		}
+
 	}
 }
