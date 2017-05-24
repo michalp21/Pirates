@@ -31,11 +31,11 @@ public class VerticalSelectorPointerListener : SelectorPointerListener
 	{
 		//NEED TO CHANGE BEHAVIOR. selected VARIABLE SHOULD BE IN EACH GUN. CHECK HERE IF ALL GUNS ARE SELECTED BEFORE DESLECTING ALL. ETC.
 		if (selected == false) {
-			ship.GetComponent<WeaponManager>().SelectRow(mimickedGun.GetComponent<Gun> ().gridPosition);
+			ship.GetComponent<WeaponManager>().SelectRow(index);
 			//onSelected.Invoke ();
 			selected = true;
 		} else {
-			ship.GetComponent<WeaponManager>().DeselectRow(mimickedGun.GetComponent<Gun> ().gridPosition);
+			ship.GetComponent<WeaponManager>().DeselectRow(index);
 			//onUnSelected.Invoke ();
 			selected = false;
 		}
@@ -43,11 +43,20 @@ public class VerticalSelectorPointerListener : SelectorPointerListener
 
 	protected override void LateUpdate()
 	{
-		if (mimickedGun == null) {
+		/*if (mimickedGun == null) {
 			gameObject.SetActive (false);
 		} else {
 			if (isSetUp) {
 				Vector3 screenPos = camera.WorldToScreenPoint (mimickedGun.transform.position);
+				transform.position = new Vector3 (transform.position.x, screenPos.y, transform.position.z);
+			}
+		}*/
+		Vector3? rowPos = ship.GetYPositionOfRow (index);
+		if (rowPos == null) {
+			gameObject.SetActive (false);
+		} else {
+			if (isSetUp) {
+				Vector3 screenPos = camera.WorldToScreenPoint ((Vector3) rowPos);
 				transform.position = new Vector3 (transform.position.x, screenPos.y, transform.position.z);
 			}
 		}

@@ -33,11 +33,11 @@ public class HorizontalSelectorPointerListener : SelectorPointerListener
 	{
 		//NEED TO CHANGE BEHAVIOR. selected VARIABLE SHOULD BE IN EACH GUN. CHECK HERE IF ALL GUNS ARE SELECTED BEFORE DESLECTING ALL. ETC.
 		if (selected == false) {
-			ship.GetComponent<WeaponManager>().SelectColumn(mimickedGun.GetComponent<Gun> ().gridPosition);
+			ship.GetComponent<WeaponManager>().SelectColumn(index);
 			//onSelected.Invoke ();
 			selected = true;
 		} else {
-			ship.GetComponent<WeaponManager>().DeselectColumn(mimickedGun.GetComponent<Gun> ().gridPosition);
+			ship.GetComponent<WeaponManager>().DeselectColumn(index);
 			//onUnSelected.Invoke ();
 			selected = false;
 		}
@@ -45,15 +45,28 @@ public class HorizontalSelectorPointerListener : SelectorPointerListener
 
 	protected override void LateUpdate()
 	{
-		if (mimickedGun == null) {
+		/*if (mimickedGun == null) {
 			gameObject.SetActive (false);
 		} else {
 			if (isSetUp) {
 				Vector3 screenPos = camera.WorldToScreenPoint (mimickedGun.transform.position);
 				transform.position = new Vector3 (screenPos.x, transform.position.y, transform.position.z);
+
+				float newRatio = screenPos.y / (float) Screen.height;
+				
+			}
+		}*/
+
+		Vector3? colPos = ship.GetXPositionOfCol (index);
+		if (colPos == null) {
+			gameObject.SetActive (false);
+		} else {
+			if (isSetUp) {
+				Vector3 screenPos = camera.WorldToScreenPoint ((Vector3) colPos);
+				transform.position = new Vector3 (screenPos.x, transform.position.y, transform.position.z);
 			}
 		}
-		
+
 		//follow the scale of mimickedGun
 		//callback function for selection
 	}

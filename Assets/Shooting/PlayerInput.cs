@@ -44,5 +44,6 @@ public class PlayerInput : MonoBehaviour {
 		}
 		//camera.transform.Translate(0,0,Input.GetAxis("Mouse ScrollWheel") * 10);
 		camera.orthographicSize += Input.GetAxis("Mouse ScrollWheel") * 8;
+		//Debug.Log(camera.orthographicSize);
 	}
 }

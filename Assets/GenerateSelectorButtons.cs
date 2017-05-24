@@ -40,7 +40,7 @@ public class GenerateSelectorButtons : MonoBehaviour {
 			//button.transform.SetParent (verticalSelector.transform);
 			Vector3 screenPos = camera.WorldToScreenPoint(someGun.transform.position);
 			button.transform.position = new Vector3(button.transform.position.x, screenPos.y, button.transform.position.z);
-			button.GetComponent<VerticalSelectorPointerListener> ().initSelector (someGun);
+			button.GetComponent<VerticalSelectorPointerListener> ().initSelector (k, screenPos.y);
 		}
 	}
 
@@ -52,7 +52,7 @@ public class GenerateSelectorButtons : MonoBehaviour {
 			//button.transform.SetParent (horizontalSelector.transform);
 			Vector3 screenPos = camera.WorldToScreenPoint(someGun.transform.position);
 			button.transform.position = new Vector3(screenPos.x, button.transform.position.y, button.transform.position.z);
-			button.GetComponent<HorizontalSelectorPointerListener> ().initSelector (someGun);
+			button.GetComponent<HorizontalSelectorPointerListener> ().initSelector (l, screenPos.y);
 		}
 	}
 	

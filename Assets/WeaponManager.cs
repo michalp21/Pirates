@@ -54,6 +54,20 @@ public class WeaponManager : MonoBehaviour {
 		}
 	}
 
+	public Vector3? GetYPositionOfRow (int k) {
+		for (int l = 0; l < weaponGrid.GetLength (1); l++)
+			if (weaponGrid [k, l] != null)
+				return weaponGrid [k, l].transform.position;
+		return null;
+	}
+
+	public Vector3? GetXPositionOfCol (int l) {
+		for (int k = 0; k < weaponGrid.GetLength (0); k++)
+			if (weaponGrid [k, l] != null)
+				return weaponGrid [k, l].transform.position;
+		return null;
+	}
+
 	public void RemoveWeapon(Gun g) {
 		//weaponDict.Remove (v);
 		weaponGrid[g.gridPosition.row, g.gridPosition.col] = null;
@@ -111,28 +125,28 @@ public class WeaponManager : MonoBehaviour {
 		}
 	}
 
-	public void SelectRow(GridPosition gp) {
+	public void SelectRow(int k) {
 		for (int l = 0; l < weaponGrid.GetLength (1); l++)
-			if (weaponGrid [gp.row, l] != null)
-				SelectedWeapons.Add (weaponGrid [gp.row, l]);
+			if (weaponGrid [k, l] != null)
+				SelectedWeapons.Add (weaponGrid [k, l]);
 	}
 
-	public void DeselectRow(GridPosition gp) {
+	public void DeselectRow(int k) {
 		for (int l = 0; l < weaponGrid.GetLength (1); l++)
-			if (weaponGrid [gp.row, l] != null)
-				SelectedWeapons.Remove (weaponGrid [gp.row, l]);
+			if (weaponGrid [k, l] != null)
+				SelectedWeapons.Remove (weaponGrid [k, l]);
 	}
 
-	public void SelectColumn(GridPosition gp) {
+	public void SelectColumn(int l) {
 		for (int k = 0; k < weaponGrid.GetLength (0); k++)
-			if (weaponGrid [k, gp.col] != null)
-				SelectedWeapons.Add (weaponGrid [k, gp.col]);
+			if (weaponGrid [k, l] != null)
+				SelectedWeapons.Add (weaponGrid [k, l]);
 	}
 
-	public void DeselectColumn(GridPosition gp) {
+	public void DeselectColumn(int l) {
 		for (int k = 0; k < weaponGrid.GetLength (0); k++)
-			if (weaponGrid [k, gp.col] != null)
-				SelectedWeapons.Remove (weaponGrid [k, gp.col]);
+			if (weaponGrid [k, l] != null)
+				SelectedWeapons.Remove (weaponGrid [k, l]);
 	}
 
 	public void StartBoostAll() {
