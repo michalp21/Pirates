@@ -21,7 +21,7 @@ public abstract class WeaponStatsBase : MonoBehaviour
 	public float spread;                 // current spread of the gun
 	public float projectileSpeed;      // speed that projectile flies at
 	public float projectileLifeTime;     // how long before the projectile is considered gone and recycleable
-	public float baseFireRate;
+	public float baseFireRate;		//time between each shot
 
 	public int health;
 }

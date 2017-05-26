@@ -22,7 +22,7 @@ public class HorizontalSelectorPointerListener : SelectorPointerListener
 		} else {
 			if (isSetUp) {
 				transform.position = new Vector3 ((float) colPosOnScreen, transform.position.y, transform.position.z);
-				transform.localScale = new Vector3(((float) colWidthOnScreen / initialSize),1,1);
+				transform.localScale = new Vector3(((float) colWidthOnScreen / initialSize),initialScaleSelf.y,initialScaleSelf.z);
 				selected = ship.CheckIfColumnIsSelected (index);
 			}
 		}

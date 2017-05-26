@@ -5,15 +5,15 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 public abstract class SelectorPointerListener : MonoBehaviour, IPointerUpHandler {
-	public bool selected;
-	public UnityEvent onSelected;
-	public UnityEvent onUnSelected;
-	public bool isSetUp { get; set; }
-	public Camera camera;
-	public WeaponManager ship;
-	public Vector3 initialScaleSelf; //initial scale of self
-	public float initialSize; //width or height of column or row, respectively
-	public int index; //row or column
+	protected bool selected;
+	//public UnityEvent onSelected;
+	//public UnityEvent onUnSelected;
+	protected bool isSetUp;
+	protected Camera camera;
+	protected WeaponManager ship;
+	protected Vector3 initialScaleSelf; //initial scale of self
+	protected float initialSize; //width or height of column or row, respectively
+	protected int index; //row or column
 
 	public void initSelector (int i, float range)
 	{

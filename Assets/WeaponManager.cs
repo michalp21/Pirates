@@ -93,6 +93,8 @@ public class WeaponManager : MonoBehaviour {
 	public void RemoveWeapon(Gun g) {
 		//weaponDict.Remove (v);
 		weaponGrid[g.gridPosition.row, g.gridPosition.col] = null;
+		if (SelectedWeapons.Contains (g))
+			SelectedWeapons.Remove (g);
 	}
 
 	//Call this when adding the WeaponManager script
@@ -112,8 +114,6 @@ public class WeaponManager : MonoBehaviour {
 	public void TakeDamage(int damage) {
 		healthBarSlider.value -= damage;
 	}
-
-
 
 	//loop through, call fire() on all wpwns
 	public void FireAll() {
@@ -205,30 +205,28 @@ public class WeaponManager : MonoBehaviour {
 		return true;
 	}
 
-	public void StartBoostAll() {
+	public void StartBoostOnSelected() {
 		//loop through, call boost() on all wpwns
 		/*foreach(KeyValuePair<Vector3, Gun> entry in weaponDict)
 		{
 			entry.Value.StartBoost();
 			// do something with entry.Value or entry.Key
 		}*/
-		for (int k = 0; k < weaponGrid.GetLength (0); k++)
-			for (int l = 0; l < weaponGrid.GetLength (1); l++)
-				if (weaponGrid [k, l] != null)
-					weaponGrid [k, l].StartBoost ();
+		foreach (Gun weapon in SelectedWeapons)
+			if (weapon != null)
+				weapon.StartBoost ();
 	}
 
-	public void StopBoostAll() {
+	public void StopBoostOnSelected() {
 		//loop through, call boost() on all wpwns
 		/*foreach(KeyValuePair<Vector3, Gun> entry in weaponDict)
 		{
 			entry.Value.StopBoost();
 			// do something with entry.Value or entry.Key
 		}*/
-		for (int k = 0; k < weaponGrid.GetLength (0); k++)
-			for (int l = 0; l < weaponGrid.GetLength (1); l++)
-				if (weaponGrid [k, l] != null)
-					weaponGrid [k, l].StopBoost ();
+		foreach (Gun weapon in SelectedWeapons)
+			if (weapon != null)
+				weapon.StopBoost ();
 	}
 
 	public int GetNumRowsInGrid() {

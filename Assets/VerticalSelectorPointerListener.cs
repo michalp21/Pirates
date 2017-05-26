@@ -22,7 +22,7 @@ public class VerticalSelectorPointerListener : SelectorPointerListener
 		} else {
 			if (isSetUp) {
 				transform.position = new Vector3 (transform.position.x, (float) rowPosOnScreen, transform.position.z);
-				transform.localScale = new Vector3(1,((float) rowHeightOnScreen / initialSize),1);
+				transform.localScale = new Vector3 (initialScaleSelf.x,((float) rowHeightOnScreen / initialSize),initialScaleSelf.z);
 				selected = ship.CheckIfRowIsSelected (index);
 			}
 		}

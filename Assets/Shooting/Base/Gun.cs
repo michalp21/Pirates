@@ -58,11 +58,13 @@ public class Gun : MonoBehaviour {
 	protected float fireRate;               // time betwen shots
 	protected float nextFireTime = 0.0f;        // able to fire again on this frame
     protected ProjectileInfo bulletInfo = new ProjectileInfo(); // all info about gun that's sent to each projectile
+	protected Coroutine currentCoroutine;
 
     protected virtual void Start()
     {
 		weaponStats = GetComponent<WeaponStatsBase>();
 		fireRate = weaponStats.baseFireRate;
+		currentCoroutine = null;
     }
 
 	//Call initGun() after instantiating the GameObject with this Gun script attached
@@ -90,24 +92,18 @@ public class Gun : MonoBehaviour {
 		
 	}
 
-	/*public virtual void Select()
+	public void StartBoost ()
 	{
-		
-	}
-
-	public virtual void DeSelect()
-	{
-		
-	}*/
-
-	public virtual void StartBoost ()
-	{
-
+		fireRate *= 1/3f;
+		Health myHealth = gameObject.GetComponent<Health>();
+		currentCoroutine = StartCoroutine (myHealth.Drain (Mathf.CeilToInt(myHealth.maxHealth / 20)));
 	}
 	
-	public virtual void StopBoost ()
+	public void StopBoost ()
 	{
-
+		fireRate = weaponStats.baseFireRate;
+		Health myHealth = gameObject.GetComponent<Health>();
+		StopCoroutine (currentCoroutine);
 	}
 
     // set all bullet info from the gun's info

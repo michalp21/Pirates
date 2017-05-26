@@ -17,10 +17,17 @@ public class Health : MonoBehaviour
     public int regenAmount = 1;
     public bool isDead = false;
 	protected bool isInvincible = false;
-	protected float maxHealth;
+	public float maxHealth { get; set; }
 	public float health;
 
 	public Slider healthBarSlider;
+
+	protected float nextDrainTime = 0.0f;
+	protected float nextRegenTime = 0.0f;
+	protected float drainRate;	//time between each drain
+	protected float regenRate;	//time between each regen
+	protected int DRAIN_PER_FRAME = 1;
+	protected int REGEN_PER_FRAME = 1;
 
 	//deal with this later
 	void Start ()
@@ -101,17 +108,46 @@ public class Health : MonoBehaviour
             }
         }
     }
+	//param drainRate: health drained per second
+	public IEnumerator Drain(int dps)
+	{
+		while (true) {
+			if (nextDrainTime < Time.time) {
+				
+				if (!isInvincible && !isDead) {
+					health -= DRAIN_PER_FRAME;
+					weaponManager.TakeDamage (DRAIN_PER_FRAME);
+					healthBarSlider.value -= DRAIN_PER_FRAME;
 
-    public virtual void Regen()
+					if (health <= 0) {
+						health = 0;
+						isDead = true;
+						Die ();
+						weaponManager.RemoveWeapon (gameObject.GetComponent<Gun> ());
+					}
+				}
+				nextDrainTime = Time.time + DRAIN_PER_FRAME / (float)dps;
+			}
+			yield return null;
+		}
+	}
+
+	//param drainRate: health regenerated per second
+	public IEnumerator Regen(int rps)
     {
-        if ((health < maxHealth))
-        {
-            health += regenAmount;
-            if (health > maxHealth)
-            {
-                health = maxHealth;
-            }
-        }
+		while (true) {
+			if (nextDrainTime < Time.time) {
+				
+				if ((health < maxHealth)) {
+					health += REGEN_PER_FRAME;
+					if (health > maxHealth) {
+						health = maxHealth;
+					}
+				}
+				nextRegenTime = Time.time + REGEN_PER_FRAME / (float)rps;
+			}
+			yield return null;
+		}
     }
 
     public virtual void Die()

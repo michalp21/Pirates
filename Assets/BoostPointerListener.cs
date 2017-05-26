@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class BoostPointerListener : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler
 {
 	//[HideInInspector]
-	public bool pressed = false;
+	private bool pressed = false;
 
 	public UnityEvent onPressed;
 	public UnityEvent onUnPressed;
