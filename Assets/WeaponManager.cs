@@ -147,28 +147,62 @@ public class WeaponManager : MonoBehaviour {
 		}
 	}
 
-	public void SelectRow(int k) {
-		for (int l = 0; l < weaponGrid.GetLength (1); l++)
-			if (weaponGrid [k, l] != null)
-				SelectedWeapons.Add (weaponGrid [k, l]);
+	public bool ToggleSelectRow(int k, bool selected) {
+		if (!selected) {
+			for (int l = 0; l < weaponGrid.GetLength (1); l++)
+				if (weaponGrid [k, l] != null && !weaponGrid [k, l].isSelected) {
+					SelectedWeapons.Add (weaponGrid [k, l]);
+					weaponGrid [k, l].isSelected = true;
+					weaponGrid [k, l].GetComponent<SpriteRenderer> ().enabled = true;
+				}
+			return true;
+		} else {
+			for (int l = 0; l < weaponGrid.GetLength (1); l++)
+				if (weaponGrid [k, l] != null) {
+					SelectedWeapons.Remove (weaponGrid [k, l]);
+					weaponGrid [k, l].isSelected = false;
+					weaponGrid [k, l].GetComponent<SpriteRenderer> ().enabled = false;
+				}
+			return false;
+		}
 	}
 
-	public void DeselectRow(int k) {
-		for (int l = 0; l < weaponGrid.GetLength (1); l++)
-			if (weaponGrid [k, l] != null)
-				SelectedWeapons.Remove (weaponGrid [k, l]);
+	public bool ToggleSelectColumn(int l, bool selected) {
+		if (!selected) {
+			for (int k = 0; k < weaponGrid.GetLength (0); k++)
+				if (weaponGrid [k, l] != null && !weaponGrid [k, l].isSelected) {
+					SelectedWeapons.Add (weaponGrid [k, l]);
+					weaponGrid [k, l].isSelected = true;
+					weaponGrid [k, l].GetComponent<SpriteRenderer> ().enabled = true;
+				}
+			return true;
+		} else {
+			for (int k = 0; k < weaponGrid.GetLength (0); k++)
+				if (weaponGrid [k, l] != null) {
+					SelectedWeapons.Remove (weaponGrid [k, l]);
+					weaponGrid [k, l].isSelected = false;
+					weaponGrid [k, l].GetComponent<SpriteRenderer> ().enabled = false;
+				}
+			return false;
+		}
 	}
 
-	public void SelectColumn(int l) {
-		for (int k = 0; k < weaponGrid.GetLength (0); k++)
-			if (weaponGrid [k, l] != null)
-				SelectedWeapons.Add (weaponGrid [k, l]);
+	//when other selections besides ToggleSelectRow happen to completely select a row
+	public bool CheckIfRowIsSelected(int k) {
+		for (int l = 0; l < weaponGrid.GetLength (1); l++) {
+			if (weaponGrid [k, l] != null && weaponGrid [k, l].isSelected == false)
+				return false;
+		}
+		return true;
 	}
 
-	public void DeselectColumn(int l) {
-		for (int k = 0; k < weaponGrid.GetLength (0); k++)
-			if (weaponGrid [k, l] != null)
-				SelectedWeapons.Remove (weaponGrid [k, l]);
+	//when other selections besides ToggleSelectColumn happen to completely select a column
+	public bool CheckIfColumnIsSelected(int l) {
+		for (int k = 0; k < weaponGrid.GetLength (0); k++) {
+			if (weaponGrid [k, l] != null && weaponGrid [k, l].isSelected == false)
+				return false;
+		}
+		return true;
 	}
 
 	public void StartBoostAll() {
