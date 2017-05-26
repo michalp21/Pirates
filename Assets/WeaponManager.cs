@@ -9,6 +9,7 @@ public class WeaponManager : MonoBehaviour {
 	private int maxHealth;
 	//private int playerID;
 
+	public Camera camera;
 	public Slider healthBarSlider; //inspector
 	public GenerateSelectorButtons selectorScript; //inspector
 	public bool isSelf; //TEMPORARY 
@@ -25,6 +26,7 @@ public class WeaponManager : MonoBehaviour {
 
 	void Awake() {
 		myShip = GetComponent<BaseShip> ();
+		camera = Camera.main;
 	}
 
 	void Start () {
@@ -54,17 +56,37 @@ public class WeaponManager : MonoBehaviour {
 		}
 	}
 
-	public Vector3? GetYPositionOfRow (int k) {
+	public float? GetYPositionOfRowOnScreen (int k) {
 		for (int l = 0; l < weaponGrid.GetLength (1); l++)
 			if (weaponGrid [k, l] != null)
-				return weaponGrid [k, l].transform.position;
+				return camera.WorldToScreenPoint ((Vector3) weaponGrid [k, l].transform.position).y;
 		return null;
 	}
 
-	public Vector3? GetXPositionOfCol (int l) {
+	public float? GetXPositionOfColOnScreen (int l) {
 		for (int k = 0; k < weaponGrid.GetLength (0); k++)
 			if (weaponGrid [k, l] != null)
-				return weaponGrid [k, l].transform.position;
+				return camera.WorldToScreenPoint ((Vector3) weaponGrid [k, l].transform.position).x;
+		return null;
+	}
+
+	public float? GetHeightOfRowOnScreen (int k) {
+		for (int l = 0; l < weaponGrid.GetLength (1); l++)
+			if (weaponGrid [k, l] != null) {
+				Vector3 bottomBound = camera.WorldToScreenPoint (weaponGrid[k, l].GetComponent<BoxCollider>().bounds.center - new Vector3(0,weaponGrid[k, l].GetComponent<BoxCollider>().bounds.extents.y,0));
+				Vector3 topBound = camera.WorldToScreenPoint (weaponGrid[k, l].GetComponent<BoxCollider>().bounds.center + new Vector3(0,weaponGrid[k, l].GetComponent<BoxCollider>().bounds.extents.y,0));
+				return topBound.y - bottomBound.y;
+			}
+		return null;
+	}
+
+	public float? GetWidthOfColOnScreen (int l) {
+		for (int k = 0; k < weaponGrid.GetLength (0); k++)
+			if (weaponGrid [k, l] != null) {
+				Vector3 leftBound = camera.WorldToScreenPoint (weaponGrid[k, l].GetComponent<BoxCollider>().bounds.center - new Vector3(weaponGrid[k, l].GetComponent<BoxCollider>().bounds.extents.x,0,0));
+				Vector3 rightBound = camera.WorldToScreenPoint (weaponGrid[k, l].GetComponent<BoxCollider>().bounds.center + new Vector3(weaponGrid[k, l].GetComponent<BoxCollider>().bounds.extents.x,0,0));
+				return rightBound.x - leftBound.x;
+			}
 		return null;
 	}
 

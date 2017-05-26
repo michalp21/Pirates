@@ -43,7 +43,6 @@ public class PlayerInput : MonoBehaviour {
 			camera.transform.Translate(new Vector3(0,-3 * Time.deltaTime,0));
 		}
 		//camera.transform.Translate(0,0,Input.GetAxis("Mouse ScrollWheel") * 10);
-		camera.orthographicSize += Input.GetAxis("Mouse ScrollWheel") * 8;
-		//Debug.Log(camera.orthographicSize);
+		camera.orthographicSize += Input.GetAxis("Mouse ScrollWheel") * 1;
 	}
 }

@@ -4,31 +4,8 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-/*public enum RowOrColumn
-{
-	ROW,
-	COLUMN
-}*/
-
-//Probably only used for the booster class
 public class HorizontalSelectorPointerListener : SelectorPointerListener
 {
-	//Below not necessary if correct callbacks are given in inspector
-	/*private struct AreaOfSelection
-	{
-		public RowOrColumn area { get; private set; }
-		public GridPosition mimickedGun { get; private set; } //a representative gun used to update scale and position of self
-
-		public AreaOfSelection(RowOrColumn a, GridPosition n) {
-			area = a;
-			mimickedGun = n;
-		}
-	}
-
-	private AreaOfSelection id;*/
-
-	//[HideInInspector]
-
 	public override void OnPointerUp(PointerEventData eventData)
 	{
 		//NEED TO CHANGE BEHAVIOR. selected VARIABLE SHOULD BE IN EACH GUN. CHECK HERE IF ALL GUNS ARE SELECTED BEFORE DESLECTING ALL. ETC.
@@ -45,25 +22,14 @@ public class HorizontalSelectorPointerListener : SelectorPointerListener
 
 	protected override void LateUpdate()
 	{
-		/*if (mimickedGun == null) {
+		float? colPosOnScreen = ship.GetXPositionOfColOnScreen (index);
+		float? colWidthOnScreen = ship.GetWidthOfColOnScreen (index);
+		if (colPosOnScreen == null || colWidthOnScreen == null) {
 			gameObject.SetActive (false);
 		} else {
 			if (isSetUp) {
-				Vector3 screenPos = camera.WorldToScreenPoint (mimickedGun.transform.position);
-				transform.position = new Vector3 (screenPos.x, transform.position.y, transform.position.z);
-
-				float newRatio = screenPos.y / (float) Screen.height;
-				
-			}
-		}*/
-
-		Vector3? colPos = ship.GetXPositionOfCol (index);
-		if (colPos == null) {
-			gameObject.SetActive (false);
-		} else {
-			if (isSetUp) {
-				Vector3 screenPos = camera.WorldToScreenPoint ((Vector3) colPos);
-				transform.position = new Vector3 (screenPos.x, transform.position.y, transform.position.z);
+				transform.position = new Vector3 ((float) colPosOnScreen, transform.position.y, transform.position.z);
+				transform.localScale = new Vector3(((float) colWidthOnScreen / initialSize),1,1);
 			}
 		}
 
