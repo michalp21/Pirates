@@ -33,9 +33,9 @@ public class WeaponManager : MonoBehaviour {
 		//Debug.Log (myShip.weaponSpace_rows + " " + myShip.weaponSpace_cols);
 		weaponGrid = new Gun[myShip.weaponSpace_rows, myShip.weaponSpace_cols];
 		//TEMPORARY
-		weaponGrid[0,0] = gun1;
-		weaponGrid[0,1] = gun2;
-		weaponGrid[0,2] = gun3;
+		weaponGrid[0,0] = gun1; gun1.gridPosition.row = 0; gun1.gridPosition.col = 0;
+		weaponGrid[0,1] = gun2; gun2.gridPosition.row = 0; gun2.gridPosition.col = 1;
+		weaponGrid[0,2] = gun3; gun3.gridPosition.row = 0; gun3.gridPosition.col = 2;
 
 		AddWeapons ();
 

@@ -9,7 +9,7 @@ public class HorizontalSelectorPointerListener : SelectorPointerListener
 	public override void OnPointerUp(PointerEventData eventData)
 	{
 		selected = ship.GetComponent<WeaponManager>().ToggleSelectColumn(index, selected);
-		Debug.Log (selected);
+		//Debug.Log (selected);
 	}
 
 	protected override void LateUpdate()
