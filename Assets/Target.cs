@@ -55,8 +55,7 @@ public class Target : MonoBehaviour {
 	//call once before attacking
 	protected void getInRangeTarget()
 	{
-		hitColliders = Physics.OverlapSphere(gameObject.transform.position,
-			weaponStats.targetRange);
+		hitColliders = Physics.OverlapSphere (gameObject.transform.position, weaponStats.targetRange);
 		if (hitColliders != null) {
 			int i = 0;
 			while (i < hitColliders.Length) {

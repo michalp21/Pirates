@@ -7,14 +7,14 @@ public class Gun_Physical : Gun {
     protected override void Start()
     {
         base.Start();
-        SetupBulletInfo(); // set a majority of the projectile info
+        //SetupBulletInfo(); // set a majority of the projectile info
     }
 	
 	protected override void FireOneShot () {
 		Vector3 pos = weaponStats.muzzlePoint.position; // position to spawn bullet is at the muzzle point of the gun       
 		Quaternion rot = weaponStats.muzzlePoint.rotation; // spawn bullet with the muzzle's rotation
 
-		bulletInfo.spread = weaponStats.spread; // set this bullet's info to the gun's current spread
+		//bulletInfo.spread = weaponStats.spread; // set this bullet's info to the gun's current spread
         GameObject newBullet;
 
         if (weaponStats.usePooling)
@@ -33,6 +33,6 @@ public class Gun_Physical : Gun {
 				newBullet.layer = 10;
         }
 
-        newBullet.GetComponent<Projectile>().SetUp(bulletInfo); // send bullet info to spawned projectile
+        newBullet.GetComponent<Projectile>().SetUp(weaponStats.usePooling); // send bullet info to spawned projectile
     }
 }

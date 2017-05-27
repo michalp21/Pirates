@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//Separate weapon stuff from projectile stuff into respective classes. Get rid of the current bestowing/initializing.
 public abstract class WeaponStatsBase : MonoBehaviour
 {
 	public int currentLevel;
@@ -10,20 +11,13 @@ public abstract class WeaponStatsBase : MonoBehaviour
 	public WeaponType typeOfWeapon;             // type of weapon, used to determine how the trigger acts
 	public bool usePooling;             // do we want to use object pooling or instantiation
 	public bool infiniteAmmo;		//whether there is infinite ammo
-	public int maxLevel;	
-	public ProjectileSurvive psurvive;
-
-	public Damage damage = new Damage();        // the damage and type of damage this gun does
+	public int maxLevel;
+	public int health;
 	public Resistance myResistances = new Resistance();
-	public int maxPenetration;              // maximum amount of hits detected before the bullet is destroyed
 	public float targetRange;
 	public int disappearRange;
-	public float spread;                 // current spread of the gun
-	public float projectileSpeed;      // speed that projectile flies at
-	public float projectileLifeTime;     // how long before the projectile is considered gone and recycleable
+	//public float spread;                 // current spread of the gun
 	public float baseFireRate;		//time between each shot
-
-	public int health;
 }
 
 //freeze blast		

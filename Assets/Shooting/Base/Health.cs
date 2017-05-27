@@ -29,7 +29,6 @@ public class Health : MonoBehaviour
 	protected int DRAIN_PER_FRAME = 1;
 	protected int REGEN_PER_FRAME = 1;
 
-	//deal with this later
 	void Start ()
 	{
 		weaponStats = GetComponentInChildren<WeaponStatsBase> (); //maybe change to 2nd parameter (See above)
@@ -59,7 +58,7 @@ public class Health : MonoBehaviour
 		healthBarSlider.value = health;
     }
 
-    public virtual void Hit(ProjectileInfo info)
+	public virtual void Hit(int damage, Element damageType)
     {
         if (isInvincible)
         {
@@ -68,34 +67,32 @@ public class Health : MonoBehaviour
 
         if (!isDead)
         {
-            int damage = info.damage.amount;
-
-            switch (info.damage.type)
+			switch (damageType)
             {
-                case DamageType.NORMAL:
+                case Element.NORMAL:
                     damage = Mathf.RoundToInt(damage * myResistances.normal);
                     break;
-                case DamageType.FIRE:
-                    damage *= Mathf.RoundToInt(damage * myResistances.fire);
+                case Element.FIRE:
+                    damage = Mathf.RoundToInt(damage * myResistances.fire);
                     break;
-                case DamageType.ICE:
-                    damage *= Mathf.RoundToInt(damage * myResistances.ice);
+				case Element.ICE:
+                    damage = Mathf.RoundToInt(damage * myResistances.ice);
                     break;
-                case DamageType.ACID:
-                    damage *= Mathf.RoundToInt(damage * myResistances.acid);
+				case Element.ACID:
+                    damage = Mathf.RoundToInt(damage * myResistances.acid);
                     break;
-                case DamageType.ELECTRIC:
-                    damage *= Mathf.RoundToInt(damage * myResistances.electric);
+				case Element.ELECTRIC:
+                    damage = Mathf.RoundToInt(damage * myResistances.electric);
                     break;
-                case DamageType.POISON:
-                    damage *= Mathf.RoundToInt(damage * myResistances.poison);
+                case Element.POISON:
+                    damage = Mathf.RoundToInt(damage * myResistances.poison);
                     break;
                 default:
                     // take straight damage...
                     break;
             }
-
             health -= damage;
+
 			weaponManager.TakeDamage (damage);
 			healthBarSlider.value -= damage;
 

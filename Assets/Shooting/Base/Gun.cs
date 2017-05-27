@@ -13,14 +13,7 @@ public struct GridPosition
 	}
 }
 
-[System.Serializable]
-public class Damage
-{
-	public int amount; // how much damage
-	public DamageType type; //what type of damage
-}
-
-public enum DamageType
+public enum Element
 {
 	NORMAL,
 	FIRE,
@@ -57,7 +50,6 @@ public class Gun : MonoBehaviour {
 	//Below variables should not be public
 	protected float fireRate;               // time betwen shots
 	protected float nextFireTime = 0.0f;        // able to fire again on this frame
-    protected ProjectileInfo bulletInfo = new ProjectileInfo(); // all info about gun that's sent to each projectile
 	protected Coroutine currentCoroutine;
 
     protected virtual void Start()
@@ -111,7 +103,7 @@ public class Gun : MonoBehaviour {
     // call this function in the fire function (worst performance but always checkes gun stats before firing)
     // or Always call this just after altering a weapon's stats (best performance since its called once when it's needed)
     // default right now is it is called once in start
-    protected void SetupBulletInfo()
+    /*protected void SetupBulletInfo()
     {
 		//include disappear range?
         bulletInfo.owner = transform.root.gameObject;   // the Owner of this weapon (GameObject) <- use this for scoreboard and who killed who
@@ -126,5 +118,5 @@ public class Gun : MonoBehaviour {
 
 		//if (gameObject.tag.Contains("Layer")){bulletInfo.enemyID = "Player2";}
 		//else if (gameObject.tag.Contains("Player2")){bulletInfo.enemyID = "Player1";}
-    }
+    }*/
 }
