@@ -19,6 +19,8 @@ public class Target : MonoBehaviour {
 	private Vector3 targetPoint;
 	private Quaternion targetRotation;
 
+	public bool canFire { get; set; }
+
 	void Start () {
 		weaponStats = GetComponentInParent<WeaponStatsBase> ();
 		//target = null;
@@ -96,6 +98,7 @@ public class Target : MonoBehaviour {
 		float i = 0.0f;
 		float rate = 1.0f / 1;
 
+		canFire = false;
 		while (i < 1.0) {
 			Vector3 lookDirection = target.transform.position - transform.position;
 			float angle = Mathf.Atan2 (lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
@@ -106,6 +109,7 @@ public class Target : MonoBehaviour {
 			transform.rotation = Quaternion.Slerp (fromRotation, newRotation, i);
 			yield return null;
 		}
+		canFire = true;
 		while (true) {
 			Vector3 lookDirection = target.transform.position - transform.position;
 			float angle = Mathf.Atan2 (lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;

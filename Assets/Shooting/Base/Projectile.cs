@@ -26,6 +26,7 @@ public abstract class Projectile : MonoBehaviour {
 	protected bool usePool;
 
     // This is bullet initialization, It gets called by the weapon that fired this projectile
+	//GET RID OF THIS
 	public virtual void SetUp(bool usePooling)
     {
         hitCount = 0;
