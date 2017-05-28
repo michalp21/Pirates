@@ -12,12 +12,11 @@ public class WeaponManager : MonoBehaviour {
 	public Camera camera;
 	public Slider healthBarSlider; //inspector
 	public GenerateSelectorButtons selectorScript; //inspector
-	public bool isSelf; //TEMPORARY 
+	public bool isSelf; //TEMPORARY
 
-	private Gun[] childrenWeapons;
 	//public Dictionary<Vector3, Gun> weaponDict;
-	private Gun[,] weaponGrid;
-	public List<Gun> SelectedWeapons; 
+	private Column[] weaponGrid;
+	public List<Gun> SelectedWeapons;
 
 	//TEMPORARY
 	public Gun gun1;
@@ -30,12 +29,16 @@ public class WeaponManager : MonoBehaviour {
 	}
 
 	void Start () {
-		//Debug.Log (myShip.weaponSpace_rows + " " + myShip.weaponSpace_cols);
-		weaponGrid = new Gun[myShip.weaponSpace_rows, myShip.weaponSpace_cols];
+		// !! COLUMN MAJOR ORDER !! //
+		weaponGrid = GetComponentsInChildren<Column> ();
+
+		foreach (Column col in weaponGrid) {
+			col.initColumn ();
+		}
 		//TEMPORARY
-		weaponGrid[0,0] = gun1; gun1.gridPosition.row = 0; gun1.gridPosition.col = 0;
-		weaponGrid[0,1] = gun2; gun2.gridPosition.row = 0; gun2.gridPosition.col = 1;
-		weaponGrid[0,2] = gun3; gun3.gridPosition.row = 0; gun3.gridPosition.col = 2;
+		gun1.gridPosition.row = 0; gun1.gridPosition.col = 0;
+		gun2.gridPosition.row = 0; gun2.gridPosition.col = 1;
+		gun3.gridPosition.row = 0; gun3.gridPosition.col = 2;
 
 		AddWeapons ();
 
@@ -48,7 +51,7 @@ public class WeaponManager : MonoBehaviour {
 	}
 
 	public void AddWeapons () {
-		childrenWeapons = GetComponentsInChildren<Gun> ();
+		Gun[] childrenWeapons = GetComponentsInChildren<Gun> ();
 		foreach (Gun weapon in childrenWeapons)
 		{
 			//weaponGrid.Add (weapon.gameObject.transform.position, weapon);
@@ -56,45 +59,69 @@ public class WeaponManager : MonoBehaviour {
 		}
 	}
 
+	public void RemoveWeapon(Gun g) {
+		//weaponDict.Remove (v);
+		weaponGrid[g.gridPosition.col].RemoveWeaponFromColumn(g.gridPosition.row);
+
+		if (SelectedWeapons.Contains (g))
+			SelectedWeapons.Remove (g);
+
+		if (isSelf == true) {
+		}
+			//StartCoroutine(MoveShip (1));
+		else{}
+			//StartCoroutine(MoveShip (-1));
+	}
+
+	IEnumerator MoveShip(int dir) {
+		float i = 0.0f;
+		float rate = 1.0f / 1;
+
+		Vector3 newPos = new Vector3 (transform.position.x + dir, transform.position.y, transform.position.z);
+
+		//while (i < 1.0) {
+		while (true) {
+			transform.position = Vector3.MoveTowards(transform.position, newPos, 1 * Time.deltaTime);
+			yield return null;
+		}
+	}
+
+	/*public void MoveShip(int dir) {
+
+	}*/
+
 	public float? GetYPositionOfRowOnScreen (int k) {
-		for (int l = 0; l < weaponGrid.GetLength (1); l++)
-			if (weaponGrid [k, l] != null)
-				return camera.WorldToScreenPoint ((Vector3) weaponGrid [k, l].transform.position).y;
+		for (int l = 0; l < weaponGrid.Length; l++)
+			if (weaponGrid [l][k] != null)
+				return camera.WorldToScreenPoint ((Vector3) weaponGrid [l][k].transform.position).y;
 		return null;
 	}
 
 	public float? GetXPositionOfColOnScreen (int l) {
-		for (int k = 0; k < weaponGrid.GetLength (0); k++)
-			if (weaponGrid [k, l] != null)
-				return camera.WorldToScreenPoint ((Vector3) weaponGrid [k, l].transform.position).x;
+		for (int k = 0; k < weaponGrid[l].GetLen(); k++)
+			if (weaponGrid [l][k] != null)
+				return camera.WorldToScreenPoint ((Vector3) weaponGrid [l][k].transform.position).x;
 		return null;
 	}
 
 	public float? GetHeightOfRowOnScreen (int k) {
-		for (int l = 0; l < weaponGrid.GetLength (1); l++)
-			if (weaponGrid [k, l] != null) {
-				Vector3 bottomBound = camera.WorldToScreenPoint (weaponGrid[k, l].GetComponent<BoxCollider>().bounds.center - new Vector3(0,weaponGrid[k, l].GetComponent<BoxCollider>().bounds.extents.y,0));
-				Vector3 topBound = camera.WorldToScreenPoint (weaponGrid[k, l].GetComponent<BoxCollider>().bounds.center + new Vector3(0,weaponGrid[k, l].GetComponent<BoxCollider>().bounds.extents.y,0));
+		for (int l = 0; l < weaponGrid.Length; l++)
+			if (weaponGrid [l][k] != null) {
+				Vector3 bottomBound = camera.WorldToScreenPoint (weaponGrid[l][k].GetComponent<BoxCollider>().bounds.center - new Vector3(0,weaponGrid[l][k].GetComponent<BoxCollider>().bounds.extents.y,0));
+				Vector3 topBound = camera.WorldToScreenPoint (weaponGrid[l][k].GetComponent<BoxCollider>().bounds.center + new Vector3(0,weaponGrid[l][k].GetComponent<BoxCollider>().bounds.extents.y,0));
 				return topBound.y - bottomBound.y;
 			}
 		return null;
 	}
 
 	public float? GetWidthOfColOnScreen (int l) {
-		for (int k = 0; k < weaponGrid.GetLength (0); k++)
-			if (weaponGrid [k, l] != null) {
-				Vector3 leftBound = camera.WorldToScreenPoint (weaponGrid[k, l].GetComponent<BoxCollider>().bounds.center - new Vector3(weaponGrid[k, l].GetComponent<BoxCollider>().bounds.extents.x,0,0));
-				Vector3 rightBound = camera.WorldToScreenPoint (weaponGrid[k, l].GetComponent<BoxCollider>().bounds.center + new Vector3(weaponGrid[k, l].GetComponent<BoxCollider>().bounds.extents.x,0,0));
+		for (int k = 0; k < weaponGrid[l].GetLen(); k++)
+			if (weaponGrid [l][k] != null) {
+				Vector3 leftBound = camera.WorldToScreenPoint (weaponGrid[l][k].GetComponent<BoxCollider>().bounds.center - new Vector3(weaponGrid[l][k].GetComponent<BoxCollider>().bounds.extents.x,0,0));
+				Vector3 rightBound = camera.WorldToScreenPoint (weaponGrid[l][k].GetComponent<BoxCollider>().bounds.center + new Vector3(weaponGrid[l][k].GetComponent<BoxCollider>().bounds.extents.x,0,0));
 				return rightBound.x - leftBound.x;
 			}
 		return null;
-	}
-
-	public void RemoveWeapon(Gun g) {
-		//weaponDict.Remove (v);
-		weaponGrid[g.gridPosition.row, g.gridPosition.col] = null;
-		if (SelectedWeapons.Contains (g))
-			SelectedWeapons.Remove (g);
 	}
 
 	//Call this when adding the WeaponManager script
@@ -131,13 +158,13 @@ public class WeaponManager : MonoBehaviour {
 				Debug.Log("Chaw haw haw, it's not FULLAUTO");
 			}
 		}*/
-		for (int k = 0; k < weaponGrid.GetLength (0); k++) {
-			for (int l = 0; l < weaponGrid.GetLength (1); l++) {
-				if (weaponGrid [k, l] == null)
+		for (int l = 0; l < weaponGrid.Length; l++) {
+			for (int k = 0; k < weaponGrid[l].GetLen(); k++) {
+				if (weaponGrid [l][k] == null)
 					continue;
-				if (weaponGrid[k,l].GetComponent<WeaponStatsBase> ().typeOfWeapon == WeaponType.FULLAUTO)
+				if (weaponGrid [l][k].GetComponent<WeaponStatsBase> ().typeOfWeapon == WeaponType.FULLAUTO)
 				{
-					weaponGrid[k,l].Fire();
+					weaponGrid [l][k].Fire();
 				}
 				else
 				{
@@ -149,19 +176,19 @@ public class WeaponManager : MonoBehaviour {
 
 	public bool ToggleSelectRow(int k, bool selected) {
 		if (!selected) {
-			for (int l = 0; l < weaponGrid.GetLength (1); l++)
-				if (weaponGrid [k, l] != null && !weaponGrid [k, l].isSelected) {
-					SelectedWeapons.Add (weaponGrid [k, l]);
-					weaponGrid [k, l].isSelected = true;
-					weaponGrid [k, l].GetComponent<SpriteRenderer> ().enabled = true;
+			for (int l = 0; l < weaponGrid.Length; l++)
+				if (weaponGrid [l][k] != null && !weaponGrid [l][k].isSelected) {
+					SelectedWeapons.Add (weaponGrid [l][k]);
+					weaponGrid [l][k].isSelected = true;
+					weaponGrid [l][k].GetComponent<SpriteRenderer> ().enabled = true;
 				}
 			return true;
 		} else {
-			for (int l = 0; l < weaponGrid.GetLength (1); l++)
-				if (weaponGrid [k, l] != null) {
-					SelectedWeapons.Remove (weaponGrid [k, l]);
-					weaponGrid [k, l].isSelected = false;
-					weaponGrid [k, l].GetComponent<SpriteRenderer> ().enabled = false;
+			for (int l = 0; l < weaponGrid.Length; l++)
+				if (weaponGrid [l][k] != null) {
+					SelectedWeapons.Remove (weaponGrid [l][k]);
+					weaponGrid [l][k].isSelected = false;
+					weaponGrid [l][k].GetComponent<SpriteRenderer> ().enabled = false;
 				}
 			return false;
 		}
@@ -169,19 +196,19 @@ public class WeaponManager : MonoBehaviour {
 
 	public bool ToggleSelectColumn(int l, bool selected) {
 		if (!selected) {
-			for (int k = 0; k < weaponGrid.GetLength (0); k++)
-				if (weaponGrid [k, l] != null && !weaponGrid [k, l].isSelected) {
-					SelectedWeapons.Add (weaponGrid [k, l]);
-					weaponGrid [k, l].isSelected = true;
-					weaponGrid [k, l].GetComponent<SpriteRenderer> ().enabled = true;
+			for (int k = 0; k < weaponGrid[l].GetLen(); k++)
+				if (weaponGrid [l][k] != null && !weaponGrid [l][k].isSelected) {
+					SelectedWeapons.Add (weaponGrid [l][k]);
+					weaponGrid [l][k].isSelected = true;
+					weaponGrid [l][k].GetComponent<SpriteRenderer> ().enabled = true;
 				}
 			return true;
 		} else {
-			for (int k = 0; k < weaponGrid.GetLength (0); k++)
-				if (weaponGrid [k, l] != null) {
-					SelectedWeapons.Remove (weaponGrid [k, l]);
-					weaponGrid [k, l].isSelected = false;
-					weaponGrid [k, l].GetComponent<SpriteRenderer> ().enabled = false;
+			for (int k = 0; k < weaponGrid[l].GetLen(); k++)
+				if (weaponGrid [l][k] != null) {
+					SelectedWeapons.Remove (weaponGrid [l][k]);
+					weaponGrid [l][k].isSelected = false;
+					weaponGrid [l][k].GetComponent<SpriteRenderer> ().enabled = false;
 				}
 			return false;
 		}
@@ -189,8 +216,8 @@ public class WeaponManager : MonoBehaviour {
 
 	//when other selections besides ToggleSelectRow happen to completely select a row
 	public bool CheckIfRowIsSelected(int k) {
-		for (int l = 0; l < weaponGrid.GetLength (1); l++) {
-			if (weaponGrid [k, l] != null && weaponGrid [k, l].isSelected == false)
+		for (int l = 0; l < weaponGrid.Length; l++) {
+			if (weaponGrid [l][k] != null && weaponGrid [l][k].isSelected == false)
 				return false;
 		}
 		return true;
@@ -198,8 +225,8 @@ public class WeaponManager : MonoBehaviour {
 
 	//when other selections besides ToggleSelectColumn happen to completely select a column
 	public bool CheckIfColumnIsSelected(int l) {
-		for (int k = 0; k < weaponGrid.GetLength (0); k++) {
-			if (weaponGrid [k, l] != null && weaponGrid [k, l].isSelected == false)
+		for (int k = 0; k < weaponGrid[l].GetLen(); k++) {
+			if (weaponGrid [l][k] != null && weaponGrid [l][k].isSelected == false)
 				return false;
 		}
 		return true;
@@ -230,16 +257,15 @@ public class WeaponManager : MonoBehaviour {
 	}
 
 	public int GetNumRowsInGrid() {
-		return weaponGrid.GetLength(0);
+		return weaponGrid[0].GetLen();
 	}
 
 	public int GetNumColumnsInGrid() {
-		return weaponGrid.GetLength(1);
+		return weaponGrid.Length;
 	}
 
 	public Gun GetWeaponInGrid(int k, int l) {
-		//Debug.Log ("Get weapon in Grid: " + k + "," + l);
-		return weaponGrid [k, l];
+		return weaponGrid [l][k];
 	}
 
 	void Update () {

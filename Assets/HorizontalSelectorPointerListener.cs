@@ -14,6 +14,7 @@ public class HorizontalSelectorPointerListener : SelectorPointerListener
 
 	protected override void LateUpdate()
 	{
+		//check using state of Column object maybe?
 		float? colPosOnScreen = ship.GetXPositionOfColOnScreen (index);
 		float? colWidthOnScreen = ship.GetWidthOfColOnScreen (index);
 

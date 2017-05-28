@@ -95,7 +95,8 @@ public class Gun : MonoBehaviour {
 	{
 		fireRate = weaponStats.baseFireRate;
 		Health myHealth = gameObject.GetComponent<Health>();
-		StopCoroutine (currentCoroutine);
+		if (currentCoroutine != null)
+			StopCoroutine (currentCoroutine);
 	}
 
     // set all bullet info from the gun's info
