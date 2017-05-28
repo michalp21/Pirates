@@ -17,11 +17,19 @@ public class WeaponManager : MonoBehaviour {
 	//public Dictionary<Vector3, Gun> weaponDict;
 	private Column[] weaponGrid;
 	public List<Gun> SelectedWeapons;
+	private int effectiveLength;
 
 	//TEMPORARY
 	public Gun gun1;
 	public Gun gun2;
 	public Gun gun3;
+
+	public float timeTakenDuringLerp;
+	public float velocityOfLerp = 1.5f;
+	private bool isLerping;
+	private Vector3 startPosition;
+	private Vector3 endPosition;
+	private float timeStartedLerping;
 
 	void Awake() {
 		myShip = GetComponent<BaseShip> ();
@@ -31,6 +39,7 @@ public class WeaponManager : MonoBehaviour {
 	void Start () {
 		// !! COLUMN MAJOR ORDER !! //
 		weaponGrid = GetComponentsInChildren<Column> ();
+		effectiveLength = weaponGrid.Length;
 
 		foreach (Column col in weaponGrid) {
 			col.initColumn ();
@@ -63,32 +72,39 @@ public class WeaponManager : MonoBehaviour {
 		//weaponDict.Remove (v);
 		weaponGrid[g.gridPosition.col].RemoveWeaponFromColumn(g.gridPosition.row);
 
+		float distanceToMove = 0;
+		if (weaponGrid [g.gridPosition.col].gunsRemaining == 0) {
+			if (isSelf) {
+				for (int i = g.gridPosition.col + 1; i < weaponGrid.Length; i++) {
+					weaponGrid [i].KillColumn ();
+					effectiveLength--;
+				}
+				distanceToMove = effectiveLength - g.gridPosition.col;
+			} else {
+				for (int i = g.gridPosition.col - 1; i >= 0; i--) {
+					weaponGrid [i].KillColumn ();
+					effectiveLength--;
+				}
+				distanceToMove = -1 - g.gridPosition.col;
+			}
+			MoveShip (distanceToMove);
+		}
+
+
 		if (SelectedWeapons.Contains (g))
 			SelectedWeapons.Remove (g);
-
-		if (isSelf == true) {
-		}
-			//StartCoroutine(MoveShip (1));
-		else{}
-			//StartCoroutine(MoveShip (-1));
 	}
 
-	IEnumerator MoveShip(int dir) {
-		float i = 0.0f;
-		float rate = 1.0f / 1;
+	public void MoveShip(float dir) {
+		//endPosition = new Vector3 (transform.position.x + dir, transform.position.y, transform.position.z);
 
-		Vector3 newPos = new Vector3 (transform.position.x + dir, transform.position.y, transform.position.z);
+		isLerping = true;
+		timeStartedLerping = Time.time;
+		timeTakenDuringLerp = Mathf.Abs(dir / velocityOfLerp);
 
-		//while (i < 1.0) {
-		while (true) {
-			transform.position = Vector3.MoveTowards(transform.position, newPos, 1 * Time.deltaTime);
-			yield return null;
-		}
+		startPosition = transform.position;
+		endPosition = transform.position + Vector3.right*dir;
 	}
-
-	/*public void MoveShip(int dir) {
-
-	}*/
 
 	public float? GetYPositionOfRowOnScreen (int k) {
 		for (int l = 0; l < weaponGrid.Length; l++)
@@ -270,5 +286,17 @@ public class WeaponManager : MonoBehaviour {
 
 	void Update () {
 		FireAll ();
+	}
+
+	void FixedUpdate () {
+		if (isLerping) {
+			float timeSinceStarted = Time.time - timeStartedLerping;
+			float percentageComplete = timeSinceStarted / timeTakenDuringLerp;
+			transform.position = Vector3.Lerp (startPosition, endPosition, percentageComplete);
+			Debug.Log (transform.position);
+
+			if (percentageComplete >= 1.0f)
+				isLerping = false;
+		}
 	}
 }

@@ -185,7 +185,7 @@ GameObject:
   m_Component:
   - component: {fileID: 40898143}
   - component: {fileID: 40898144}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -269,7 +269,7 @@ GameObject:
   m_Component:
   - component: {fileID: 114100977}
   - component: {fileID: 114100978}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -355,7 +355,7 @@ GameObject:
   - component: {fileID: 134662977}
   - component: {fileID: 134662976}
   - component: {fileID: 134662975}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -448,7 +448,7 @@ GameObject:
   - component: {fileID: 178561386}
   - component: {fileID: 178561388}
   - component: {fileID: 178561387}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -791,7 +791,7 @@ GameObject:
   m_Component:
   - component: {fileID: 270758558}
   - component: {fileID: 270758559}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -876,7 +876,7 @@ GameObject:
   - component: {fileID: 294079342}
   - component: {fileID: 294079344}
   - component: {fileID: 294079343}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1048,7 +1048,7 @@ GameObject:
   - component: {fileID: 313830710}
   - component: {fileID: 313830709}
   - component: {fileID: 313830708}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1144,7 +1144,7 @@ GameObject:
   - component: {fileID: 339747303}
   - component: {fileID: 339747304}
   - component: {fileID: 339747308}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: SimpleGun_lv1o (2)
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -1650,7 +1650,7 @@ GameObject:
   - component: {fileID: 388625568}
   - component: {fileID: 388625570}
   - component: {fileID: 388625569}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1798,7 +1798,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 459501951}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1834,7 +1834,7 @@ GameObject:
   - component: {fileID: 462660450}
   - component: {fileID: 462660452}
   - component: {fileID: 462660451}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1900,7 +1900,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 470966237}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2103,7 +2103,7 @@ GameObject:
   - component: {fileID: 476867102}
   - component: {fileID: 476867101}
   - component: {fileID: 476867100}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2194,7 +2194,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 483847176}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2372,7 +2372,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 508817119}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2736,6 +2736,8 @@ MonoBehaviour:
   gun1: {fileID: 1920896945}
   gun2: {fileID: 867217495}
   gun3: {fileID: 1539443659}
+  timeTakenDuringLerp: 1.5
+  velocityOfLerp: 1.5
 --- !u!1 &565822190
 GameObject:
   m_ObjectHideFlags: 0
@@ -2744,7 +2746,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 565822191}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3014,7 +3016,7 @@ GameObject:
   - component: {fileID: 590709393}
   - component: {fileID: 590709395}
   - component: {fileID: 590709394}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3096,7 +3098,7 @@ GameObject:
   - component: {fileID: 629460445}
   - component: {fileID: 629460447}
   - component: {fileID: 629460446}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3164,7 +3166,7 @@ GameObject:
   - component: {fileID: 648663120}
   - component: {fileID: 648663122}
   - component: {fileID: 648663121}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3244,7 +3246,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 685895207}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3275,7 +3277,7 @@ GameObject:
   - component: {fileID: 692935853}
   - component: {fileID: 692935852}
   - component: {fileID: 692935851}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3430,7 +3432,7 @@ GameObject:
   - component: {fileID: 858640981}
   - component: {fileID: 858640983}
   - component: {fileID: 858640982}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3569,7 +3571,7 @@ GameObject:
   - component: {fileID: 867217495}
   - component: {fileID: 867217494}
   - component: {fileID: 867217498}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: SimpleGun_lv1 (1)
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -3825,7 +3827,7 @@ GameObject:
   - component: {fileID: 934044446}
   - component: {fileID: 934044445}
   - component: {fileID: 934044447}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: SimpleGun_lv1o
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -4061,7 +4063,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 991862285}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4200,7 +4202,7 @@ GameObject:
   - component: {fileID: 999307945}
   - component: {fileID: 999307947}
   - component: {fileID: 999307946}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4269,7 +4271,7 @@ GameObject:
   - component: {fileID: 1016058584}
   - component: {fileID: 1016058583}
   - component: {fileID: 1016058582}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4365,7 +4367,7 @@ GameObject:
   - component: {fileID: 1028540114}
   - component: {fileID: 1028540113}
   - component: {fileID: 1028540117}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: SimpleGun_lv1o (1)
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -4519,7 +4521,7 @@ GameObject:
   - component: {fileID: 1046169801}
   - component: {fileID: 1046169803}
   - component: {fileID: 1046169802}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4683,7 +4685,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1075011424}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4806,7 +4808,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1183602141}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4966,7 +4968,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1230160853}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5002,7 +5004,7 @@ GameObject:
   - component: {fileID: 1241142591}
   - component: {fileID: 1241142593}
   - component: {fileID: 1241142592}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5265,7 +5267,7 @@ GameObject:
   - component: {fileID: 1454967473}
   - component: {fileID: 1454967475}
   - component: {fileID: 1454967474}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5332,7 +5334,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1485273182}
   - component: {fileID: 1485273183}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5420,7 +5422,7 @@ GameObject:
   - component: {fileID: 1539443659}
   - component: {fileID: 1539443660}
   - component: {fileID: 1539443664}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: SimpleGun_lv1 (2)
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -5672,7 +5674,7 @@ GameObject:
   - component: {fileID: 1552451251}
   - component: {fileID: 1552451253}
   - component: {fileID: 1552451252}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5826,7 +5828,7 @@ GameObject:
   - component: {fileID: 1573174167}
   - component: {fileID: 1573174169}
   - component: {fileID: 1573174168}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5974,7 +5976,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1586710469}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6005,7 +6007,7 @@ GameObject:
   - component: {fileID: 1591816893}
   - component: {fileID: 1591816892}
   - component: {fileID: 1591816891}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6313,7 +6315,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1642927056}
   - component: {fileID: 1642927057}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6398,7 +6400,7 @@ GameObject:
   - component: {fileID: 1670388121}
   - component: {fileID: 1670388127}
   - component: {fileID: 1670388124}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6526,7 +6528,7 @@ GameObject:
   - component: {fileID: 1727494802}
   - component: {fileID: 1727494804}
   - component: {fileID: 1727494803}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6747,7 +6749,7 @@ GameObject:
   - component: {fileID: 1778038916}
   - component: {fileID: 1778038918}
   - component: {fileID: 1778038917}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7308,7 +7310,7 @@ GameObject:
   - component: {fileID: 1920896945}
   - component: {fileID: 1920896944}
   - component: {fileID: 1920896946}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: SimpleGun_lv1
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -7619,7 +7621,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1984804412}
   - component: {fileID: 1984804413}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7798,6 +7800,8 @@ MonoBehaviour:
   gun1: {fileID: 934044446}
   gun2: {fileID: 1028540114}
   gun3: {fileID: 339747303}
+  timeTakenDuringLerp: 1.5
+  velocityOfLerp: 1.5
 --- !u!1 &2029650848
 GameObject:
   m_ObjectHideFlags: 0
@@ -7806,7 +7810,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 2029650849}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7842,7 +7846,7 @@ GameObject:
   - component: {fileID: 2039152730}
   - component: {fileID: 2039152732}
   - component: {fileID: 2039152731}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}

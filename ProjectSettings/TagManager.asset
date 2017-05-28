@@ -15,10 +15,10 @@ TagManager:
   - 
   - 
   - IgnoreCollisions
-  - sBullet_oWpn
-  - sWpn_oBullet
-  - 
-  - 
+  - sBullet
+  - oBullet
+  - sWpn
+  - oWpn
   - 
   - 
   - 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 //Won't use
 public class Column : MonoBehaviour {
-	private int gunsRemaining;
+	public int gunsRemaining { get; set; }
 	private Gun[] guns;
 
 	public Gun this[int row]
@@ -36,6 +36,13 @@ public class Column : MonoBehaviour {
 	}
 
 	public void KillColumn() {
+		for(int i = 0; i < guns.Length; i++) {
+			if (guns [i] != null) {
+				guns [i].GetComponent<Health> ().Die ();
+				guns [i] = null;
+				gunsRemaining--;
+			}
+		}
 		Rigidbody myRigidbody = GetComponent<Rigidbody> ();
 		myRigidbody.useGravity = true;
 		Vector3 dir = Quaternion.AngleAxis(60, Vector3.up) * Vector3.right;
