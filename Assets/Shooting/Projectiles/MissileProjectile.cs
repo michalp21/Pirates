@@ -1,8 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MissileProjectile : ExplosiveProjectile
+public class MissileProjectile : Projectile
 {
+	//consider moving to weaponstatsbase
+	public float blastRadius;
+	public float numberOfBlasts;
+	public float blastRadiusMultiple;
+
+	private SpriteRenderer explosionGraphic;
+
+	public override void SetUp (bool usePooling) {
+		base.SetUp (usePooling);
+		explosionGraphic = GetComponentInChildren<SpriteRenderer> ();
+	}
+
 	protected override void OnTriggerEnter(Collider other)
 	{
 		// if we hit water... kill the bullet IF it won't survive underwater (not fully implemented yet)
@@ -33,13 +45,16 @@ public class MissileProjectile : ExplosiveProjectile
 			if (hitCount >= maxPenetration)
 			{
 				CancelInvoke("Recycle");
-				Recycle(); // if hit count exceeds max hits.... kill the bullet
+				Explode(); // if hit count exceeds max hits.... kill the bullet
 			}
 		}
 	}
 
-	protected override void Explode(Collider other)
+	protected void Explode ()
 	{
-
-	} 
+		myRigid.velocity = new Vector3 (0, 0, 0);
+		GetComponent<MeshRenderer> ().enabled = false;
+		explosionGraphic.enabled = true;
+		Invoke ("Recycle", .1f);
+	}
 }

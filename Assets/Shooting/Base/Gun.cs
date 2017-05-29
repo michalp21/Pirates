@@ -47,6 +47,8 @@ public class Gun : MonoBehaviour {
 	public WeaponStatsBase weaponStats;
 	public GridPosition gridPosition;
 
+	//protected ProjectileInfo bulletInfo = new ProjectileInfo();
+
 	//Below variables should not be public
 	protected float fireRate;               // time betwen shots
 	protected float nextFireTime = 0.0f;        // able to fire again on this frame
@@ -79,9 +81,9 @@ public class Gun : MonoBehaviour {
     }
 
 	// everything fires a single round the same
-	protected virtual void FireOneShot()
+	protected virtual GameObject FireOneShot()
 	{
-		
+		return null;
 	}
 
 	public void StartBoost ()

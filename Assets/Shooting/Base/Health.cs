@@ -108,7 +108,7 @@ public class Health : MonoBehaviour
 	//param drainRate: health drained per second
 	public IEnumerator Drain(int dps)
 	{
-		while (true) {
+		while (health > 0) {
 			if (nextDrainTime < Time.time) {
 				
 				if (!isInvincible && !isDead) {

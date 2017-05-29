@@ -122,7 +122,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   psurvive: 0
-  name: Simple Gun
   damage: 5
   damageType: 0
   maxPenetration: 1

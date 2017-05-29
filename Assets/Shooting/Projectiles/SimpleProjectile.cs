@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SimpleGunProjectile : Projectile
+public class SimpleProjectile : Projectile
 {
 	protected override void OnTriggerEnter(Collider other)
 	{
