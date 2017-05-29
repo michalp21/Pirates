@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Gun_SingleShot : Gun_Physical
+public class Gun_SingleShot : Gun_Childing
 {
     public override void Fire()
     {

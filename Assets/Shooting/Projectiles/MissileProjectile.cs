@@ -8,11 +8,18 @@ public class MissileProjectile : Projectile
 	public float numberOfBlasts;
 	public float blastRadiusMultiple;
 
+	private int enemyLayer;
+
 	private SpriteRenderer explosionGraphic;
 
 	public override void SetUp (bool usePooling) {
 		base.SetUp (usePooling);
 		explosionGraphic = GetComponentInChildren<SpriteRenderer> ();
+
+		if (gameObject.layer == 9)
+			enemyLayer = 12;
+		else if (gameObject.layer == 10)
+			enemyLayer = 11;
 	}
 
 	protected override void OnTriggerEnter(Collider other)
@@ -27,13 +34,14 @@ public class MissileProjectile : Projectile
 
 		//do one for air too
 
+
 		if (other.gameObject.tag.Contains("Weapon"))
 		{
 			//coll.GetComponent<healthScript>().health -= 1;
 			Collider[] hitColliders = Physics.OverlapSphere (gameObject.transform.position, blastRadius);
 			if (hitColliders != null) {
 				foreach(Collider hitCollider in hitColliders) {
-					if (hitCollider != null && hitCollider.gameObject.tag.Contains("Weapon")) {
+					if (hitCollider != null && hitCollider.gameObject.tag.Contains("Weapon") && hitCollider.gameObject.layer == enemyLayer) {
 						Health hitObject = hitCollider.gameObject.GetComponent<Health>();
 						hitObject.Hit(damage, damageType); // send bullet info to hit object's health component
 					}

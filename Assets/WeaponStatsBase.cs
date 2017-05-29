@@ -21,9 +21,9 @@ public abstract class WeaponStatsBase : MonoBehaviour
 	//public float spread;                 // current spread of the gun
 	public float baseFireRate;		//time between each shot
 
-	public ProjectileSurvive psurvive;
+	/*public ProjectileSurvive psurvive;
 	public int damage;
-	public Element damageType;
+	public Element damageType;*/
 }
 
 //freeze blast		

@@ -6,7 +6,7 @@ using System.Collections;
 /// ADD COMPONENT DESCRIPTION HERE
 /// </summary>
 [AddComponentMenu("Scripts/Shotgun")]
-public class Gun_Shotgun : Gun_Physical
+public class Gun_Shotgun : Gun_Childing
 {
     public int pelletCount = 8;
 
