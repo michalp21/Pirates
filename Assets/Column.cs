@@ -46,8 +46,7 @@ public class Column : MonoBehaviour {
 		}
 		Rigidbody myRigidbody = gameObject.AddComponent<Rigidbody>() as Rigidbody;
 		myRigidbody.useGravity = true;
-		Vector3 dir = Quaternion.AngleAxis(60, Vector3.up) * Vector3.right;
-		myRigidbody.AddForce(dir*2);
+		gameObject.transform.parent = null;
 	}
 
 	public void initColumn() {

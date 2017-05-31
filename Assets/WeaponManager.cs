@@ -69,30 +69,31 @@ public class WeaponManager : MonoBehaviour {
 	}
 
 	public void RemoveWeapon(Gun g) {
+		float distanceToMove = 0;
 		//weaponDict.Remove (v);
 		if (weaponGrid [g.gridPosition.col].gunsRemaining > 0) { //don't want to kill a dead column
 			weaponGrid [g.gridPosition.col].RemoveWeaponFromColumn (g.gridPosition.row);
+			effectiveLength--; distanceToMove++;
 		}
-		float distanceToMove = 0;
+
 		if (weaponGrid [g.gridPosition.col].gunsRemaining == 0) {
 			if (isSelf) {
 				for (int l = g.gridPosition.col + 1; l < weaponGrid.Length; l++) {
 					if (weaponGrid [l].gunsRemaining > 0) { //don't want to kill a dead column
 						weaponGrid [l].KillColumn ();
-						effectiveLength--;
+						effectiveLength--; distanceToMove++;
 					}
 				}
-				distanceToMove = effectiveLength - g.gridPosition.col;
+				MoveShip (distanceToMove);
 			} else {
 				for (int l = g.gridPosition.col - 1; l >= 0; l--) {
 					if (weaponGrid [l].gunsRemaining > 0) { //don't want to kill a dead column
 						weaponGrid [l].KillColumn ();
-						effectiveLength--;
+						effectiveLength--; distanceToMove++;
 					}
 				}
-				distanceToMove = -1 - g.gridPosition.col;
+				MoveShip (-distanceToMove);
 			}
-			MoveShip (distanceToMove);
 		}
 
 		if (SelectedWeapons.Contains (g))
