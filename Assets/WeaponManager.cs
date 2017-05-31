@@ -70,26 +70,30 @@ public class WeaponManager : MonoBehaviour {
 
 	public void RemoveWeapon(Gun g) {
 		//weaponDict.Remove (v);
-		weaponGrid[g.gridPosition.col].RemoveWeaponFromColumn(g.gridPosition.row);
-
+		if (weaponGrid [g.gridPosition.col].gunsRemaining > 0) { //don't want to kill a dead column
+			weaponGrid [g.gridPosition.col].RemoveWeaponFromColumn (g.gridPosition.row);
+		}
 		float distanceToMove = 0;
 		if (weaponGrid [g.gridPosition.col].gunsRemaining == 0) {
 			if (isSelf) {
-				for (int i = g.gridPosition.col + 1; i < weaponGrid.Length; i++) {
-					weaponGrid [i].KillColumn ();
-					effectiveLength--;
+				for (int l = g.gridPosition.col + 1; l < weaponGrid.Length; l++) {
+					if (weaponGrid [l].gunsRemaining > 0) { //don't want to kill a dead column
+						weaponGrid [l].KillColumn ();
+						effectiveLength--;
+					}
 				}
 				distanceToMove = effectiveLength - g.gridPosition.col;
 			} else {
-				for (int i = g.gridPosition.col - 1; i >= 0; i--) {
-					weaponGrid [i].KillColumn ();
-					effectiveLength--;
+				for (int l = g.gridPosition.col - 1; l >= 0; l--) {
+					if (weaponGrid [l].gunsRemaining > 0) { //don't want to kill a dead column
+						weaponGrid [l].KillColumn ();
+						effectiveLength--;
+					}
 				}
 				distanceToMove = -1 - g.gridPosition.col;
 			}
 			MoveShip (distanceToMove);
 		}
-
 
 		if (SelectedWeapons.Contains (g))
 			SelectedWeapons.Remove (g);
@@ -190,22 +194,34 @@ public class WeaponManager : MonoBehaviour {
 		}
 	}
 
+	public bool ToggleSelectIndividual(int k, int l, bool s) {
+		
+		if (s) {
+			if (weaponGrid [l][k] != null && !weaponGrid [l][k].isSelected) {
+				SelectedWeapons.Add (weaponGrid [l] [k]);
+				weaponGrid [l][k].isSelected = s;
+				weaponGrid [l][k].GetComponent<SpriteRenderer> ().enabled = s;
+			}
+			return true;
+		} else {
+			if (weaponGrid [l][k] != null) {
+				SelectedWeapons.Remove (weaponGrid [l] [k]);
+				weaponGrid [l][k].isSelected = false;
+				weaponGrid [l][k].GetComponent<SpriteRenderer> ().enabled = false;
+			}
+			return false;
+		}
+
+	}
+
 	public bool ToggleSelectRow(int k, bool selected) {
 		if (!selected) {
 			for (int l = 0; l < weaponGrid.Length; l++)
-				if (weaponGrid [l][k] != null && !weaponGrid [l][k].isSelected) {
-					SelectedWeapons.Add (weaponGrid [l][k]);
-					weaponGrid [l][k].isSelected = true;
-					weaponGrid [l][k].GetComponent<SpriteRenderer> ().enabled = true;
-				}
+				ToggleSelectIndividual (k, l, true);
 			return true;
 		} else {
 			for (int l = 0; l < weaponGrid.Length; l++)
-				if (weaponGrid [l][k] != null) {
-					SelectedWeapons.Remove (weaponGrid [l][k]);
-					weaponGrid [l][k].isSelected = false;
-					weaponGrid [l][k].GetComponent<SpriteRenderer> ().enabled = false;
-				}
+				ToggleSelectIndividual (k, l, false);
 			return false;
 		}
 	}
@@ -213,19 +229,11 @@ public class WeaponManager : MonoBehaviour {
 	public bool ToggleSelectColumn(int l, bool selected) {
 		if (!selected) {
 			for (int k = 0; k < weaponGrid[l].GetLen(); k++)
-				if (weaponGrid [l][k] != null && !weaponGrid [l][k].isSelected) {
-					SelectedWeapons.Add (weaponGrid [l][k]);
-					weaponGrid [l][k].isSelected = true;
-					weaponGrid [l][k].GetComponent<SpriteRenderer> ().enabled = true;
-				}
+				ToggleSelectIndividual (k, l, true);
 			return true;
 		} else {
 			for (int k = 0; k < weaponGrid[l].GetLen(); k++)
-				if (weaponGrid [l][k] != null) {
-					SelectedWeapons.Remove (weaponGrid [l][k]);
-					weaponGrid [l][k].isSelected = false;
-					weaponGrid [l][k].GetComponent<SpriteRenderer> ().enabled = false;
-				}
+				ToggleSelectIndividual (k, l, false);
 			return false;
 		}
 	}
@@ -293,7 +301,6 @@ public class WeaponManager : MonoBehaviour {
 			float timeSinceStarted = Time.time - timeStartedLerping;
 			float percentageComplete = timeSinceStarted / timeTakenDuringLerp;
 			transform.position = Vector3.Lerp (startPosition, endPosition, percentageComplete);
-			Debug.Log (transform.position);
 
 			if (percentageComplete >= 1.0f)
 				isLerping = false;

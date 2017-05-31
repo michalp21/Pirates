@@ -41,7 +41,7 @@ public enum WeaponType
 [RequireComponent (typeof (WeaponStatsBase))]
 public class Gun : MonoBehaviour {
 	public int currentLevel;
-	public bool isSelf; //as opposed to the opponent //isSelf will also be a variable in weaponstatsmanager when I get to networking
+	public bool isSelf; //make into property when don't need inspector anymore? //as opposed to the opponent //isSelf will also be a variable in weaponstatsmanager
 	public bool isSelected { get; set; }
 	//public bool isSelected;
 	public WeaponStatsBase weaponStats;

@@ -110,7 +110,7 @@ public class Target : MonoBehaviour {
 			yield return null;
 		}
 		canFire = true;
-		while (true) {
+		while (target != null) {
 			Vector3 lookDirection = target.transform.position - transform.position;
 			float angle = Mathf.Atan2 (lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
 			Quaternion newRotation = Quaternion.AngleAxis (angle, Vector3.forward);

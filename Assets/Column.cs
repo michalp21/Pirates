@@ -38,12 +38,13 @@ public class Column : MonoBehaviour {
 	public void KillColumn() {
 		for(int i = 0; i < guns.Length; i++) {
 			if (guns [i] != null) {
-				guns [i].GetComponent<Health> ().Die ();
-				guns [i] = null;
 				gunsRemaining--;
+				Gun deadGun = guns[i];
+				guns [i] = null;
+				deadGun.GetComponent<Health> ().Die (); //statement must come last
 			}
 		}
-		Rigidbody myRigidbody = GetComponent<Rigidbody> ();
+		Rigidbody myRigidbody = gameObject.AddComponent<Rigidbody>() as Rigidbody;
 		myRigidbody.useGravity = true;
 		Vector3 dir = Quaternion.AngleAxis(60, Vector3.up) * Vector3.right;
 		myRigidbody.AddForce(dir*2);

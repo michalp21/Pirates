@@ -17,8 +17,8 @@ public class Health : MonoBehaviour
     public int regenAmount = 1;
     public bool isDead = false;
 	protected bool isInvincible = false;
-	public float maxHealth { get; set; }
-	public float health;
+	public int maxHealth { get; set; }
+	public int health;
 
 	public Slider healthBarSlider;
 
@@ -96,13 +96,9 @@ public class Health : MonoBehaviour
 			weaponManager.TakeDamage (damage);
 			healthBarSlider.value -= damage;
 
-			if (health <= 0)
-            {
-                health = 0;
-                isDead = true;
-                Die();
-				weaponManager.RemoveWeapon (gameObject.GetComponent<Gun> ());
-            }
+			if (health <= 0) {
+				Die ();
+			}
         }
     }
 	//param drainRate: health drained per second
@@ -117,10 +113,7 @@ public class Health : MonoBehaviour
 					healthBarSlider.value -= DRAIN_PER_FRAME;
 
 					if (health <= 0) {
-						health = 0;
-						isDead = true;
 						Die ();
-						weaponManager.RemoveWeapon (gameObject.GetComponent<Gun> ());
 					}
 				}
 				nextDrainTime = Time.time + DRAIN_PER_FRAME / (float)dps;
@@ -148,7 +141,11 @@ public class Health : MonoBehaviour
     }
 
     public virtual void Die()
-    {
+	{
+		weaponManager.TakeDamage (health);
+		health = 0;
+		isDead = true;
+		weaponManager.RemoveWeapon (gameObject.GetComponent<Gun> ());
         // send any messages to the player script here to tell it it's dead and to stop taking input
         // or any other script you might need to let know that it died
         if (useObjectPooling)
