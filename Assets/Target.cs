@@ -10,8 +10,7 @@ public class Target : MonoBehaviour {
 	
 	//public string enemyID; //not used or implemented yet
 
-	private bool isTargeting;
-	private bool isManual; //if false: auto targeting
+	private bool isLockedOn;
 	private GameObject target;
 	private Collider[] hitColliders;
 	private Coroutine currentCoroutine;
@@ -19,12 +18,14 @@ public class Target : MonoBehaviour {
 	private Vector3 targetPoint;
 	private Quaternion targetRotation;
 
+	public bool isManual { get; set; } //if false: auto targeting
 	public bool canFire { get; set; }
 
 	void Start () {
 		weaponStats = GetComponentInParent<WeaponStatsBase> ();
 		//target = null;
-		isTargeting = false;
+		isLockedOn = false;
+		isManual = false;
 		currentCoroutine = null;
 	}
 
@@ -120,9 +121,15 @@ public class Target : MonoBehaviour {
 		}
 	}
 
-	public void manualTarget()
+	public void manualTarget(Gun newTarget)
 	{
-		
+		if (newTarget != null) {
+			target = newTarget.gameObject;
+			isManual = true;
+			isLockedOn = true;
+			StopCoroutine (currentCoroutine);
+			currentCoroutine = StartCoroutine (RotateTo ());
+		}
 	}
 
 	// Update is called once per frame
@@ -130,22 +137,27 @@ public class Target : MonoBehaviour {
 		//float t = 0f;
 		//Quaternion fromRotate = transform.rotation;
 
-		if (isTargeting == false) {
-			getInRangeTarget ();
-			target = findClosestInRange();
-			weaponsInRange.Clear();
-			if (target != null) {
-				isTargeting = true;
-				currentCoroutine = StartCoroutine (RotateTo ());
+		if (!isManual) {
+			if (!isLockedOn) {
+				getInRangeTarget ();
+				target = findClosestInRange ();
+				weaponsInRange.Clear ();
+				if (target != null) {
+					isLockedOn = true;
+					currentCoroutine = StartCoroutine (RotateTo ());
+				}
+			} else {
+				if (target == null || target.activeSelf == false || target.GetComponent<Health> ().isDead ||
+				    Vector3.Distance (gameObject.transform.position, target.transform.position) > weaponStats.targetRange) {
+					isLockedOn = false;
+					StopCoroutine (currentCoroutine);
+				}
 			}
 		} else {
 			if (target == null || target.activeSelf == false || target.GetComponent<Health> ().isDead ||
-				Vector3.Distance (gameObject.transform.position, target.transform.position) > weaponStats.targetRange) {
-				isTargeting = false;
+			    Vector3.Distance (gameObject.transform.position, target.transform.position) > weaponStats.targetRange) {
+				isLockedOn = false;
 				StopCoroutine (currentCoroutine);
-			} else {
-				//pointToTarget (fromRotate, t);
-				//StartCoroutine (RotateTo());
 			}
 		}
 	}

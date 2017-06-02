@@ -14,7 +14,6 @@ public class WeaponManager : MonoBehaviour {
 	public GenerateSelectorButtons selectorScript; //inspector
 	public bool isSelf; //TEMPORARY
 
-	//public Dictionary<Vector3, Gun> weaponDict;
 	private Column[] weaponGrid;
 	public List<Gun> SelectedWeapons;
 	private int effectiveLength;
@@ -63,14 +62,12 @@ public class WeaponManager : MonoBehaviour {
 		Gun[] childrenWeapons = GetComponentsInChildren<Gun> ();
 		foreach (Gun weapon in childrenWeapons)
 		{
-			//weaponGrid.Add (weapon.gameObject.transform.position, weapon);
 			maxHealth += weapon.GetComponent<WeaponStatsBase> ().health;
 		}
 	}
 
 	public void RemoveWeapon(Gun g) {
 		float distanceToMove = 0;
-		//weaponDict.Remove (v);
 		if (weaponGrid [g.gridPosition.col].gunsRemaining > 0) { //don't want to kill a dead column
 			weaponGrid [g.gridPosition.col].RemoveWeaponFromColumn (g.gridPosition.row);
 			effectiveLength--; distanceToMove++;
@@ -165,20 +162,7 @@ public class WeaponManager : MonoBehaviour {
 
 	//loop through, call fire() on all wpwns
 	public void FireAll() {
-		/*foreach(KeyValuePair<Vector3, Gun> weapon in weaponDict)
-		{
-			//weapon.Value.Fire();
-			// do something with entry.Value or entry.Key
 
-			if (weapon.Value.GetComponent<WeaponStatsBase> ().typeOfWeapon == WeaponType.FULLAUTO)
-			{
-				weapon.Value.Fire();
-			}
-			else
-			{
-				Debug.Log("Chaw haw haw, it's not FULLAUTO");
-			}
-		}*/
 		for (int l = 0; l < weaponGrid.Length; l++) {
 			for (int k = 0; k < weaponGrid[l].GetLen(); k++) {
 				if (weaponGrid [l][k] == null)
@@ -257,28 +241,24 @@ public class WeaponManager : MonoBehaviour {
 		return true;
 	}
 
-	public void StartBoostOnSelected() {
-		//loop through, call boost() on all wpwns
-		/*foreach(KeyValuePair<Vector3, Gun> entry in weaponDict)
-		{
-			entry.Value.StartBoost();
-			// do something with entry.Value or entry.Key
-		}*/
+	public void StartBoostSelected() {
 		foreach (Gun weapon in SelectedWeapons)
 			if (weapon != null)
 				weapon.StartBoost ();
 	}
 
-	public void StopBoostOnSelected() {
-		//loop through, call boost() on all wpwns
-		/*foreach(KeyValuePair<Vector3, Gun> entry in weaponDict)
-		{
-			entry.Value.StopBoost();
-			// do something with entry.Value or entry.Key
-		}*/
+	public void StopBoostSelected() {
 		foreach (Gun weapon in SelectedWeapons)
 			if (weapon != null)
 				weapon.StopBoost ();
+	}
+
+	public void TargetSelected(Gun newTarget) {
+		foreach (Gun weapon in SelectedWeapons)
+			if (weapon != null) {
+				Debug.Log (newTarget);
+				weapon.GetComponentInChildren<Target> ().manualTarget (newTarget);
+			}
 	}
 
 	public int GetNumRowsInGrid() {

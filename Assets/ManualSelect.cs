@@ -11,11 +11,16 @@ public class ManualSelect : MonoBehaviour {
 
 			if (Physics.Raycast (ray, out hit, 100)) {
 				Gun weapon = hit.transform.gameObject.GetComponent<Gun> ();
-				if (weapon != null && weapon.isSelf) {
-					if (!weapon.isSelected) {
-						GetComponent<WeaponManager> ().ToggleSelectIndividual(weapon.gridPosition.row, weapon.gridPosition.col, true);
+				if (weapon != null) {
+					if (weapon.isSelf) {
+						if (!weapon.isSelected) {
+							GetComponent<WeaponManager> ().ToggleSelectIndividual (weapon.gridPosition.row, weapon.gridPosition.col, true);
+						} else {
+							GetComponent<WeaponManager> ().ToggleSelectIndividual (weapon.gridPosition.row, weapon.gridPosition.col, false);
+						}
 					} else {
-						GetComponent<WeaponManager> ().ToggleSelectIndividual(weapon.gridPosition.row, weapon.gridPosition.col, false);
+						Debug.Log ("Other weapon");
+						GetComponent<WeaponManager> ().TargetSelected (weapon);
 					}
 				}
 			}
