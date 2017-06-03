@@ -242,9 +242,12 @@ public class WeaponManager : MonoBehaviour {
 	}
 
 	public void StartBoostSelected() {
+		Debug.Log ("Start");
 		foreach (Gun weapon in SelectedWeapons)
-			if (weapon != null)
+			if (weapon != null) {
+				Debug.Log ("not null");
 				weapon.StartBoost ();
+			}
 	}
 
 	public void StopBoostSelected() {
