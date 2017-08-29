@@ -10,7 +10,7 @@ public abstract class SelectorPointerListener : MonoBehaviour, IPointerUpHandler
 	//public UnityEvent onUnSelected;
 	protected bool isSetUp;
 	protected Camera camera;
-	protected WeaponManager ship;
+	protected WeaponManager ship; //reference to "parent"
 	protected Vector3 initialScaleSelf; //initial scale of self
 	protected float initialSize; //width or height of column or row, respectively
 	protected int index; //row or column

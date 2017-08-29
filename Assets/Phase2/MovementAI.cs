@@ -35,12 +35,11 @@ public class MovementAI : AIPath {
 		 * when the current position is some distance away from the previous spawn-point
 		 */
 	public override void OnTargetReached () {
-		if (endOfPathEffect != null && Vector3.Distance(tr.position, lastTarget) > 1) {
-			GameObject.Instantiate(endOfPathEffect, tr.position, tr.rotation);
+		if (endOfPathEffect != null && Vector3.Distance (tr.position, lastTarget) > 1) {
+			GameObject.Instantiate (endOfPathEffect, tr.position, tr.rotation);
 			lastTarget = tr.position;
 		}
 	}
-
 
 	//SET ANIMATIONS, TRANSITIONS, ETC
 	protected override void Update () {
@@ -51,12 +50,9 @@ public class MovementAI : AIPath {
 		relVelocity.y = 0;
 
 		if (relVelocity.sqrMagnitude <= sleepVelocity*sleepVelocity) {
-			Debug.Log (relVelocity.sqrMagnitude + "stop");
 			anim.SetBool("isWalking", false);
 		} else {
-			Debug.Log (relVelocity.sqrMagnitude + "go");
 			anim.SetBool("isWalking", true);
 		}
-		Debug.Log ("---");
 	}
 }
