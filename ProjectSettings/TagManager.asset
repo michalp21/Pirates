@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Weapon
+  - Goal
+  - Crew
   layers:
   - Default
   - TransparentFX
@@ -17,8 +19,8 @@ TagManager:
   - IgnoreCollisions
   - sBullet
   - oBullet
-  - sWpn
-  - oWpn
+  - sShooter
+  - oShooter
   - Ground
   - Obstacles
   - 

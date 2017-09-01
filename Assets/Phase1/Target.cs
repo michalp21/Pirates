@@ -4,19 +4,19 @@ using System.Collections.Generic;
 
 public class Target : MonoBehaviour {
 
-	private List<GameObject> weaponsInRange = new List<GameObject>(); //DS
-	private WeaponStatsBase weaponStats;
+	List<GameObject> weaponsInRange = new List<GameObject>(); //DS
+	WeaponStatsBase weaponStats;
 	//maybe add a targeting variable to weaponStats (enemy or player)
 	
 	//public string enemyID; //not used or implemented yet
 
-	private bool isLockedOn;
-	private GameObject target;
-	private Collider[] hitColliders;
-	private Coroutine currentCoroutine;
+	bool isLockedOn;
+	GameObject target;
+	Collider[] hitColliders;
+	Coroutine currentCoroutine;
 	
-	private Vector3 targetPoint;
-	private Quaternion targetRotation;
+	Vector3 targetPoint;
+	Quaternion targetRotation;
 
 	public bool isManual { get; set; } //if false: auto targeting
 	public bool canFire { get; set; }

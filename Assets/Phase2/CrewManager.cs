@@ -22,10 +22,11 @@ public class CrewManager : MonoBehaviour {
 	[SerializeField] GameObject buttonPrefab;
 
 	const int BUTTON_WIDTH = 200;
-	const int BUTTON_SPACING = 5;
+	const int BUTTON_SPACING = 7;
+	const int LEFT_PADDING = 14;
 
 	//Delegate for when something is spawned
-	public delegate void UnitEventHandler (GameObject myPrefab);
+	public delegate void UnitEventHandler ();
 	public static event UnitEventHandler onInstantiated;
 
 	// Probably get from some database later
@@ -51,6 +52,8 @@ public class CrewManager : MonoBehaviour {
 		//temp
 		FetchedCrew aCrew = new FetchedCrew (1, "Reptile"); //DONT REPLACE FETCHEDCREW WITH CREW: because fetching from db will make things different
 		currentCrew.Add (aCrew);
+		currentCrew.Add (aCrew);
+		Debug.Log (currentCrew[0] + " " + currentCrew[1]);
 	}
 
 	void initCrewIcons() {
@@ -62,9 +65,9 @@ public class CrewManager : MonoBehaviour {
 				if (possibleCrewPrefabs [j].name == currentCrew [i].name) {
 					//create button, add CrewIcon component, and set parent to (this) CrewManager
 					GameObject myButton = (GameObject)Instantiate (buttonPrefab);
-					aCrewIcon = CrewIcon.CreateComponent(myButton, 5, currentCrew [i].name, possibleCrewPrefabs [i], this); //add to newly created button
+					aCrewIcon = CrewIcon.CreateComponent(myButton, 5, currentCrew [i].name, possibleCrewPrefabs [j], this); //add to newly created button
 					RectTransform myRectTransform = myButton.GetComponent<RectTransform>();
-					myRectTransform.localPosition += new Vector3((BUTTON_WIDTH + BUTTON_SPACING) * crewIcons.Count,0,0);
+					myRectTransform.localPosition += new Vector3(LEFT_PADDING + (BUTTON_WIDTH + BUTTON_SPACING) * crewIcons.Count,0,0);
 					myButton.transform.SetParent(transform, false);
 				}
 			}
@@ -72,7 +75,6 @@ public class CrewManager : MonoBehaviour {
 			if (aCrewIcon != null) {
 				crewIcons.Add (aCrewIcon);
 			}
-			Debug.Log (aCrewIcon);
 		}
 	}
 
@@ -84,7 +86,7 @@ public class CrewManager : MonoBehaviour {
 		if (Input.GetMouseButtonDown (0)) {
 			crewIcons [selected].InstantiateCrew ();
 			if (onInstantiated != null)
-				onInstantiated (crewIcons [selected].crewPrefab);
+				onInstantiated ();
 		}
 	}
 }

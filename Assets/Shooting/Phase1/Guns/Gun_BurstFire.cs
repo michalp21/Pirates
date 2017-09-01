@@ -7,7 +7,7 @@ using System.Collections.Generic;
 /// ADD COMPONENT DESCRIPTION HERE
 /// </summary>
 [AddComponentMenu("Scripts/Gun_BurstFire")]
-public class Gun_BurstFire : Gun_Childing
+public class Gun_BurstFire : Gun_Nonchilding
 {
     public int burstCount = 3;
     public float burstLag = 0.1f;

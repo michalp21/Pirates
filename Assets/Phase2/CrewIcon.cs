@@ -13,6 +13,8 @@ public class CrewIcon : MonoBehaviour, IPointerUpHandler { //Don't inherit from 
 	Ray ray;
 	RaycastHit hit;
 
+	int INSTANTIATED_LAYER = 11;
+
 	//credit: Cawas
 	//Factory method, behaving similar to AddComponent, but with ability to add parameters
 	public static CrewIcon CreateComponent (GameObject go, int i, string n, GameObject p, CrewManager cm) {
@@ -32,10 +34,13 @@ public class CrewIcon : MonoBehaviour, IPointerUpHandler { //Don't inherit from 
 		myManager.changeSelected (name);
 	}
 
+	//** WARNING: Finds pathfinding destination by name **
 	public void InstantiateCrew() {
 		ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 		if (Physics.Raycast (ray, out hit)) {
-			Instantiate (crewPrefab, new Vector3 (hit.point.x, hit.point.y, hit.point.z), Quaternion.identity);
+			GameObject instantiatedCrew = Instantiate (crewPrefab, new Vector3 (hit.point.x, hit.point.y, hit.point.z), Quaternion.identity);
+			instantiatedCrew.layer = INSTANTIATED_LAYER;
+			//** targetting occurs in CrewTarget.cs upon instantiation **
 		}
 		number--;
 	}

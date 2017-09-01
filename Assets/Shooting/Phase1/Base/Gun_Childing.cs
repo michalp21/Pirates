@@ -4,12 +4,6 @@ using System.Collections;
 //Guns that shoot things that are not childed to the guns
 public class Gun_Childing : Gun {
     public GameObject projectile = null;        // projectile prefab... whatever this gun shoots
-    
-    protected override void Start()
-    {
-        base.Start();
-        //SetupBulletInfo(); // set a majority of the projectile info
-    }
 	
 	protected override GameObject FireOneShot () {
 		if (GetComponentInChildren<Target> ().canFire) {
@@ -39,7 +33,8 @@ public class Gun_Childing : Gun {
 					newBullet.layer = 10;
 	        }
 
-			newBullet.GetComponent<Damager>().SetUp(weaponStats.usePooling); // send bullet info to spawned projectile
+			newBullet.GetComponent<Transform> ().SetParent (weaponStats.muzzlePoint);
+			newBullet.GetComponent<Damager> ().SetUp (weaponStats.usePooling); // send bullet info to spawned projectile
 			//Debug.Log ("returned bullet");
 			return newBullet;
 		}
@@ -47,4 +42,5 @@ public class Gun_Childing : Gun {
 		//Debug.Log ("returned null");
 		return null;
     }
+
 }
