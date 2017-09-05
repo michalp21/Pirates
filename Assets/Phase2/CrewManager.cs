@@ -56,6 +56,7 @@ public class CrewManager : MonoBehaviour {
 		Debug.Log (currentCrew[0] + " " + currentCrew[1]);
 	}
 
+	//Possibly refactor the "name" variables because it was hiding the gamobject "name"
 	void initCrewIcons() {
 		crewIcons = new List<CrewIcon> ();
 
@@ -79,12 +80,12 @@ public class CrewManager : MonoBehaviour {
 	}
 
 	public void changeSelected(string s) {
-		selected = crewIcons.FindIndex(a => a.name == s);
+		selected = crewIcons.FindIndex(a => a.crewName == s);
 	}
 
 	void Update () {
 		if (Input.GetMouseButtonDown (0)) {
-			crewIcons [selected].InstantiateCrew ();
+			crewIcons [selected].TryInstantiateCrew ();
 			if (onInstantiated != null)
 				onInstantiated ();
 		}

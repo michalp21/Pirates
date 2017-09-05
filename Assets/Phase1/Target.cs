@@ -38,7 +38,7 @@ public class Target : MonoBehaviour {
 		currentCoroutine = null;
 	}*/
 
-	protected void pointToTarget(Quaternion fromRotate, float startTime)
+	protected void PointToTarget(Quaternion fromRotate, float startTime)
 	{
 		//Maybe have to move this back into Update()
 		Vector3 lookDirection = target.transform.position - transform.position;
@@ -56,7 +56,7 @@ public class Target : MonoBehaviour {
 	}
 
 	//call once before attacking
-	protected void getInRangeTarget()
+	protected void GetInRangeTarget()
 	{
 		hitColliders = Physics.OverlapSphere (gameObject.transform.position, weaponStats.targetRange);
 		if (hitColliders != null) {
@@ -78,7 +78,7 @@ public class Target : MonoBehaviour {
 		}
 	}
 
-	protected GameObject findClosestInRange()
+	protected void FindClosestInRange()
 	{
 		//loop through all gameobjects in DS and find closest one
 		float distance;
@@ -92,13 +92,14 @@ public class Target : MonoBehaviour {
 			}
 		}
 
-		return closestObject;
+		target = closestObject;
 	}
 
 	IEnumerator RotateTo() {
 		float i = 0.0f;
 		float rate = 1.0f / 1;
 
+		//turn at fixed speed towards target
 		canFire = false;
 		while (i < 1.0) {
 			Vector3 lookDirection = target.transform.position - transform.position;
@@ -110,6 +111,7 @@ public class Target : MonoBehaviour {
 			transform.rotation = Quaternion.Slerp (fromRotation, newRotation, i);
 			yield return null;
 		}
+		//once facing target, continue to face target at any rotational speed (is "locked on")
 		canFire = true;
 		while (target != null) {
 			Vector3 lookDirection = target.transform.position - transform.position;
@@ -139,8 +141,8 @@ public class Target : MonoBehaviour {
 
 		if (!isManual) {
 			if (!isLockedOn) {
-				getInRangeTarget ();
-				target = findClosestInRange ();
+				GetInRangeTarget ();
+				FindClosestInRange ();
 				weaponsInRange.Clear ();
 				if (target != null) {
 					isLockedOn = true;

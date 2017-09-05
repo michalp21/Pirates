@@ -1027,7 +1027,7 @@ GameObject:
   - component: {fileID: 377056765}
   - component: {fileID: 377056761}
   m_Layer: 12
-  m_Name: Reptile (1)
+  m_Name: Reptile2
   m_TagString: Crew
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1039,7 +1039,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 377056758}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea0827f824ee04cd680281157ad65625, type: 3}
   m_Name: 
@@ -1146,7 +1146,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 377056758}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 2.07, y: 0, z: 2.16}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.02, y: 0.02, z: 0.02}
   m_Children:
   - {fileID: 2128332378}
@@ -1169,6 +1169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 409ef188cddd744e8a90f2d68505fc12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  other: {fileID: 0}
 --- !u!136 &377056766
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1178,10 +1179,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
+  m_Radius: 20
   m_Height: 1
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 20, z: 0}
 --- !u!1 &381352448
 GameObject:
   m_ObjectHideFlags: 0
@@ -1382,7 +1383,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 405456015}
   m_LocalRotation: {x: 0.35355338, y: -0.35355338, z: 0.1464466, w: 0.8535535}
-  m_LocalPosition: {x: 6.6400003, y: 5, z: -1.22}
+  m_LocalPosition: {x: 2.6, y: 3.96, z: -0.43}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2338,8 +2339,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 843607271}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 2.81}
-  m_LocalScale: {x: 1, y: 1, z: 5.528952}
+  m_LocalPosition: {x: 0, y: 0.5, z: 2.99}
+  m_LocalScale: {x: 1, y: 1, z: 4.041578}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
@@ -2533,7 +2534,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4929012005691128, guid: 803d40a7f1ce84f8285203973d089e7d, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -1.17
+      value: -1.42
       objectReference: {fileID: 0}
     - target: {fileID: 4929012005691128, guid: 803d40a7f1ce84f8285203973d089e7d, type: 2}
       propertyPath: m_LocalRotation.x
@@ -2761,7 +2762,31 @@ Prefab:
     - target: {fileID: 114735615782998268, guid: 803d40a7f1ce84f8285203973d089e7d,
         type: 2}
       propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 136397261797679588, guid: 803d40a7f1ce84f8285203973d089e7d,
+        type: 2}
+      propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 136397261797679588, guid: 803d40a7f1ce84f8285203973d089e7d,
+        type: 2}
+      propertyPath: m_Height
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 136397261797679588, guid: 803d40a7f1ce84f8285203973d089e7d,
+        type: 2}
+      propertyPath: m_Radius
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 136397261797679588, guid: 803d40a7f1ce84f8285203973d089e7d,
+        type: 2}
+      propertyPath: m_Center.y
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1202585887742114, guid: 803d40a7f1ce84f8285203973d089e7d, type: 2}
+      propertyPath: m_Name
+      value: Reptile1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}

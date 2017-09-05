@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEditor;
 
 public class CrewTarget : MonoBehaviour {
 
 	MovementAI myMovementAI;
+	CrewAttack myCrewAttack;
 	GameObject manualTarget;
 	GameObject goal;
 	Collider[] hitColliders;
@@ -31,7 +33,6 @@ public class CrewTarget : MonoBehaviour {
 
 	protected void FindClosestInRange()
 	{
-		Debug.Log ("hi");
 		//loop through all gameobjects in DS and find closest one
 		float distance;
 		float minDistance = float.MaxValue;
@@ -49,6 +50,15 @@ public class CrewTarget : MonoBehaviour {
 			myMovementAI.target = null;
 	}
 
+	//Make sure radius of collider is large enough
+	void OnCollisionEnter(Collision collision) {
+		//Stop movement, start attacking
+		if (collision.collider.tag == "Crew") {
+			myMovementAI.speed = 0;
+			//myCrewAttack.Attack ();
+		}
+	}
+
 	void SetTarget() {
 		manualTarget = null;
 		GetInRangeTarget ();
@@ -56,25 +66,20 @@ public class CrewTarget : MonoBehaviour {
 		targetsInRange.Clear ();
 	}
 
-	// Use this for initialization
 	void Start () {
 		myMovementAI = GetComponent<MovementAI> ();
+		myCrewAttack = GetComponent<CrewAttack> ();
 		goal = GameObject.FindGameObjectsWithTag ("Goal").ToList().Find (g => g.layer != this.gameObject.layer);
 		SetTarget ();
+		//Only update path when another character is initialized
 		CrewManager.onInstantiated += SetTarget;
 	}
 
 	void OnDisable () {
 		CrewManager.onInstantiated -= SetTarget;
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
-		//Find closest target in the list of target colliders
-		//manualTarget = null;
-		//GetInRangeTarget ();
-		//myMovementAI.target = FindClosestInRange (); //moved to start
-		//myMovementAI.target = goal.transform;
-		//targetsInRange.Clear ();
+		
 	}
 }
