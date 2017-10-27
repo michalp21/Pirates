@@ -55,7 +55,7 @@ public class CrewTarget : MonoBehaviour {
 		//Stop movement, start attacking
 		if (collision.collider.tag == "Crew") {
 			myMovementAI.speed = 0;
-			//myCrewAttack.Attack ();
+			myCrewAttack.Attack ();
 		}
 	}
 
