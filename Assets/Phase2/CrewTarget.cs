@@ -6,6 +6,9 @@ using UnityEditor;
 
 public class CrewTarget : MonoBehaviour {
 
+	Ray ray;
+	RaycastHit hitInfo;
+	public float personalSpace;
 	MovementAI myMovementAI;
 	CrewAttack myCrewAttack;
 	GameObject manualTarget;
@@ -44,19 +47,25 @@ public class CrewTarget : MonoBehaviour {
 				closestObject = targetsInRange[i];
 			}
 		}
-		if (closestObject != null)
+		if (closestObject != null) {
+			Debug.Log(gameObject.name + " : " + closestObject);
 			myMovementAI.target = closestObject.transform;
+		}
 		else
 			myMovementAI.target = null;
 	}
 
-	//Make sure radius of collider is large enough
-	void OnCollisionEnter(Collision collision) {
-		//Stop movement, start attacking
-		if (collision.collider.tag == "Crew") {
-			myMovementAI.speed = 0;
-			myCrewAttack.Attack ();
+	bool checkCollision() {
+		Debug.DrawRay (transform.position + new Vector3(0f,.5f,0f), transform.forward * personalSpace, Color.yellow);
+		if (Physics.Raycast (transform.position + new Vector3(0f,.5f,0f), transform.forward, out hitInfo, personalSpace)) {
+			//Stop movement, start attacking
+			if (hitInfo.collider.tag == "Crew" && hitInfo.collider.gameObject.layer != gameObject.layer) {
+				myMovementAI.speed = 0;
+				myCrewAttack.Attack ();
+				return true;
+			}
 		}
+		return false;
 	}
 
 	void SetTarget() {
@@ -80,6 +89,6 @@ public class CrewTarget : MonoBehaviour {
 	}
 
 	void Update () {
-		
+		checkCollision ();
 	}
 }
