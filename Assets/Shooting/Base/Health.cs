@@ -29,6 +29,9 @@ public class Health : MonoBehaviour
 	protected int DRAIN_PER_FRAME = 1;
 	protected int REGEN_PER_FRAME = 1;
 
+	//coroutine for draining from laser / other damagers
+	private Coroutine drainCoroutine;
+
 	void Start ()
 	{
 		weaponStats = GetComponentInChildren<WeaponStatsBase> (); //maybe change to 2nd parameter (See above)
@@ -56,6 +59,7 @@ public class Health : MonoBehaviour
         isDead = false; // make sure its not dead to start 
         health = maxHealth;
 		healthBarSlider.value = health;
+
     }
 
 	public virtual void Hit(int damage, Element damageType)
@@ -101,6 +105,17 @@ public class Health : MonoBehaviour
 			}
         }
     }
+
+	public void startDrain(int dps){
+		drainCoroutine = StartCoroutine (Drain (dps));
+	}
+
+	public void stopDrain(){
+		if (drainCoroutine != null) {
+			StopCoroutine (drainCoroutine);
+		}
+	}
+
 	//param drainRate: health drained per second
 	public IEnumerator Drain(int dps)
 	{

@@ -16,10 +16,10 @@ public class MissileProjectile : Projectile
 		base.SetUp (usePooling);
 		explosionGraphic = GetComponentInChildren<SpriteRenderer> ();
 
-		if (gameObject.layer == 9)
-			enemyLayer = 12;
-		else if (gameObject.layer == 10)
-			enemyLayer = 11;
+		if (gameObject.layer == S_BULLET)
+			enemyLayer = O_SHOOTER;
+		else if (gameObject.layer == O_BULLET)
+			enemyLayer = S_SHOOTER;
 	}
 
 	protected override void OnTriggerEnter(Collider other)

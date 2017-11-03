@@ -12,10 +12,11 @@ public class Laser : Damager {
 	private LineRenderer lr;
 	private int mask;
 
-	public Transform limit;
+	//list for keeping track of the targets that the laser has hit
+	//used for keeping track of which gameobjects to start or stop coroutines
+	private List<GameObject> alreadyHit;
 
-	private readonly int sWpnLayer = 11;
-	private readonly int oWpnLayer = 12;
+	public Transform limit;
 
 	public override void SetUp(bool usePooling)
 	{
@@ -48,22 +49,37 @@ public class Laser : Damager {
 	void Start () {
 		limit = GetComponentsInChildren<Transform> ()[1];
 		lr = GetComponent<LineRenderer> ();
-		if (gameObject.layer == 9)
-			mask = 1 << oWpnLayer;
-		else if (gameObject.layer == 10)
-			mask = 1 << sWpnLayer;
+		if (gameObject.layer == S_BULLET)
+			mask = 1 << O_SHOOTER;
+		else if (gameObject.layer == O_BULLET)
+			mask = 1 << S_SHOOTER;
 	}
 
 	void Update () {
 		lr.SetPosition (0, transform.position);
 		lr.SetPosition (1, limit.position);
 		RaycastHit[] hits = Physics.RaycastAll (transform.position, transform.right, INFINITY, mask);
+
+		//create a temporary duplicate list of the objects this laser has hit
+		List<GameObject> temp = new List<GameObject>(alreadyHit);
+
 		if (hits.Length > 0) {
 			foreach (RaycastHit hit in hits) {
 				if (hit.collider) {
-					StartCoroutine (hit.collider.GetComponent<Health> ().Drain (damage));
+					GameObject objectHit = hit.collider.gameObject;
+					if (alreadyHit.Contains (objectHit)) {
+						temp.Remove (objectHit);
+					} else {
+						objectHit.GetComponent<Health> ().startDrain (damage);
+						alreadyHit.Add (objectHit);
+					}
 				}
 			}
+		}
+
+		foreach (GameObject e in temp) {
+			e.GetComponent<Health> ().stopDrain ();
+			alreadyHit.Remove (e);
 		}
 	}
 }
