@@ -137,28 +137,6 @@ public class Health : MonoBehaviour
 		}
 	}
 
-	/*
-	public IEnumerator Drain(int dps, Laser source)
-	{
-		while (health > 0) {
-			if (nextDrainTime < Time.time) {
-
-				if (!isInvincible && !isDead) {
-					health -= DRAIN_PER_FRAME;
-					weaponManager.TakeDamage (DRAIN_PER_FRAME);
-					healthBarSlider.value -= DRAIN_PER_FRAME;
-
-					if (health <= 0) {
-						source.removeHit (this.gameObject);
-						Die ();
-					}
-				}
-				nextDrainTime = Time.time + DRAIN_PER_FRAME / (float)dps;
-			}
-			yield return null;
-		}
-	}*/
-
 	//param drainRate: health regenerated per second
 	public IEnumerator Regen(int rps)
     {

@@ -56,10 +56,6 @@ public class Laser : Damager {
 			mask = 1 << S_SHOOTER;
 	}
 
-	public void removeHit(GameObject e) {
-		alreadyHit.Remove (e);
-	}
-
 	void Update () {
 		lr.SetPosition (0, transform.position);
 		lr.SetPosition (1, limit.position);
