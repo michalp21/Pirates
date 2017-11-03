@@ -27,6 +27,7 @@ public class Laser : Damager {
 		//backCollidersToIgnore.Add (myInfo.owner.GetComponent<Collider>());
 		//Invoke("Recycle", projectileLifeTime); // set a life time for this projectile
 		usePool = usePooling;
+		alreadyHit = new List<GameObject> ();
 	}
 
 	protected virtual void Recycle()
@@ -55,11 +56,19 @@ public class Laser : Damager {
 			mask = 1 << S_SHOOTER;
 	}
 
+	public void removeHit(GameObject e) {
+		alreadyHit.Remove (e);
+	}
+
 	void Update () {
 		lr.SetPosition (0, transform.position);
 		lr.SetPosition (1, limit.position);
 		RaycastHit[] hits = Physics.RaycastAll (transform.position, transform.right, INFINITY, mask);
-
+		foreach (GameObject e in alreadyHit.ToArray()) {
+			if (e == null) {
+				alreadyHit.Remove (e);
+			}
+		}
 		//create a temporary duplicate list of the objects this laser has hit
 		List<GameObject> temp = new List<GameObject>(alreadyHit);
 
@@ -81,5 +90,8 @@ public class Laser : Damager {
 			e.GetComponent<Health> ().stopDrain ();
 			alreadyHit.Remove (e);
 		}
+
+
+
 	}
 }
