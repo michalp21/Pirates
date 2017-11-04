@@ -138,7 +138,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &920931381
 GameObject:
@@ -220,11 +220,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 920931381}
   m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
-  m_LocalPosition: {x: 7, y: 0, z: -0.00000002987693}
+  m_LocalPosition: {x: 9, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 0.45591956, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
 --- !u!114 &920931386
 MonoBehaviour:
@@ -242,7 +242,7 @@ MonoBehaviour:
   pos_a_prev: {x: 0, y: 0, z: 0}
   pos_a: {x: 0, y: 0, z: 0}
   speed_a_max: 0
-  vel_a_max: {x: -2, y: 0, z: 0}
+  vel_a_max: {x: 2, y: 0, z: 0}
   vel_a: {x: 0, y: 0, z: 0}
 --- !u!1 &1213541451
 GameObject:
@@ -519,5 +519,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

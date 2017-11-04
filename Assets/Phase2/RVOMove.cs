@@ -6,7 +6,7 @@ using System;
 using Random = UnityEngine.Random;
 
 public class RVOMove : MonoBehaviour {
-	public int NUM_TEST_VELOCITIES = 20;
+	public int NUM_TEST_VELOCITIES = 100;
 	Vector3[] testVelocities;
 	public Transform goal;
 
@@ -25,6 +25,7 @@ public class RVOMove : MonoBehaviour {
 		pos_a = transform.position;
 		pos_a_prev = transform.position - vel_a_max * Time.deltaTime;
 		speed_a_max = vel_a_max.magnitude;
+		vel_a = getDirection ();
 	}
 
 	void GetInRange() {
@@ -87,13 +88,27 @@ public class RVOMove : MonoBehaviour {
 	void GenerateTestVelocities () {
 		testVelocities = new Vector3[NUM_TEST_VELOCITIES];
 		for (int i = 0; i < testVelocities.Length; i++) {
-			float x = Random.Range (-(float)speed_a_max, (float)speed_a_max);
+			float x = Random.Range (-1 * (float)speed_a_max, (float)speed_a_max);
 			float rand_z = (float)Math.Sqrt (vel_a_max.sqrMagnitude - Math.Pow(x,2));
-			float z = Random.Range (-rand_z, rand_z);
+			float z = Random.Range (-1 * rand_z, rand_z);
 			Vector3 v = new Vector3 (x,0,z);
 			Debug.DrawRay(transform.position, v, Color.green);
+			Debug.Log ("Geneating");
 			testVelocities [i] = v;
+
 		}
+		foreach(Vector3 v in testVelocities){
+			if (v.magnitude > speed_a_max) {
+				Debug.Log (v);
+			}
+
+		}
+	}
+
+	Vector3 getDirection(){
+		Vector3 diff = goal.position - this.transform.position;
+		float dist = diff.magnitude;
+		return diff / dist;
 	}
 
 	Vector3 EstimateOptimalNewVelocity () {
@@ -113,8 +128,8 @@ public class RVOMove : MonoBehaviour {
 				penalty_tc = w / tc;
 
 			//Vector3.Scale(getDirection(), vel_a_max)
-			penalty_stray = (vel_a_max - testVelocities[i]).magnitude;
-			Debug.Log ("tc: " + penalty_tc + " stray: " + penalty_stray);
+			penalty_stray = (Vector3.Scale(getDirection(), vel_a_max) - testVelocities[i]).magnitude;
+			//Debug.Log ("tc: " + penalty_tc + " stray: " + penalty_stray);
 			penalties [i] = penalty_tc + penalty_stray;
 		}
 
@@ -134,14 +149,20 @@ public class RVOMove : MonoBehaviour {
 
 	void Update () {
 		pos_a = transform.position;
-		vel_a = (transform.position - pos_a_prev) / Time.deltaTime;
-		GetInRange ();
-		GenerateTestVelocities ();
 
-		Vector3 vel_a_new = EstimateOptimalNewVelocity ();
-		Vector3 step = vel_a_new * Time.deltaTime;
+
+		GetInRange ();
+
+		if (GetMinTimeToCollision (vel_a) > 0) {
+			GenerateTestVelocities ();
+
+			vel_a = EstimateOptimalNewVelocity ();
+		
+		} 
+
+		Vector3 step = vel_a * Time.deltaTime;
 //		Vector3 step = vel_a_max * Time.deltaTime;
-		Debug.Log ("------- " + gameObject.name + " --------");
+		//Debug.Log ("------- " + gameObject.name + " --------");
 
 		pos_a_prev = transform.position;
 		transform.position += step;
