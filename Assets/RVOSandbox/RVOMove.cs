@@ -6,7 +6,7 @@ using System;
 using Random = UnityEngine.Random;
 
 public class RVOMove : MonoBehaviour {
-	public int NUM_TEST_VELOCITIES = 100;
+	public int NUM_TEST_VELOCITIES = 50;
 	Vector3[] testVelocities;
 	public Transform goal;
 
@@ -20,7 +20,7 @@ public class RVOMove : MonoBehaviour {
 	Collider[] hitColliders;
 	List<GameObject> targetsInRange = new List<GameObject>(); //DS
 	const int GET_TARGET_RANGE = 8;
-	double w = 1; //aggressiveness
+	double w = 10; //aggressiveness
 
 	void Start () {
 		newPenalty = double.MaxValue;
