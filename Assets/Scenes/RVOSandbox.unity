@@ -147,7 +147,7 @@ MonoBehaviour:
   pos_a_prev: {x: 0, y: 0, z: 0}
   pos_a: {x: 0, y: 0, z: 0}
   speed_a_max: 0
-  vel_a_max: {x: 0, y: 0, z: -2}
+  vel_a_max: {x: 0, y: 0, z: 2}
   vel_a: {x: 0, y: 0, z: 0}
 --- !u!23 &2728118
 MeshRenderer:
@@ -210,7 +210,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2728116}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4, y: 0, z: 3}
+  m_LocalPosition: {x: 6.12, y: 0, z: 0.09}
   m_LocalScale: {x: 1, y: 0.73842824, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -398,7 +398,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 663387095}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.09, y: 0, z: -2.18}
+  m_LocalPosition: {x: 3.31, y: 0, z: -6.51}
   m_LocalScale: {x: 1, y: 0.73842824, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -512,7 +512,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 920931381}
   m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
-  m_LocalPosition: {x: 7, y: 0, z: -0.00000002987693}
+  m_LocalPosition: {x: 6.38, y: 0, z: -5.21}
   m_LocalScale: {x: 1, y: 0.45591956, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -534,7 +534,7 @@ MonoBehaviour:
   pos_a_prev: {x: 0, y: 0, z: 0}
   pos_a: {x: 0, y: 0, z: 0}
   speed_a_max: 0
-  vel_a_max: {x: -2, y: 0, z: 0}
+  vel_a_max: {x: 2, y: 0, z: 0}
   vel_a: {x: 0, y: 0, z: 0}
 --- !u!1 &926712949
 GameObject:
@@ -599,7 +599,7 @@ MonoBehaviour:
   pos_a_prev: {x: 0, y: 0, z: 0}
   pos_a: {x: 0, y: 0, z: 0}
   speed_a_max: 0
-  vel_a_max: {x: 0, y: 0, z: -2}
+  vel_a_max: {x: 0, y: 0, z: 2}
   vel_a: {x: 0, y: 0, z: 0}
 --- !u!23 &1098933491
 MeshRenderer:
@@ -662,7 +662,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1098933489}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.88, y: 0, z: 1.91}
+  m_LocalPosition: {x: 3.88, y: 0, z: 1.53}
   m_LocalScale: {x: 1, y: 0.73842824, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -766,7 +766,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1178952628}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4, y: 0, z: -3}
+  m_LocalPosition: {x: 1.29, y: 0, z: -4.92}
   m_LocalScale: {x: 1, y: 0.73842824, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -852,7 +852,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1213541451}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalPosition: {x: 0.04, y: 0, z: -0.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -974,7 +974,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1558000062}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.78, y: 0, z: -2.12}
+  m_LocalPosition: {x: -0.4, y: 0, z: -3.29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1216,7 +1216,7 @@ MonoBehaviour:
   pos_a_prev: {x: 0, y: 0, z: 0}
   pos_a: {x: 0, y: 0, z: 0}
   speed_a_max: 0
-  vel_a_max: {x: -2, y: 0, z: 0}
+  vel_a_max: {x: 2, y: 0, z: 0}
   vel_a: {x: 0, y: 0, z: 0}
 --- !u!23 &1950768257
 MeshRenderer:
@@ -1279,7 +1279,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1950768255}
   m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
-  m_LocalPosition: {x: 6.15, y: 0, z: 2}
+  m_LocalPosition: {x: 8.1, y: 0, z: -2.12}
   m_LocalScale: {x: 1, y: 0.45591956, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

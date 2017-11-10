@@ -68,7 +68,7 @@ public class RVOMove : MonoBehaviour {
 	}
 
 	void GenerateVOs () {
-		vos = new VO[NUM_TEST_VELOCITIES];
+		vos = new VO[targetsInRange.Count];
 		for (int i = 0; i < targetsInRange.Count; i++) {
 			RVOMove b_RVOMove = targetsInRange[i].GetComponent <RVOMove> ();
 			Vector3 pos_b = b_RVOMove.pos_a;
@@ -88,7 +88,7 @@ public class RVOMove : MonoBehaviour {
 	//initialize all_rvos
 	void GetRVOs (Vector3 testVelocity, int i) {
 		for (int j = 0; j < vos.Length; j++) {
-			VO rvo = vos[i];
+			VO rvo = vos[j];
 			rvo.vertex = .5f * (rvo.vertex + testVelocity);
 			all_rvos[i,j] = rvo;
 		}
@@ -148,7 +148,7 @@ public class RVOMove : MonoBehaviour {
 	double GetMinTimeToCollision(Vector3 test_velocity, int i) {
 		double smallest_t = double.MaxValue;
 		for (int j = 0; j < targetsInRange.Count; j++) {
-			RVOMove b_RVOMove = targetsInRange[i].GetComponent <RVOMove> ();
+			RVOMove b_RVOMove = targetsInRange[j].GetComponent <RVOMove> ();
 			Vector3 pos_b = b_RVOMove.pos_a;
 			Vector3 vel_b = b_RVOMove.vel_a;
 
