@@ -145,9 +145,42 @@ public class RVOMove : MonoBehaviour {
 			return t_min;
 	}
 
+	double GetMinTimeToCollision(Vector3 vel_a_prime) {
+		double[] timesToCollision = new double[targetsInRange.Count];
+		if (targetsInRange == null || targetsInRange.Count == 0)
+			return -1d;
+		for (int i = 0; i < targetsInRange.Count; i++) {
+			RVOMove b_RVOMove = targetsInRange[i].GetComponent <RVOMove> ();
+			Vector3 pos_b = b_RVOMove.pos_a;
+			Vector3 vel_b = b_RVOMove.vel_a;
+
+			Vector3 vel = 2 * vel_a_prime - vel_a - vel_b;
+
+			double r_ab = GetComponent<CapsuleCollider> ().radius + targetsInRange[i].GetComponent<CapsuleCollider> ().radius;
+
+			double a = Vector3.Dot(vel,vel);
+			double b = 2 * Vector3.Dot(vel, pos_a - pos_b);
+			double c = Vector3.Dot(pos_a, pos_a) + Vector3.Dot(pos_b, pos_b) - 2 * Vector3.Dot(pos_a, pos_b) - Math.Pow(r_ab, 2);
+
+			double disc = Math.Pow(b, 2) - 4 * a * c;
+			if (disc < 0) {
+				timesToCollision[i] = -1d;
+				continue;
+			}
+			double sqrt_disc = Math.Sqrt (disc);
+			timesToCollision[i] = (-b - sqrt_disc) / (2 * a);
+		}
+
+		double[] positiveTimes = timesToCollision.Where (t => t > 0).ToArray();
+		if (positiveTimes != null && positiveTimes.Length > 0)
+			return positiveTimes.Min ();
+		else
+			return -1d;
+	}
+
 	double GetMinTimeToCollision(Vector3 test_velocity, int i) {
 		double smallest_t = double.MaxValue;
-		for (int j = 0; j < targetsInRange.Count; j++) {
+		for (int j = 0; j < targetsInRange.Count; j++) {	
 			RVOMove b_RVOMove = targetsInRange[j].GetComponent <RVOMove> ();
 			Vector3 pos_b = b_RVOMove.pos_a;
 			Vector3 vel_b = b_RVOMove.vel_a;
@@ -206,67 +239,74 @@ public class RVOMove : MonoBehaviour {
 	}
 
 	Vector3 EstimateOptimalNewVelocity () {
-		if (targetsInRange == null)
-			return vel_a_max;
-			
-		Penalty[] penalties = new Penalty[NUM_TEST_VELOCITIES];
-		double bestTGivenRVOs = 1;
-		int indexOfBestT = 0;
-
-		all_rvos = new VO[NUM_TEST_VELOCITIES,targetsInRange.Count];
-		GenerateVOs ();
-
-//		//If no potential collisions
-//		if (GetMinTimeToCollision (vel_a_max) == -1) {
-//			newPenalty = 0; 
-//			return vel_a_max;
-//		}
-
-		for (int i = 0; i < testVelocities.Length; i++) {
-			GetRVOs (testVelocities [i], i);
-			double temp = GetBestTimeOnRVOs (pos_a, testVelocities[i], i); //gets best t value
-			if (temp < 0)
-				continue;
-			if (temp < bestTGivenRVOs) {
-				bestTGivenRVOs = temp;
-				indexOfBestT = i;
+		if (GetMinTimeToCollision(vel_a) != -1) {
+			if (GetMinTimeToCollision (vel_a_max) == -1) {
+				newPenalty = 0; 
+				return vel_a_max;
 			}
-		}
 
-		if (bestTGivenRVOs != 0)
-			return pos_a + testVelocities[indexOfBestT];
 
-		Debug.Log ("Covered by RVOs");
+			double bestTGivenRVOs = 1;
+			int indexOfBestT = 0;
 
-		for (int i = 0; i < testVelocities.Length; i++) {
-			double tc = -1d;
-			double penalty_tc = 0d;
-			double penalty_stray = 0d;
+			all_rvos = new VO[NUM_TEST_VELOCITIES,targetsInRange.Count];
+			GenerateVOs ();
 
-			tc = GetMinTimeToCollision (testVelocities [i], i);
+			//		//If no potential collisions
+			//		if (GetMinTimeToCollision (vel_a_max) == -1) {
+			//			newPenalty = 0; 
+			//			return vel_a_max;
+			//		}
 
-			if (tc > 0)
-				penalty_tc = w / tc;
+			for (int i = 0; i < testVelocities.Length; i++) {
+				GetRVOs (testVelocities [i], i);
+				double temp = GetBestTimeOnRVOs (pos_a, testVelocities[i], i); //gets best t value
+				if (temp < 0)
+					continue;
+				if (temp < bestTGivenRVOs) {
+					bestTGivenRVOs = temp;
+					indexOfBestT = i;
+				}
+			}
 
-			//Vector3.Scale(getDirection(), vel_a_max)
-			penalty_stray = (vel_a_max - testVelocities [i]).magnitude;
-			penalties [i] = new Penalty(penalty_tc + penalty_stray, penalty_tc, penalty_stray);
-		}
+			if (bestTGivenRVOs != 0)
+				return pos_a + testVelocities[indexOfBestT];
 
-		double? minVal = null;
-		int index = -1;
-		if (penalties != null && penalties.Length > 0) {
-			for (int i = 0; i < penalties.Length; i++) {
-				double thisNum = penalties [i].penalty;
-				if (!minVal.HasValue || thisNum < minVal.Value) {
-					minVal = thisNum;
+			//Debug.Log ("Covered by RVOs");
+
+			double? minVal = null;
+			int index = -1;
+
+			for (int i = 0; i < testVelocities.Length; i++) {
+				double tc = -1d;
+				double penalty_tc = 0d;
+				double penalty_stray = 0d;
+
+				tc = GetMinTimeToCollision (testVelocities [i], i);
+
+				if (tc > 0)
+					penalty_tc = w / tc;
+
+				//Vector3.Scale(getDirection(), vel_a_max)
+				penalty_stray = (vel_a_max - testVelocities [i]).magnitude;
+
+				Penalty p = new Penalty (penalty_tc + penalty_stray, penalty_tc, penalty_stray);
+
+				if (!minVal.HasValue || p.penalty < minVal.Value) {
+					minVal = p.penalty;
 					index = i;
 				}
 			}
-		}
 
-		Debug.DrawRay (transform.position, testVelocities [index], Color.green);
-		return testVelocities [index];
+			Debug.DrawRay (transform.position, testVelocities [index], Color.green);
+
+			if (minVal.HasValue && minVal < newPenalty) {
+				newPenalty = (double) minVal; 
+				return testVelocities [index];
+			}
+			return testVelocities [index];
+		}
+		return vel_a;
 	}
 
 	void Update () {
@@ -278,7 +318,7 @@ public class RVOMove : MonoBehaviour {
 			GetInRange ();
 
 			Vector3 step;
-			if (targetsInRange.Count > 0 && targetsInRange != null) {
+			if (targetsInRange != null && targetsInRange.Count > 0) {
 				GenerateTestVelocities ();
 				vel_a = EstimateOptimalNewVelocity ();
 			} else
