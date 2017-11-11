@@ -32,14 +32,19 @@ public class RVO_circleGen : MonoBehaviour {
 			GameObject newGoal = new GameObject ();
 			newGoal.transform.position = pos + newObj.transform.forward * radius * 2;
 			newRVOMove.goal = newGoal.transform;
-			Vector3 diff = newRVOMove.goal.position - newObj.transform.position;
-			float dist = diff.magnitude;
-			newRVOMove.vel_a_max = (diff / dist) * 2;
+//			Vector3 diff = newRVOMove.goal.position - newObj.transform.position;
+//			float dist = diff.magnitude;
+//			//newRVOMove.max_speed = ((diff / dist) * 2).magnitude;
 			newObj.SetActive (false);
 		}
+
+
+
 		foreach (GameObject o in newObjs) {
 			o.SetActive (true);
+			o.GetComponent<RVOMove>().maxNeighbors = numObjects - 1;
 		}
+
 	}
 
 	void Update () {

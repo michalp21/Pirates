@@ -95,13 +95,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6250735bbcc4c4c4eb5902f543e514af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NUM_TEST_VELOCITIES: 50
-  goal: {fileID: 0}
-  pos_a_prev: {x: 0, y: 0, z: 0}
   pos_a: {x: 0, y: 0, z: 0}
-  speed_a_max: 0
-  vel_a_max: {x: 0, y: 0, z: 0}
+  pref_v: {x: 0, y: 0, z: 0}
   vel_a: {x: 0, y: 0, z: 0}
+  new_vel: {x: 0, y: 0, z: 0}
+  maxNeighbors: 10
+  neighborDist: 30
+  max_speed: 10
+  radius: 0.5
+  timeHorizon: 1000
+  timeHorizonObstacles: 1000
+  goal: {fileID: 0}
 --- !u!136 &136981345257968202
 CapsuleCollider:
   m_ObjectHideFlags: 1
