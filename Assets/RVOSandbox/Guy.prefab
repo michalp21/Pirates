@@ -100,7 +100,7 @@ MonoBehaviour:
   vel_a: {x: 0, y: 0, z: 0}
   new_vel: {x: 0, y: 0, z: 0}
   maxNeighbors: 10
-  neighborDist: 30
+  neighborDist: 120
   max_speed: 10
   radius: 0.5
   timeHorizon: 1000

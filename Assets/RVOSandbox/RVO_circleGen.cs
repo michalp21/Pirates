@@ -38,11 +38,10 @@ public class RVO_circleGen : MonoBehaviour {
 			newObj.SetActive (false);
 		}
 
-
-
 		foreach (GameObject o in newObjs) {
+			o.GetComponent<RVOMove>().maxNeighbors = numObjects / 2	;
+			o.GetComponent<RVOMove>().neighborDist = radius * 2;
 			o.SetActive (true);
-			o.GetComponent<RVOMove>().maxNeighbors = numObjects - 1;
 		}
 
 	}

@@ -31,6 +31,8 @@ public class RVOMove : MonoBehaviour {
 
 	private KDTree tree;
 
+	private Boolean checking = false;
+
 	void Start () {
 		//newPenalty = double.MaxValue;
 		pos_a = transform.position;
@@ -55,10 +57,9 @@ public class RVOMove : MonoBehaviour {
 		//Debug.Log (neighbors.Count());
 
 		vel_a = new_vel;
-		Vector3 step = vel_a * Time.deltaTime;
+		Vector3 step = RVOMath.spefScale(vel_a, Time.deltaTime);
 
 		transform.position += step;
-
 
 	}
 
@@ -343,7 +344,7 @@ public class RVOMove : MonoBehaviour {
 
 		int numObstLines = orcaLines.Count();
 
-		Debug.Log (neighbors.Count());
+		//Debug.Log (neighbors.Count());
 
 		float invTimeHorizon = 1.0f/timeHorizon;
 
@@ -360,10 +361,10 @@ public class RVOMove : MonoBehaviour {
 			Line line;
 			Vector3 u;
 
-			Debug.Log ("distSq: " + distSq + ", combinedRS: " + combinedRadiusSq);
+			//Debug.Log ("distSq: " + distSq + ", combinedRS: " + combinedRadiusSq);
 
 			if(distSq > combinedRadiusSq){
-				Vector3 w = rel_vel - invTimeHorizon * rel_pos;
+				Vector3 w = rel_vel - RVOMath.spefScale(rel_pos, invTimeHorizon);
 
 				float wLengthSq = RVOMath.absSq(w);
 				float dotProduct1 = Vector3.Dot (w, rel_pos);
@@ -373,7 +374,7 @@ public class RVOMove : MonoBehaviour {
 					Vector3 unitW = w / wLength;
 
 					line.direction = new Vector3(unitW.z, 0, -unitW.x);
-					u = (combinedRadius * invTimeHorizon - wLength) * unitW;
+					u = RVOMath.spefScale (unitW, (combinedRadius * invTimeHorizon - wLength));
 				}else{
 					float leg = RVOMath.sqrt(distSq - combinedRadiusSq);
 
@@ -384,23 +385,24 @@ public class RVOMove : MonoBehaviour {
 					}
 
 					float dotProduct2 = Vector3.Dot(rel_vel, line.direction);
-					u = dotProduct2 * line.direction - rel_vel;
+					//COMEBACKPLS
+					u = RVOMath.spefScale(line.direction, dotProduct2) - rel_vel;
+					//u = dotProduct2 * line.direction - rel_vel;
 				}
 			}else{
 				float invTimeStep = 1.0f / Time.fixedDeltaTime;
 
-				Vector3 w = rel_vel - invTimeStep * rel_pos;
-
-				Debug.Log ("w--- " + w);
+				Vector3 w = rel_vel - RVOMath.spefScale (rel_pos, invTimeStep);
+				//Debug.Log ("w--- " + w);
 				
 				float wLength = RVOMath.abs(w);
-				Vector3 unitW = w / wLength;
+				Vector3 unitW = RVOMath.spefDiv (w, wLength);
 
 				line.direction = new Vector3(unitW.z, 0, -unitW.x);
-				u = (combinedRadius * invTimeStep - wLength) * unitW;
+				u = RVOMath.spefScale(unitW, (combinedRadius * invTimeStep - wLength));
 			}
 
-			line.point = vel_a + 0.5f * u;
+			line.point = vel_a + RVOMath.spefScale(u, 0.5f);
 			orcaLines.Add(line);
 
 
@@ -411,10 +413,17 @@ public class RVOMove : MonoBehaviour {
 		}
 
 		int lineFail = linearProgram2(orcaLines, max_speed, pref_v, false, ref new_vel);
-		Debug.Log ("f: " + lineFail);
+
+		if (checking) {
+			//Debug.Log ("FROM LINEFAIL");
+		}
+		//Debug.Log ("f: " + lineFail);
 
 		if(lineFail < orcaLines.Count()){
 			linearProgram3(orcaLines, numObstLines, lineFail, max_speed, ref new_vel);
+			if (checking) {
+				//Debug.Log ("LINEAR3");
+			}
 		}
 
 		
@@ -447,6 +456,7 @@ public class RVOMove : MonoBehaviour {
 	}
 
 	private bool linearProgram1(List<Line> lines, int lineNo, float radius, Vector3 opt_vel, bool dir_opt, ref Vector3 result){
+		//Debug.Log ("Before Line1: " + pos_a.y);
 		float dotProduct = Vector3.Dot(lines[lineNo].point, lines[lineNo].direction);
 		float discriminant = RVOMath.sqr(dotProduct) + RVOMath.sqr(radius) - RVOMath.absSq(lines[lineNo].point);
 
@@ -485,31 +495,33 @@ public class RVOMove : MonoBehaviour {
 
 		if(dir_opt){
 			if(Vector3.Dot(opt_vel, lines[lineNo].direction) > 0.0f){
-				result = lines[lineNo].point + tRight * lines[lineNo].direction;
+				result = lines [lineNo].point + RVOMath.spefScale (lines [lineNo].direction, tRight);
+					
 			}else{
-				result = lines[lineNo].point + tLeft * lines[lineNo].direction;
+				result = lines[lineNo].point + RVOMath.spefScale (lines [lineNo].direction, tLeft);
 			}
 		}else{
 			
 			float t = Vector3.Dot(lines[lineNo].direction, (opt_vel - lines[lineNo].point));
 
 			if(t < tLeft){
-				result = lines[lineNo].point + tLeft * lines[lineNo].direction;
+				result = lines[lineNo].point + RVOMath.spefScale (lines [lineNo].direction, tLeft);
 			}else if(t > tRight){
-				result = lines[lineNo].point + tRight * lines[lineNo].direction;
+				result = lines [lineNo].point + RVOMath.spefScale (lines [lineNo].direction, tRight);
 			}else{
-				result = lines[lineNo].point + t * lines[lineNo].direction;
+				result = lines[lineNo].point + RVOMath.spefScale (lines [lineNo].direction, t);
 			}
 		}
-
+		//Debug.Log ("After Line1: " + pos_a.y);
 		return true;
 	}
 
 	private int linearProgram2(List<Line> lines, float radius, Vector3 opt_vel, bool dir_opt, ref Vector3 result){
+		//Debug.Log ("Before Line2: " + pos_a.y);
 		if(dir_opt){
-			result = opt_vel * radius;
+			result = RVOMath.spefScale(opt_vel, radius);
 		}else if(RVOMath.absSq(opt_vel) > RVOMath.sqr(radius)){
-			result = RVOMath.normalize(opt_vel) * radius;
+			result = RVOMath.spefScale(RVOMath.normalize(opt_vel), radius);
 		}else{
 			result = opt_vel;
 		}
@@ -523,11 +535,12 @@ public class RVOMove : MonoBehaviour {
 				}
 			}
 		}
-
+		//Debug.Log ("After Line2: " + pos_a.y);
 		return lines.Count();
 	}
 
 	private void linearProgram3(List<Line> lines, int numObstLines, int beginLine, float radius, ref Vector3 result){
+		//Debug.Log ("Before Line3: " + pos_a.y);
 		float distance = 0.0f;
 
 		for(int i = beginLine; i < lines.Count(); ++i){
@@ -545,10 +558,10 @@ public class RVOMove : MonoBehaviour {
 						if(Vector3.Dot(lines[i].direction, lines[j].direction) > 0.0f){
 							continue;
 						}else{
-							line.point = 0.5f * (lines[i].point + lines[j].point);
+							line.point = RVOMath.spefScale((lines[i].point + lines[j].point), 0.5f);
 						}
 					}else{
-						line.point = lines[i].point + (RVOMath.det(lines[j].direction, lines[i].point - lines[j].point) /determinant) * lines[i].direction;
+						line.point = lines[i].point + RVOMath.spefScale(lines[i].direction, (RVOMath.det(lines[j].direction, lines[i].point - lines[j].point) /determinant));
 					}
 
 					line.direction = RVOMath.normalize(lines[j].direction - lines[i].direction);
@@ -556,13 +569,14 @@ public class RVOMove : MonoBehaviour {
 				}
 
 				Vector3 temp = result;
-				if(linearProgram2(projLines, radius, new Vector3(-lines[i].direction.z, lines[i].direction.x), true, ref result) < projLines.Count()){
+				if(linearProgram2(projLines, radius, new Vector3(-lines[i].direction.z, 0, lines[i].direction.x), true, ref result) < projLines.Count()){
 					result = temp;
 				}
 
 				distance = RVOMath.det(lines[i].direction, lines[i].point - result);
 			}
 		}
+		//Debug.Log ("After Line3: " + pos_a.y);
 	}
 
 	// public int NUM_TEST_VELOCITIES = 50;

@@ -337,7 +337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42322d3f038b94f6690c32fc4ec520c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numObjects: 12
-  radius: 15
+  numObjects: 8
+  radius: 8
   prefab: {fileID: 1700083709465090, guid: b04a88de44729499e8059ff3f619d4e9, type: 2}
   goal: {fileID: 1114368160103074, guid: ae874e281b65f422c8eaa51dc026adb4, type: 2}

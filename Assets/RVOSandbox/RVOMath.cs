@@ -53,6 +53,19 @@ public class RVOMath{
         return (float)Math.Sqrt(scalar);
     }
 
+	public static Vector3 spefScale(Vector3 v, float f){
+		return new Vector3 (v.x * f, v.y, v.z * f);
+	}
+
+	public static Vector3 spefDiv(Vector3 v, float f){
+		float denom = f;
+		if (denom == 0.0f) {
+			denom = 1.0f;
+		}
+
+		return new Vector3 (v.x / denom, v.y, v.z / denom);
+	}
+
 
 
 }
