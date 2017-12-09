@@ -18,6 +18,7 @@ public class HealthBar : MonoBehaviour {
 
 	public void updateImage(float hp, float max){
 		GetComponent<Image> ().fillAmount = hp/max;
+		//hello
 	}
 
 	void Update(){
