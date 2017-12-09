@@ -142,39 +142,17 @@ public class WeaponManager : MonoBehaviour {
 		return null;
 	}
 
-	//Call this when adding the WeaponManager script
-	/*void initWeaponManager (int id) {
-		playerID = id;
-		_maxWeapons = _myShip.WeaponSpace_x * _myShip.WeaponSpace_y;
-		AssignTags();
-	}
-
-	private void AssignTags() {
-		foreach(KeyValuePair<Vector2, GameObject> entry in weaponDict)
-		{
-			entry.Value.tag = playerID+"-Weapon"; //playerID needs to be implemented later
-		}
-	}*/
-
 	public void TakeDamage(int damage) {
 		healthBarSlider.value -= damage;
 	}
 
 	//loop through, call fire() on all wpwns
 	public void FireAll() {
-
 		for (int l = 0; l < weaponGrid.Length; l++) {
 			for (int k = 0; k < weaponGrid[l].GetLen(); k++) {
 				if (weaponGrid [l][k] == null)
 					continue;
-				if (weaponGrid [l][k].GetComponent<WeaponStatsBase> ().typeOfWeapon == WeaponType.FULLAUTO)
-				{
-					weaponGrid [l][k].Fire();
-				}
-				else
-				{
-					Debug.Log("Chaw haw haw, it's not FULLAUTO");
-				}
+				weaponGrid [l][k].Attack();
 			}
 		}
 	}
@@ -242,10 +220,8 @@ public class WeaponManager : MonoBehaviour {
 	}
 
 	public void StartBoostSelected() {
-		Debug.Log ("Start");
 		foreach (Gun weapon in SelectedWeapons)
 			if (weapon != null) {
-				Debug.Log ("not null");
 				weapon.StartBoost ();
 			}
 	}
@@ -259,7 +235,6 @@ public class WeaponManager : MonoBehaviour {
 	public void TargetSelected(Gun newTarget) {
 		foreach (Gun weapon in SelectedWeapons)
 			if (weapon != null) {
-				Debug.Log (newTarget);
 				weapon.GetComponentInChildren<Target> ().manualTarget (newTarget);
 			}
 	}

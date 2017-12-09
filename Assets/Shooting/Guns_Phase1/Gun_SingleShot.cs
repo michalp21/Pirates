@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Gun_SingleShot : Gun_Nonchilding
+public class Gun_SingleShot : Gun
 {
     public override void Fire()
     {

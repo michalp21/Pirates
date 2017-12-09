@@ -2,18 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent (typeof (WeaponStatsBase))]
 public class CrewAttack : MonoBehaviour {
+	public bool isSelf; //make into property when don't need inspector anymore? //as opposed to the opponent //isSelf will also be a variable in weaponstatsmanager
+	public Weapon[] weapons;
 
-	// Use this for initialization
+	//Below variables should not be public
+	protected float fireRate;              		// time between shots
+	protected float nextFireTime = 0.0f;        // able to fire again on this frame
+
 	void Start () {
-		
+		//0: default
+		//1-4: specials
+		weapons = new Weapon[4];
 	}
 
-	public void Attack () {
-		Debug.Log ("Pow Pow");
+	protected void initCrewAttack(bool i) 
+	{
+		isSelf = i;
 	}
-	
-	// Update is called once per frame
+
+	public void AttackDefault(){
+		weapons [0].Attack ();
+	}
+
 	void Update () {
 		
 	}

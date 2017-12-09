@@ -10,10 +10,8 @@ public class STAT_Laser_lv1 : WeaponStatsBase {
 		weaponName = "Simple Gun";
 		rarity = 1;
 		//muzzlePoint = null;
-		typeOfWeapon = WeaponType.FULLAUTO;
+		weaponType = WeaponType.CHILDING;
 		usePooling = false;
-		infiniteAmmo = true;
-		maxLevel = 3;
 		health = 200;
 		myResistances.normal = 1;
 		myResistances.fire = 1;
@@ -23,6 +21,6 @@ public class STAT_Laser_lv1 : WeaponStatsBase {
 		myResistances.poison = 1;
 		targetRange = 7f;
 		disappearRange = 7;
-		baseFireRate = 1;
+		baseRate = 1;
 	}
 }
