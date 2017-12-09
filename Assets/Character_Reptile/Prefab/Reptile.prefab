@@ -685,6 +685,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400090}
   - component: {fileID: 9500000}
+  - component: {fileID: 114566481978167516}
   m_Layer: 0
   m_Name: Reptile
   m_TagString: Untagged
@@ -1361,6 +1362,7 @@ SkinnedMeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 1
@@ -1376,6 +1378,7 @@ SkinnedMeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -1445,3 +1448,26 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 100090}
   m_IsPrefabParent: 1
+--- !u!114 &114566481978167516
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2d7470fa2bd74b72a40d4de88f5107d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myResistances:
+    normal: 0
+    fire: 0
+    ice: 0
+    acid: 0
+    electric: 0
+    poison: 0
+  useObjectPooling: 0
+  regenAmount: 1
+  isDead: 0
+  health: 100
+  hpPrefab: {fileID: 1290525841181206, guid: 22283ae1f2bf04a5fa026c5b2f146e71, type: 2}

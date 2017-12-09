@@ -338,6 +338,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numObjects: 8
-  radius: 8
+  radius: 12
   prefab: {fileID: 1700083709465090, guid: b04a88de44729499e8059ff3f619d4e9, type: 2}
   goal: {fileID: 1114368160103074, guid: ae874e281b65f422c8eaa51dc026adb4, type: 2}

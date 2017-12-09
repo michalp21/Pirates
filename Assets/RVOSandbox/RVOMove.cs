@@ -6,6 +6,7 @@ using System;
 using Random = UnityEngine.Random;
 
 public class RVOMove : MonoBehaviour {
+
 	//from RVO2 Library
 
 	//this one is for the other moving gameobjects
@@ -49,7 +50,7 @@ public class RVOMove : MonoBehaviour {
 		if(RVOMath.absSq(distance_to_goal) > 1.0f){
 			distance_to_goal = RVOMath.normalize (distance_to_goal);
 		}
-		pref_v = distance_to_goal;
+		pref_v = RVOMath.spefScale(distance_to_goal, max_speed);
 
 		computeNeighbors ();
 		computeNewVelocity ();
@@ -390,7 +391,7 @@ public class RVOMove : MonoBehaviour {
 					//u = dotProduct2 * line.direction - rel_vel;
 				}
 			}else{
-				float invTimeStep = 1.0f / Time.fixedDeltaTime;
+				float invTimeStep = 1.0f / Time.deltaTime;
 
 				Vector3 w = rel_vel - RVOMath.spefScale (rel_pos, invTimeStep);
 				//Debug.Log ("w--- " + w);
