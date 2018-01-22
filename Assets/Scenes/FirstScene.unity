@@ -42,7 +42,7 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 9
+  serializedVersion: 11
   m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
@@ -54,7 +54,7 @@ LightmapSettings:
     m_EnableBakedLightmaps: 0
     m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
-    serializedVersion: 8
+    serializedVersion: 9
     m_Resolution: 2
     m_BakeResolution: 40
     m_TextureWidth: 1024
@@ -77,17 +77,20 @@ LightmapSettings:
     m_PVRDirectSampleCount: 32
     m_PVRSampleCount: 500
     m_PVRBounces: 2
-    m_PVRFiltering: 0
+    m_PVRFilterTypeDirect: 0
+    m_PVRFilterTypeIndirect: 0
+    m_PVRFilterTypeAO: 0
     m_PVRFilteringMode: 1
     m_PVRCulling: 1
     m_PVRFilteringGaussRadiusDirect: 1
     m_PVRFilteringGaussRadiusIndirect: 5
     m_PVRFilteringGaussRadiusAO: 2
-    m_PVRFilteringAtrousColorSigma: 1
-    m_PVRFilteringAtrousNormalSigma: 1
-    m_PVRFilteringAtrousPositionSigma: 1
+    m_PVRFilteringAtrousPositionSigmaDirect: 0.5
+    m_PVRFilteringAtrousPositionSigmaIndirect: 2
+    m_PVRFilteringAtrousPositionSigmaAO: 1
+    m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
-  m_ShadowMaskMode: 2
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -107,6 +110,8 @@ NavMeshSettings:
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
+    debug:
+      m_Flags: 0
   m_NavMeshData: {fileID: 0}
 --- !u!1 &19532998
 GameObject:
@@ -546,6 +551,7 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -561,6 +567,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -577,6 +584,8 @@ SpriteRenderer:
   m_Size: {x: 1, y: 3}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
 --- !u!114 &194724815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1128,6 +1137,7 @@ GameObject:
   - component: {fileID: 339747303}
   - component: {fileID: 339747308}
   - component: {fileID: 339747304}
+  - component: {fileID: 339747309}
   m_Layer: 12
   m_Name: Bomber_lv1o (2)
   m_TagString: Weapon
@@ -1164,12 +1174,7 @@ MonoBehaviour:
   currentLevel: 0
   weaponName: 
   rarity: 0
-  muzzlePoint: {fileID: 508817119}
-  typeOfWeapon: 0
-  usePooling: 0
-  infiniteAmmo: 0
-  maxLevel: 0
-  health: 0
+  weaponType: 0
   myResistances:
     normal: 0
     fire: 0
@@ -1177,9 +1182,12 @@ MonoBehaviour:
     acid: 0
     electric: 0
     poison: 0
+  baseRate: 0
+  usePooling: 0
+  health: 0
+  muzzlePoint: {fileID: 508817119}
   targetRange: 0
   disappearRange: 0
-  baseFireRate: 0
 --- !u!114 &339747305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1241,6 +1249,7 @@ SpriteRenderer:
   m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -1256,6 +1265,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -1272,6 +1282,20 @@ SpriteRenderer:
   m_Size: {x: 0.16, y: 0.16}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+--- !u!114 &339747309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 339747302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bde5cc57f634279b68e5395eaacaae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSelected: 0
 --- !u!1 &362519580
 GameObject:
   m_ObjectHideFlags: 0
@@ -1318,6 +1342,7 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -1333,6 +1358,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -1349,6 +1375,8 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
 --- !u!114 &362519583
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1374,12 +1402,7 @@ MonoBehaviour:
   currentLevel: 0
   weaponName: 
   rarity: 0
-  muzzlePoint: {fileID: 1848678432}
-  typeOfWeapon: 0
-  usePooling: 0
-  infiniteAmmo: 0
-  maxLevel: 0
-  health: 0
+  weaponType: 0
   myResistances:
     normal: 0
     fire: 0
@@ -1387,9 +1410,12 @@ MonoBehaviour:
     acid: 0
     electric: 0
     poison: 0
+  baseRate: 0
+  usePooling: 0
+  health: 0
+  muzzlePoint: {fileID: 1848678432}
   targetRange: 0
   disappearRange: 0
-  baseFireRate: 0
 --- !u!114 &362519585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1566,6 +1592,7 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -1581,6 +1608,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -1597,6 +1625,8 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
 --- !u!114 &388625570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1856,8 +1886,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   onUnPressed:
     m_PersistentCalls:
       m_Calls:
@@ -1872,8 +1902,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &470993976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2181,6 +2211,7 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -2196,6 +2227,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -2212,6 +2244,8 @@ SpriteRenderer:
   m_Size: {x: 1, y: 3}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
 --- !u!114 &499554028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2416,6 +2450,7 @@ SpriteRenderer:
   m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -2431,6 +2466,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -2447,6 +2483,8 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
 --- !u!4 &546981282
 Transform:
   m_ObjectHideFlags: 0
@@ -2661,6 +2699,7 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -2676,6 +2715,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -2692,6 +2732,8 @@ SpriteRenderer:
   m_Size: {x: 1, y: 3}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
 --- !u!114 &578159847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2811,6 +2853,7 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -2826,6 +2869,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -2842,6 +2886,8 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
 --- !u!114 &590709395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2961,6 +3007,7 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -2976,6 +3023,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -2992,6 +3040,8 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
 --- !u!114 &648663122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3336,6 +3386,7 @@ GameObject:
   - component: {fileID: 867217495}
   - component: {fileID: 867217498}
   - component: {fileID: 867217494}
+  - component: {fileID: 867217499}
   m_Layer: 11
   m_Name: SimpleGun_lv1 (2)
   m_TagString: Weapon
@@ -3372,12 +3423,7 @@ MonoBehaviour:
   currentLevel: 0
   weaponName: 
   rarity: 0
-  muzzlePoint: {fileID: 1183602141}
-  typeOfWeapon: 0
-  usePooling: 0
-  infiniteAmmo: 0
-  maxLevel: 0
-  health: 0
+  weaponType: 0
   myResistances:
     normal: 0
     fire: 0
@@ -3385,9 +3431,12 @@ MonoBehaviour:
     acid: 0
     electric: 0
     poison: 0
+  baseRate: 0
+  usePooling: 0
+  health: 0
+  muzzlePoint: {fileID: 1183602141}
   targetRange: 0
   disappearRange: 0
-  baseFireRate: 0
 --- !u!114 &867217495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3449,6 +3498,7 @@ SpriteRenderer:
   m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -3464,6 +3514,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -3480,6 +3531,20 @@ SpriteRenderer:
   m_Size: {x: 0.16, y: 0.16}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+--- !u!114 &867217499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 867217492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bde5cc57f634279b68e5395eaacaae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSelected: 0
 --- !u!1 &876413296
 GameObject:
   m_ObjectHideFlags: 0
@@ -3592,6 +3657,7 @@ GameObject:
   - component: {fileID: 934044446}
   - component: {fileID: 934044447}
   - component: {fileID: 934044445}
+  - component: {fileID: 934044448}
   m_Layer: 12
   m_Name: SimpleGun_lv1o
   m_TagString: Weapon
@@ -3665,12 +3731,7 @@ MonoBehaviour:
   currentLevel: 1
   weaponName: Simple Gun
   rarity: 1
-  muzzlePoint: {fileID: 1075011424}
-  typeOfWeapon: 0
-  usePooling: 0
-  infiniteAmmo: 1
-  maxLevel: 3
-  health: 100
+  weaponType: 0
   myResistances:
     normal: 0
     fire: 0
@@ -3678,9 +3739,12 @@ MonoBehaviour:
     acid: 0
     electric: 0
     poison: 0
+  baseRate: 0
+  usePooling: 0
+  health: 100
+  muzzlePoint: {fileID: 1075011424}
   targetRange: 0
   disappearRange: 0
-  baseFireRate: 0
 --- !u!114 &934044446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3705,6 +3769,7 @@ SpriteRenderer:
   m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -3720,6 +3785,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -3736,6 +3802,20 @@ SpriteRenderer:
   m_Size: {x: 0.16, y: 0.16}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+--- !u!114 &934044448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 934044441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bde5cc57f634279b68e5395eaacaae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSelected: 0
 --- !u!1 &953527731
 GameObject:
   m_ObjectHideFlags: 0
@@ -3926,11 +4006,11 @@ Camera:
   m_TargetEye: 3
   m_HDR: 0
   m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
-  m_StereoMirrorMode: 0
 --- !u!4 &997341896
 Transform:
   m_ObjectHideFlags: 0
@@ -4132,6 +4212,7 @@ GameObject:
   - component: {fileID: 1028540114}
   - component: {fileID: 1028540117}
   - component: {fileID: 1028540113}
+  - component: {fileID: 1028540118}
   m_Layer: 12
   m_Name: SimpleGun_lv1o (1)
   m_TagString: Weapon
@@ -4168,12 +4249,7 @@ MonoBehaviour:
   currentLevel: 1
   weaponName: Simple Gun
   rarity: 1
-  muzzlePoint: {fileID: 483847176}
-  typeOfWeapon: 0
-  usePooling: 0
-  infiniteAmmo: 1
-  maxLevel: 3
-  health: 100
+  weaponType: 0
   myResistances:
     normal: 0
     fire: 0
@@ -4181,9 +4257,12 @@ MonoBehaviour:
     acid: 0
     electric: 0
     poison: 0
+  baseRate: 0
+  usePooling: 0
+  health: 100
+  muzzlePoint: {fileID: 483847176}
   targetRange: 0
   disappearRange: 0
-  baseFireRate: 0
 --- !u!114 &1028540114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4245,6 +4324,7 @@ SpriteRenderer:
   m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -4260,6 +4340,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -4276,6 +4357,20 @@ SpriteRenderer:
   m_Size: {x: 0.16, y: 0.16}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+--- !u!114 &1028540118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1028540111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bde5cc57f634279b68e5395eaacaae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSelected: 0
 --- !u!1 &1046169800
 GameObject:
   m_ObjectHideFlags: 0
@@ -4384,6 +4479,7 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -4399,6 +4495,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -4415,6 +4512,8 @@ SpriteRenderer:
   m_Size: {x: 1, y: 3}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
 --- !u!114 &1055287489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4816,6 +4915,7 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -4831,6 +4931,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -4847,6 +4948,8 @@ SpriteRenderer:
   m_Size: {x: 1, y: 3}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
 --- !u!114 &1405614356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5023,6 +5126,7 @@ GameObject:
   - component: {fileID: 1539443659}
   - component: {fileID: 1539443664}
   - component: {fileID: 1539443660}
+  - component: {fileID: 1539443665}
   m_Layer: 11
   m_Name: Laser_lv1 (1)
   m_TagString: Weapon
@@ -5059,12 +5163,7 @@ MonoBehaviour:
   currentLevel: 0
   weaponName: 
   rarity: 0
-  muzzlePoint: {fileID: 1586710469}
-  typeOfWeapon: 0
-  usePooling: 0
-  infiniteAmmo: 0
-  maxLevel: 0
-  health: 0
+  weaponType: 0
   myResistances:
     normal: 0
     fire: 0
@@ -5072,9 +5171,12 @@ MonoBehaviour:
     acid: 0
     electric: 0
     poison: 0
+  baseRate: 0
+  usePooling: 0
+  health: 0
+  muzzlePoint: {fileID: 1586710469}
   targetRange: 0
   disappearRange: 0
-  baseFireRate: 0
 --- !u!114 &1539443661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5136,6 +5238,7 @@ SpriteRenderer:
   m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -5151,6 +5254,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -5167,6 +5271,20 @@ SpriteRenderer:
   m_Size: {x: 0.16, y: 0.16}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+--- !u!114 &1539443665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1539443658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bde5cc57f634279b68e5395eaacaae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSelected: 0
 --- !u!1 &1552191875
 GameObject:
   m_ObjectHideFlags: 0
@@ -5207,6 +5325,7 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -5222,6 +5341,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -5238,6 +5358,8 @@ SpriteRenderer:
   m_Size: {x: 1, y: 3}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
 --- !u!114 &1552191879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5357,6 +5479,7 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -5372,6 +5495,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -5388,6 +5512,8 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
 --- !u!114 &1573174169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5797,6 +5923,7 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -5812,6 +5939,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -5828,6 +5956,8 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
 --- !u!114 &1670388127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5879,6 +6009,7 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -5894,6 +6025,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -5910,6 +6042,8 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
 --- !u!114 &1727494804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6358,6 +6492,7 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -6373,6 +6508,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -6389,6 +6525,8 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
 --- !u!114 &1894133337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6414,12 +6552,7 @@ MonoBehaviour:
   currentLevel: 0
   weaponName: 
   rarity: 0
-  muzzlePoint: {fileID: 311344274}
-  typeOfWeapon: 0
-  usePooling: 0
-  infiniteAmmo: 0
-  maxLevel: 0
-  health: 0
+  weaponType: 0
   myResistances:
     normal: 0
     fire: 0
@@ -6427,9 +6560,12 @@ MonoBehaviour:
     acid: 0
     electric: 0
     poison: 0
+  baseRate: 0
+  usePooling: 0
+  health: 0
+  muzzlePoint: {fileID: 311344274}
   targetRange: 0
   disappearRange: 0
-  baseFireRate: 0
 --- !u!114 &1894133339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6497,6 +6633,7 @@ GameObject:
   - component: {fileID: 1920896945}
   - component: {fileID: 1920896946}
   - component: {fileID: 1920896944}
+  - component: {fileID: 1920896947}
   m_Layer: 11
   m_Name: SimpleGun_lv1
   m_TagString: Weapon
@@ -6570,12 +6707,7 @@ MonoBehaviour:
   currentLevel: 0
   weaponName: 
   rarity: 0
-  muzzlePoint: {fileID: 685895207}
-  typeOfWeapon: 0
-  usePooling: 0
-  infiniteAmmo: 0
-  maxLevel: 0
-  health: 0
+  weaponType: 0
   myResistances:
     normal: 0
     fire: 0
@@ -6583,9 +6715,12 @@ MonoBehaviour:
     acid: 0
     electric: 0
     poison: 0
+  baseRate: 0
+  usePooling: 0
+  health: 0
+  muzzlePoint: {fileID: 685895207}
   targetRange: 0
   disappearRange: 0
-  baseFireRate: 0
 --- !u!114 &1920896945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6610,6 +6745,7 @@ SpriteRenderer:
   m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -6625,6 +6761,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -6641,6 +6778,20 @@ SpriteRenderer:
   m_Size: {x: 0.16, y: 0.16}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+--- !u!114 &1920896947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1920896940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bde5cc57f634279b68e5395eaacaae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSelected: 0
 --- !u!1 &1970889533
 GameObject:
   m_ObjectHideFlags: 0
@@ -6831,6 +6982,7 @@ SpriteRenderer:
   m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -6846,6 +6998,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -6862,6 +7015,8 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
 --- !u!4 &2007806051
 Transform:
   m_ObjectHideFlags: 0

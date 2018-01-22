@@ -2,17 +2,6 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public struct GridPosition
-{
-	public int row { get; set; }
-	public int col { get; set; }
-
-	public GridPosition(int r, int c) {
-		row = r;
-		col = c;
-	}
-}
-
 public enum Element
 {
 	NORMAL,
@@ -43,10 +32,6 @@ public class Gun : Weapon {
 	public bool isSelf; //make into property when don't need inspector anymore? //as opposed to the opponent //isSelf will also be a variable in weaponstatsmanager
 	public WeaponStatsBase weaponStats;
 	public GameObject projectile = null;
-
-	//MOVE TO SHIPATTACK
-	public bool isSelected { get; set; }
-	public GridPosition gridPosition;
 
 	//Below variables should not be public
 	protected float fireRate;               	// time between shots
@@ -126,7 +111,6 @@ public class Gun : Weapon {
 	public void StopBoost ()
 	{
 		fireRate = weaponStats.baseRate;
-		Health myHealth = gameObject.GetComponent<Health>();
 		if (currentCoroutine != null)
 			StopCoroutine (currentCoroutine);
 	}
