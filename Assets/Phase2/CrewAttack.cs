@@ -23,7 +23,7 @@ public class CrewAttack : MonoBehaviour {
 	}
 
 	public void AttackDefault(){
-		weapons [0].Attack ();
+		//weapons [0].Attack ();
 	}
 
 	void Update () {

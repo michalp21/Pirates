@@ -21,9 +21,9 @@ public class CrewManager : MonoBehaviour {
 	int selected; //index of crewIcons
 	[SerializeField] GameObject buttonPrefab;
 
-	const int BUTTON_WIDTH = 200;
-	const int BUTTON_SPACING = 7;
-	const int LEFT_PADDING = 14;
+	const int BUTTON_WIDTH = 150;
+	const int BUTTON_SPACING = 14;
+	const int LEFT_PADDING = 0;
 
 	//Delegate for when something is spawned
 	public delegate void UnitEventHandler ();
