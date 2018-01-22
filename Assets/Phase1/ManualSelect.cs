@@ -10,17 +10,18 @@ public class ManualSelect : MonoBehaviour {
 			RaycastHit hit;
 
 			if (Physics.Raycast (ray, out hit, 100)) {
-				Gun weapon = hit.transform.gameObject.GetComponent<Gun> ();
-				if (weapon != null) {
-					if (weapon.isSelf) {
-						if (!weapon.isSelected) {
-							GetComponent<WeaponManager> ().ToggleSelectIndividual (weapon.gridPosition.row, weapon.gridPosition.col, true);
+                ShipAttack sa = hit.transform.gameObject.GetComponent<ShipAttack> ();
+                Gun gun = sa.GetComponent<Gun>();
+				if (sa != null) {
+					if (gun.isSelf) {
+						if (!sa.isSelected) {
+							GetComponent<WeaponManager> ().ToggleSelectIndividual (sa.gridPosition.row, sa.gridPosition.col, true);
 						} else {
-							GetComponent<WeaponManager> ().ToggleSelectIndividual (weapon.gridPosition.row, weapon.gridPosition.col, false);
+							GetComponent<WeaponManager> ().ToggleSelectIndividual (sa.gridPosition.row, sa.gridPosition.col, false);
 						}
 					} else {
 						Debug.Log ("Other weapon");
-						GetComponent<WeaponManager> ().TargetSelected (weapon);
+						GetComponent<WeaponManager> ().TargetSelected (gun);
 					}
 				}
 			}

@@ -43,10 +43,10 @@ public class WeaponManager : MonoBehaviour {
 		foreach (Column col in weaponGrid) {
 			col.initColumn ();
 		}
-		//TEMPORARY
-		gun1.gridPosition.row = 0; gun1.gridPosition.col = 0;
-		gun2.gridPosition.row = 0; gun2.gridPosition.col = 1;
-		gun3.gridPosition.row = 0; gun3.gridPosition.col = 2;
+
+        gun1.GetComponent<ShipAttack>().gridPosition.row = 0; gun1.GetComponent<ShipAttack>().gridPosition.col = 0;
+        gun2.GetComponent<ShipAttack>().gridPosition.row = 0; gun2.GetComponent<ShipAttack>().gridPosition.col = 1;
+        gun3.GetComponent<ShipAttack>().gridPosition.row = 0; gun3.GetComponent<ShipAttack>().gridPosition.col = 2;
 
 		AddWeapons ();
 
@@ -66,16 +66,16 @@ public class WeaponManager : MonoBehaviour {
 		}
 	}
 
-	public void RemoveWeapon(Gun g) {
+    public void RemoveWeapon(ShipAttack sa) {
 		float distanceToMove = 0;
-		if (weaponGrid [g.gridPosition.col].gunsRemaining > 0) { //don't want to kill a dead column
-			weaponGrid [g.gridPosition.col].RemoveWeaponFromColumn (g.gridPosition.row);
+		if (weaponGrid [sa.gridPosition.col].gunsRemaining > 0) { //don't want to kill a dead column
+			weaponGrid [sa.gridPosition.col].RemoveWeaponFromColumn (sa.gridPosition.row);
 			effectiveLength--; distanceToMove++;
 		}
 
-		if (weaponGrid [g.gridPosition.col].gunsRemaining == 0) {
+		if (weaponGrid [sa.gridPosition.col].gunsRemaining == 0) {
 			if (isSelf) {
-				for (int l = g.gridPosition.col + 1; l < weaponGrid.Length; l++) {
+				for (int l = sa.gridPosition.col + 1; l < weaponGrid.Length; l++) {
 					if (weaponGrid [l].gunsRemaining > 0) { //don't want to kill a dead column
 						weaponGrid [l].KillColumn ();
 						effectiveLength--; distanceToMove++;
@@ -83,7 +83,7 @@ public class WeaponManager : MonoBehaviour {
 				}
 				MoveShip (distanceToMove);
 			} else {
-				for (int l = g.gridPosition.col - 1; l >= 0; l--) {
+				for (int l = sa.gridPosition.col - 1; l >= 0; l--) {
 					if (weaponGrid [l].gunsRemaining > 0) { //don't want to kill a dead column
 						weaponGrid [l].KillColumn ();
 						effectiveLength--; distanceToMove++;
@@ -93,8 +93,8 @@ public class WeaponManager : MonoBehaviour {
 			}
 		}
 
-		if (SelectedWeapons.Contains (g))
-			SelectedWeapons.Remove (g);
+        if (SelectedWeapons.Contains (sa.GetComponent<Gun>()))
+			SelectedWeapons.Remove (sa.GetComponent<Gun>());
 	}
 
 	public void MoveShip(float dir) {
@@ -142,39 +142,17 @@ public class WeaponManager : MonoBehaviour {
 		return null;
 	}
 
-	//Call this when adding the WeaponManager script
-	/*void initWeaponManager (int id) {
-		playerID = id;
-		_maxWeapons = _myShip.WeaponSpace_x * _myShip.WeaponSpace_y;
-		AssignTags();
-	}
-
-	private void AssignTags() {
-		foreach(KeyValuePair<Vector2, GameObject> entry in weaponDict)
-		{
-			entry.Value.tag = playerID+"-Weapon"; //playerID needs to be implemented later
-		}
-	}*/
-
 	public void TakeDamage(int damage) {
 		healthBarSlider.value -= damage;
 	}
 
 	//loop through, call fire() on all wpwns
 	public void FireAll() {
-
 		for (int l = 0; l < weaponGrid.Length; l++) {
 			for (int k = 0; k < weaponGrid[l].GetLen(); k++) {
 				if (weaponGrid [l][k] == null)
 					continue;
-				if (weaponGrid [l][k].GetComponent<WeaponStatsBase> ().typeOfWeapon == WeaponType.FULLAUTO)
-				{
-					weaponGrid [l][k].Fire();
-				}
-				else
-				{
-					Debug.Log("Chaw haw haw, it's not FULLAUTO");
-				}
+				weaponGrid [l][k].Attack();
 			}
 		}
 	}
@@ -182,16 +160,16 @@ public class WeaponManager : MonoBehaviour {
 	public bool ToggleSelectIndividual(int k, int l, bool s) {
 		
 		if (s) {
-			if (weaponGrid [l][k] != null && !weaponGrid [l][k].isSelected) {
+            if (weaponGrid [l][k] != null && !weaponGrid [l][k].GetComponent<ShipAttack>().isSelected) {
 				SelectedWeapons.Add (weaponGrid [l] [k]);
-				weaponGrid [l][k].isSelected = s;
+                weaponGrid [l][k].GetComponent<ShipAttack>().isSelected = s;
 				weaponGrid [l][k].GetComponent<SpriteRenderer> ().enabled = s;
 			}
 			return true;
 		} else {
 			if (weaponGrid [l][k] != null) {
 				SelectedWeapons.Remove (weaponGrid [l] [k]);
-				weaponGrid [l][k].isSelected = false;
+                weaponGrid [l][k].GetComponent<ShipAttack>().isSelected = false;
 				weaponGrid [l][k].GetComponent<SpriteRenderer> ().enabled = false;
 			}
 			return false;
@@ -226,7 +204,7 @@ public class WeaponManager : MonoBehaviour {
 	//when other selections besides ToggleSelectRow happen to completely select a row
 	public bool CheckIfRowIsSelected(int k) {
 		for (int l = 0; l < weaponGrid.Length; l++) {
-			if (weaponGrid [l][k] != null && weaponGrid [l][k].isSelected == false)
+            if (weaponGrid [l][k] != null && weaponGrid [l][k].GetComponent<ShipAttack>().isSelected == false)
 				return false;
 		}
 		return true;
@@ -235,17 +213,15 @@ public class WeaponManager : MonoBehaviour {
 	//when other selections besides ToggleSelectColumn happen to completely select a column
 	public bool CheckIfColumnIsSelected(int l) {
 		for (int k = 0; k < weaponGrid[l].GetLen(); k++) {
-			if (weaponGrid [l][k] != null && weaponGrid [l][k].isSelected == false)
+            if (weaponGrid [l][k] != null && weaponGrid [l][k].GetComponent<ShipAttack>().isSelected == false)
 				return false;
 		}
 		return true;
 	}
 
 	public void StartBoostSelected() {
-		Debug.Log ("Start");
 		foreach (Gun weapon in SelectedWeapons)
 			if (weapon != null) {
-				Debug.Log ("not null");
 				weapon.StartBoost ();
 			}
 	}
@@ -259,7 +235,6 @@ public class WeaponManager : MonoBehaviour {
 	public void TargetSelected(Gun newTarget) {
 		foreach (Gun weapon in SelectedWeapons)
 			if (weapon != null) {
-				Debug.Log (newTarget);
 				weapon.GetComponentInChildren<Target> ().manualTarget (newTarget);
 			}
 	}

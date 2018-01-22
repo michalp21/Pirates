@@ -33,10 +33,10 @@ public class CrewManager : MonoBehaviour {
 	// Instantiate crew from prefab.
 	void Start () {
 		//Load all possible crew prefabs
-		possibleCrewPrefabs = Resources.LoadAll("PossibleCrew", typeof(GameObject)).Cast<GameObject>().ToArray();
-		//Find correct prefab from string
-		fetchCrew ();
 		//Init list of crew icons
+		//Find correct prefab from string
+		possibleCrewPrefabs = Resources.LoadAll("PossibleCrew", typeof(GameObject)).Cast<GameObject>().ToArray();
+		fetchCrew ();
 		initCrewIcons ();
 
 		selected = 0;

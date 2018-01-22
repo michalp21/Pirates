@@ -17,6 +17,8 @@ public class CrewTarget : MonoBehaviour {
 	List<GameObject> targetsInRange = new List<GameObject>(); //DS
 	const int GET_TARGET_RANGE = 10;
 
+	public bool canAttack { get; set; }
+
 	//Assumes LAYERS and TAGS are set upon instantiation of crew prefab
 	//eg Destination = reptile1 = reptile2 = <layer11> ; Destination = <tag"Goal"> ; reptile1 = reptile2 = <tag"Crew">
 	void GetInRangeTarget() {
@@ -55,15 +57,19 @@ public class CrewTarget : MonoBehaviour {
 			myMovementAI.target = null;
 	}
 
+	//Check collisions with raycast
 	bool checkCollision() {
 		Debug.DrawRay (transform.position + new Vector3(0f,.5f,0f), transform.forward * personalSpace, Color.yellow);
-		if (Physics.Raycast (transform.position + new Vector3(0f,.5f,0f), transform.forward, out hitInfo, personalSpace)) {
+		if (Physics.Raycast (transform.position + new Vector3 (0f, .5f, 0f), transform.forward, out hitInfo, personalSpace)) {
+			canAttack = true;
 			//Stop movement, start attacking
 			if (hitInfo.collider.tag == "Crew" && hitInfo.collider.gameObject.layer != gameObject.layer) {
 				myMovementAI.speed = 0;
-				myCrewAttack.Attack ();
+				myCrewAttack.AttackDefault ();
 				return true;
 			}
+		} else {
+			canAttack = false;
 		}
 		return false;
 	}
