@@ -46,7 +46,6 @@ public class Column : MonoBehaviour {
 		Rigidbody2D myRigidbody = gameObject.AddComponent<Rigidbody2D>() as Rigidbody2D;
         myRigidbody.gravityScale = 1.8f;
 		gameObject.transform.parent = null;
-        Debug.Log("Column broke");
 	}
 
 	public void initColumn() {
