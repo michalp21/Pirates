@@ -7,6 +7,8 @@ TagManager:
   - Weapon
   - Goal
   - Crew
+  - ship_self
+  - ship_other
   layers:
   - Default
   - TransparentFX

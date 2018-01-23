@@ -692,6 +692,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdf67d7457abf48a7a96996bcce3fd86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EPSILON: 0.001
 --- !u!4 &195197386
 Transform:
   m_ObjectHideFlags: 0
@@ -2476,7 +2477,7 @@ GameObject:
   - component: {fileID: 546981286}
   m_Layer: 0
   m_Name: Ship_self
-  m_TagString: Untagged
+  m_TagString: ship_self
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4736,7 +4737,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Minutes: 0
-  Seconds: 10
+  Seconds: 30
 --- !u!114 &1156517276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7086,7 +7087,7 @@ GameObject:
   - component: {fileID: 2007806052}
   m_Layer: 0
   m_Name: Ship_other
-  m_TagString: Untagged
+  m_TagString: ship_other
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

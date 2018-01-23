@@ -3,32 +3,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-public class WeaponManager : MonoBehaviour {
-	private int maxWeapons;
-	private BaseShip myShip;
-	private int maxHealth;
-	//private int playerID;
+public class WeaponManager : MonoBehaviour
+{
+    private int maxWeapons;
+    private BaseShip myShip;
+    private int maxHealth;
+    public int currentHealth { get; set; }
+    //private int playerID;
 
-	public Camera camera;
-	public Slider healthBarSlider; //inspector
-	public GenerateSelectorButtons selectorScript; //inspector
-	public bool isSelf; //TEMPORARY
+    public Camera camera;
+    public Slider healthBarSlider; //inspector
+    public GenerateSelectorButtons selectorScript; //inspector
+    public bool isSelf; //TEMPORARY
 
-	private Column[] weaponGrid;
-	public List<Gun> SelectedWeapons;
-	private int effectiveLength;
+    private Column[] weaponGrid;
+    public List<Gun> SelectedWeapons;
+    private int effectiveLength;
 
-	//TEMPORARY
-	public Gun gun1;
-	public Gun gun2;
-	public Gun gun3;
+    //TEMPORARY
+    public Gun gun1;
+    public Gun gun2;
+    public Gun gun3;
 
-	public float timeTakenDuringLerp;
-	public float velocityOfLerp = 1.5f;
-	private bool isLerping;
-	private Vector3 startPosition;
-	private Vector3 endPosition;
-	private float timeStartedLerping;
+    public float timeTakenDuringLerp;
+    public float velocityOfLerp = 1.5f;
+    private bool isLerping;
+    private Vector3 startPosition;
+    private Vector3 endPosition;
+    private float timeStartedLerping;
+
+    public bool isFiring { get; set;}
 
 	void Awake() {
 		myShip = GetComponent<BaseShip> ();
@@ -52,7 +56,9 @@ public class WeaponManager : MonoBehaviour {
 
 		SelectedWeapons = new List<Gun> ();
 		//healthBarSlider = GetComponentInChildren<Slider> ();
-		healthBarSlider.value = healthBarSlider.maxValue = maxHealth;
+        healthBarSlider.value = healthBarSlider.maxValue = currentHealth = maxHealth;
+
+        isFiring = true;
 
 		if (isSelf)
 			selectorScript.initGenerateSelectorButtons ();
@@ -143,7 +149,10 @@ public class WeaponManager : MonoBehaviour {
 	}
 
 	public void TakeDamage(int damage) {
-		healthBarSlider.value -= damage;
+        currentHealth -= damage;
+        if (currentHealth < 0)
+            currentHealth = 0;
+        healthBarSlider.value = currentHealth;
 	}
 
 	//loop through, call fire() on all wpwns
@@ -252,7 +261,8 @@ public class WeaponManager : MonoBehaviour {
 	}
 
 	void Update () {
-		FireAll ();
+        if (isFiring)
+		    FireAll ();
 	}
 
 	void FixedUpdate () {
