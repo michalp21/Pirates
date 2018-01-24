@@ -7,17 +7,10 @@ using UnityEngine.SceneManagement;
 //consider moving all scene transitions into a public static SceneTransitions class
 
 public class Phase1Master : MonoBehaviour {
-    public float EPSILON = .001f;
     Timer timer;
     WeaponManager wmSelf;   //0
     WeaponManager wmOther;  //1
     bool reachedEnd = false;
-
-    void Phase1ToPhase2()
-    {
-        SceneManager.LoadScene("Phase2");
-        Debug.Log("wakawakawaka");
-    }
 
     void CheckWinner()
     {
@@ -37,10 +30,8 @@ public class Phase1Master : MonoBehaviour {
         wmOther = GameObject.FindGameObjectWithTag("ship_other").GetComponent<WeaponManager>();
     }
 	
-	void Update () {
-        //Timer runs out -> ships ram -> subtract min(ship1health, ship2health) from ship1health and ship2health
-        if (!reachedEnd)
-        {
+    void Update () {
+            //Timer runs out -> ships ram -> subtract min(ship1health, ship2health) from ship1health and ship2health
             if (timer.LeftTime <= 0)
             {
                 reachedEnd = true;
@@ -54,12 +45,11 @@ public class Phase1Master : MonoBehaviour {
                 wmSelf.TakeDamage(remainingHealth);
                 wmOther.TakeDamage(remainingHealth);
 
-                float loadNextScene = Time.time + 2;
-                if (loadNextScene < Time.time)
-                    CheckWinner();
-                    StartCoroutine(AdvanceScene());
+                CheckWinner();
+                StartCoroutine(AdvanceScene());
 
             }
+            //Either ship loses health
             else if (wmSelf.currentHealth <= 0 || wmOther.currentHealth <= 0)
             {
                 reachedEnd = true;
@@ -71,7 +61,6 @@ public class Phase1Master : MonoBehaviour {
             }
 
             Debug.Log(wmOther.currentHealth);
-        }
 	}
 
     IEnumerator AdvanceScene()
