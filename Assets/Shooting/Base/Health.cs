@@ -204,6 +204,8 @@ public class Health : MonoBehaviour
 		health = 0;
 		isDead = true;
 
+		//FROM OLD HEALTH.CS
+        //weaponManager.RemoveWeapon (gameObject.GetComponent<ShipAttack> ());
 
         // send any messages to the player script here to tell it it's dead and to stop taking input
         // or any other script you might need to let know that it died

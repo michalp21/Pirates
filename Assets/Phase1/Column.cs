@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//Won't use
 public class Column : MonoBehaviour {
 	public int gunsRemaining { get; set; }
-	private Gun[] guns;
+    private Gun[] guns;
 
-	public Gun this[int row]
+    public Gun this[int row]
 	{
 		get
 		{
@@ -39,28 +38,20 @@ public class Column : MonoBehaviour {
 		for(int i = 0; i < guns.Length; i++) {
 			if (guns [i] != null) {
 				gunsRemaining--;
-				Gun deadGun = guns[i];
+                Gun deadGun = guns[i];
 				guns [i] = null;
 				deadGun.GetComponent<Health> ().Die (); //statement must come last
 			}
 		}
-		Rigidbody myRigidbody = gameObject.AddComponent<Rigidbody>() as Rigidbody;
-		myRigidbody.useGravity = true;
+		Rigidbody2D myRigidbody = gameObject.AddComponent<Rigidbody2D>() as Rigidbody2D;
+        myRigidbody.gravityScale = 1.8f;
 		gameObject.transform.parent = null;
 	}
 
 	public void initColumn() {
 		guns = GetComponentsInChildren<Gun> ();
+
 		gunsRemaining = guns.Length;
 	}
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

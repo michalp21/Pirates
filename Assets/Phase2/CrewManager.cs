@@ -21,9 +21,9 @@ public class CrewManager : MonoBehaviour {
 	int selected; //index of crewIcons
 	[SerializeField] GameObject buttonPrefab;
 
-	const int BUTTON_WIDTH = 200;
-	const int BUTTON_SPACING = 7;
-	const int LEFT_PADDING = 14;
+	const int BUTTON_WIDTH = 150;
+	const int BUTTON_SPACING = 14;
+	const int LEFT_PADDING = 0;
 
 	//Delegate for when something is spawned
 	public delegate void UnitEventHandler ();
@@ -33,10 +33,10 @@ public class CrewManager : MonoBehaviour {
 	// Instantiate crew from prefab.
 	void Start () {
 		//Load all possible crew prefabs
-		possibleCrewPrefabs = Resources.LoadAll("PossibleCrew", typeof(GameObject)).Cast<GameObject>().ToArray();
-		//Find correct prefab from string
-		fetchCrew ();
 		//Init list of crew icons
+		//Find correct prefab from string
+		possibleCrewPrefabs = Resources.LoadAll("PossibleCrew", typeof(GameObject)).Cast<GameObject>().ToArray();
+		fetchCrew ();
 		initCrewIcons ();
 
 		selected = 0;

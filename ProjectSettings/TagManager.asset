@@ -8,6 +8,8 @@ TagManager:
   - Goal
   - Crew
   - hud
+  - ship_self
+  - ship_other
   layers:
   - Default
   - TransparentFX

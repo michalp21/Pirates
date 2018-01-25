@@ -21,7 +21,6 @@ public class Laser : Damager {
 
 	public override void SetUp(bool usePooling)
 	{
-		Debug.Log ("SETTING UP");
 		hitCount = 0;
 
 		//collidersToIgnore.Add (myInfo.owner.GetComponent<Collider>());

@@ -20,7 +20,6 @@ public class CrewIcon : MonoBehaviour, IPointerUpHandler { //Don't inherit from 
 	public const int LAYER_OBSTACLES = 14;
 	public const float COLLIDER_RADIUS = .4f; //accounts for scaling of transform
 
-
 	//credit: Cawas
 	//Factory method, behaving similar to AddComponent, but with ability to add parameters
 	public static CrewIcon CreateComponent (GameObject go, int i, string n, GameObject p, CrewManager cm) {
