@@ -4,51 +4,50 @@ using UnityEngine;
 
 public class CrewHealth : Health {
 
-	public GameObject hpPrefab;
-
-	private HealthBar healthBar;
+    public GameObject hpPrefab;
+    protected HealthBar healthBar;
 
 	// Use this for initialization
-	void Awake(){
-		GameObject hp = Instantiate (hpPrefab) as GameObject;
-		healthBar = hp.GetComponent<HealthBar> ();
-		Debug.Log (healthBar);
-
-		healthBar.init (this.transform, GameObject.FindGameObjectWithTag ("hud").GetComponent<RectTransform>());
-
-		healthBar.transform.SetParent (GameObject.FindGameObjectWithTag("hud").GetComponent<RectTransform>(), false);
-//		healthBar.RepositionHealthBar ();
-//		healthBar.gameObject.SetActive (true);
+	protected void Awake(){
+        GameObject hp = Instantiate(hpPrefab) as GameObject;
+        healthBar = hp.GetComponent<HealthBar>();
+        health = maxHealth = 100;
+        RectTransform hudTransform = GameObject.FindGameObjectWithTag("hud").GetComponent<RectTransform>();
+        healthBar.init(this.transform, hudTransform);
+        //set parent transform but keep local orientation
+        healthBar.transform.SetParent(hudTransform, false);
 	}
-		
+
+    public override void ResetMe(){
+        health = maxHealth;
+    }
 
 	public override void Hit (int damage, Element damageType)
 	{
 		base.Hit (damage, damageType);
-		updateHP ();
-
-	}
-
-	public void updateHP(){
-		healthBar.updateImage (health, maxHealth);
+        updateHP();
 	}
 
 	protected override void onDrain ()
 	{
 		base.onDrain ();
-		updateHP ();
+        updateHP();
 	}
 
 	protected override void onRegen ()
 	{
 		base.onRegen ();
-		updateHP ();
+        updateHP();
 	}
 
 	public override void Die(){
-		Destroy (healthBar);
 		base.Die ();
+        Destroy(healthBar);
 	}
-	
+
+    public virtual void updateHP()
+    {
+        healthBar.updateImage(health, maxHealth);
+    }
 	
 }

@@ -60,7 +60,6 @@ public class Phase1Master : MonoBehaviour {
                 StartCoroutine(AdvanceScene());
             }
 
-            Debug.Log(wmOther.currentHealth);
 	}
 
     IEnumerator AdvanceScene()

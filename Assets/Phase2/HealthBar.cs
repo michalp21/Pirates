@@ -9,8 +9,8 @@ public class HealthBar : MonoBehaviour {
 	Transform target;
 
 	public void init(Transform t, RectTransform hud){
-		canvas = hud;
-		target = t;
+        target = t;
+        canvas = hud;
 
 		RepositionHealthBar ();
 		gameObject.SetActive (true);

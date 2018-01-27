@@ -1,13 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.UI;
+//using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
-	
-
-    // my resistance to different damage types 
+    // resistance to different damage types 
     // you basically want resistances between 0 and 2, where 0 is totally immune to damage type,
     // 1 takes straight damage as in no resistance or weakness and 2 is take double damage
 	public Resistance myResistances;
@@ -20,9 +17,8 @@ public class Health : MonoBehaviour
 	public int health;
 
 	public int draining { get; set; }
-	public int regening { get; set; }
-
-	//public Slider healthBarSlider;
+    public int regening { get; set; }
+	
 
 	protected float nextDrainTime = 0.0f;
 	protected float nextRegenTime = 0.0f;
@@ -35,37 +31,21 @@ public class Health : MonoBehaviour
 	private Coroutine drainCoroutine, regenCoroutine;
 
 	private float inv_start;
-
 	public float inv_duration;
 
-	void Start ()
-	{
-//		healthBarSlider = GetComponentInChildren<Slider> ();
-//		healthBarSlider.value = healthBarSlider.maxValue = health = maxHealth;
-		maxHealth = health;
+    protected virtual void Start ()
+    {
 		StopAllCoroutines ();
 	}
 
-	/*public virtual void initHealth()
-	{
-		weaponStats = GetComponentInChildren<WeaponStatsBase>(); //maybe change to 2nd parameter (See above)
-		useObjectPooling = weaponStats.usePooling;
-		myResistances = weaponStats.myResistances;
-		maxHealth = weaponStats.health;
-		healthBarSlider = GetComponentInChildren<Slider> ();
-		healthBarSlider.value = healthBarSlider.maxValue = health = maxHealth;
-	}*/
-
     public virtual void ResetMe()
     {
-        isDead = false; // make sure its not dead to start 
-        health = maxHealth;
-//		healthBarSlider.value = health;
-
+        isDead = false; // make sure its not dead to start
     }
 
 	public virtual void Hit(int damage, Element damageType)
     {
+        Debug.Log(damage);
         if (isInvincible)
         {
             return;
@@ -76,22 +56,24 @@ public class Health : MonoBehaviour
 			switch (damageType)
             {
                 case Element.NORMAL:
-					damage = Mathf.RoundToInt(damage - (damage * myResistances.normal));
+					damage = Mathf.RoundToInt(damage * myResistances.normal);
+                    Debug.Log(myResistances.normal);
+                    Debug.Log(damage);
                     break;
                 case Element.FIRE:
-				damage = Mathf.RoundToInt(damage - (damage * myResistances.fire));
+				damage = Mathf.RoundToInt(damage * myResistances.fire);
                     break;
 				case Element.ICE:
-				damage = Mathf.RoundToInt(damage - (damage * myResistances.ice));
+				damage = Mathf.RoundToInt(damage * myResistances.ice);
                     break;
 				case Element.ACID:
-				damage = Mathf.RoundToInt(damage - (damage * myResistances.acid));
+				damage = Mathf.RoundToInt(damage * myResistances.acid);
                     break;
 				case Element.ELECTRIC:
-				damage = Mathf.RoundToInt(damage - (damage * myResistances.electric));
+				damage = Mathf.RoundToInt(damage * myResistances.electric);
                     break;
                 case Element.POISON:
-				damage = Mathf.RoundToInt(damage - (damage * myResistances.poison));
+				damage = Mathf.RoundToInt(damage * myResistances.poison);
                     break;
                 default:
                     // take straight damage...
@@ -101,17 +83,16 @@ public class Health : MonoBehaviour
             health -= damage;
 			isInvincible = true;
 			inv_start = Time.time;
+            if (health <= 0)
+            {
+                Debug.Log("DEATH!!!");
+                Die();
+            }
 
-//			healthBarSlider.value -= damage;
-
-			if (health <= 0) {
-				Debug.Log ("DEATH!!!");
-				Die ();
-			}
         }
     }
 
-	void FixedUpdate(){
+	protected void FixedUpdate(){
 		if (isInvincible) {
 			float elapsed = Time.time - inv_start;
 			if (elapsed >= inv_duration) {
@@ -159,7 +140,6 @@ public class Health : MonoBehaviour
 				
 				if (!isInvincible && !isDead) {
 					onDrain ();
-//					healthBarSlider.value -= DRAIN_PER_FRAME;
 
 					if (health <= 0) {
 						Die ();
@@ -201,11 +181,9 @@ public class Health : MonoBehaviour
 
     public virtual void Die()
 	{
+        Debug.Log("IHIHIHIHIH");
 		health = 0;
 		isDead = true;
-
-		//FROM OLD HEALTH.CS
-        //weaponManager.RemoveWeapon (gameObject.GetComponent<ShipAttack> ());
 
         // send any messages to the player script here to tell it it's dead and to stop taking input
         // or any other script you might need to let know that it died
