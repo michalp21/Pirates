@@ -692,7 +692,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdf67d7457abf48a7a96996bcce3fd86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EPSILON: 0.001
 --- !u!4 &195197386
 Transform:
   m_ObjectHideFlags: 0
@@ -1174,11 +1173,11 @@ GameObject:
   m_Component:
   - component: {fileID: 339747307}
   - component: {fileID: 339747306}
-  - component: {fileID: 339747305}
   - component: {fileID: 339747303}
   - component: {fileID: 339747308}
   - component: {fileID: 339747304}
   - component: {fileID: 339747309}
+  - component: {fileID: 339747305}
   m_Layer: 12
   m_Name: Bomber_lv1o (2)
   m_TagString: Weapon
@@ -1237,11 +1236,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 339747302}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09a8b523bae64b94aaba13dcb40f2c8a, type: 3}
+  m_Script: {fileID: 11500000, guid: 2f8de4cd0beb647feb588b4eb63fb7f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponStats: {fileID: 0}
-  weaponManager: {fileID: 0}
   myResistances:
     normal: 0
     fire: 0
@@ -1253,6 +1250,9 @@ MonoBehaviour:
   regenAmount: 1
   isDead: 0
   health: 0
+  inv_duration: 0
+  weaponStats: {fileID: 0}
+  weaponManager: {fileID: 0}
   healthBarSlider: {fileID: 0}
 --- !u!65 &339747306
 BoxCollider:
@@ -1469,8 +1469,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09a8b523bae64b94aaba13dcb40f2c8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponStats: {fileID: 0}
-  weaponManager: {fileID: 0}
   myResistances:
     normal: 0
     fire: 0
@@ -1482,7 +1480,7 @@ MonoBehaviour:
   regenAmount: 1
   isDead: 0
   health: 0
-  healthBarSlider: {fileID: 0}
+  inv_duration: 0
 --- !u!65 &362519586
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3423,11 +3421,11 @@ GameObject:
   m_Component:
   - component: {fileID: 867217493}
   - component: {fileID: 867217497}
-  - component: {fileID: 867217496}
   - component: {fileID: 867217495}
   - component: {fileID: 867217498}
   - component: {fileID: 867217494}
   - component: {fileID: 867217499}
+  - component: {fileID: 867217496}
   m_Layer: 11
   m_Name: SimpleGun_lv1 (2)
   m_TagString: Weapon
@@ -3501,11 +3499,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 867217492}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09a8b523bae64b94aaba13dcb40f2c8a, type: 3}
+  m_Script: {fileID: 11500000, guid: 2f8de4cd0beb647feb588b4eb63fb7f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponStats: {fileID: 0}
-  weaponManager: {fileID: 0}
   myResistances:
     normal: 0
     fire: 0
@@ -3517,6 +3513,9 @@ MonoBehaviour:
   regenAmount: 1
   isDead: 0
   health: 0
+  inv_duration: 0
+  weaponStats: {fileID: 0}
+  weaponManager: {fileID: 0}
   healthBarSlider: {fileID: 0}
 --- !u!65 &867217497
 BoxCollider:
@@ -3694,11 +3693,11 @@ GameObject:
   m_Component:
   - component: {fileID: 934044442}
   - component: {fileID: 934044444}
-  - component: {fileID: 934044443}
   - component: {fileID: 934044446}
   - component: {fileID: 934044447}
   - component: {fileID: 934044445}
   - component: {fileID: 934044448}
+  - component: {fileID: 934044443}
   m_Layer: 12
   m_Name: SimpleGun_lv1o
   m_TagString: Weapon
@@ -3729,11 +3728,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 934044441}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09a8b523bae64b94aaba13dcb40f2c8a, type: 3}
+  m_Script: {fileID: 11500000, guid: 2f8de4cd0beb647feb588b4eb63fb7f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponStats: {fileID: 0}
-  weaponManager: {fileID: 0}
   myResistances:
     normal: 0
     fire: 0
@@ -3745,6 +3742,9 @@ MonoBehaviour:
   regenAmount: 1
   isDead: 0
   health: 0
+  inv_duration: 0
+  weaponStats: {fileID: 0}
+  weaponManager: {fileID: 0}
   healthBarSlider: {fileID: 0}
 --- !u!65 &934044444
 BoxCollider:
@@ -4249,11 +4249,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1028540112}
   - component: {fileID: 1028540116}
-  - component: {fileID: 1028540115}
   - component: {fileID: 1028540114}
   - component: {fileID: 1028540117}
   - component: {fileID: 1028540113}
   - component: {fileID: 1028540118}
+  - component: {fileID: 1028540115}
   m_Layer: 12
   m_Name: SimpleGun_lv1o (1)
   m_TagString: Weapon
@@ -4327,11 +4327,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1028540111}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09a8b523bae64b94aaba13dcb40f2c8a, type: 3}
+  m_Script: {fileID: 11500000, guid: 2f8de4cd0beb647feb588b4eb63fb7f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponStats: {fileID: 0}
-  weaponManager: {fileID: 0}
   myResistances:
     normal: 0
     fire: 0
@@ -4343,6 +4341,9 @@ MonoBehaviour:
   regenAmount: 1
   isDead: 0
   health: 0
+  inv_duration: 0
+  weaponStats: {fileID: 0}
+  weaponManager: {fileID: 0}
   healthBarSlider: {fileID: 0}
 --- !u!65 &1028540116
 BoxCollider:
@@ -5252,11 +5253,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1539443663}
   - component: {fileID: 1539443662}
-  - component: {fileID: 1539443661}
   - component: {fileID: 1539443659}
   - component: {fileID: 1539443664}
   - component: {fileID: 1539443660}
   - component: {fileID: 1539443665}
+  - component: {fileID: 1539443661}
   m_Layer: 11
   m_Name: Laser_lv1 (1)
   m_TagString: Weapon
@@ -5315,11 +5316,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1539443658}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09a8b523bae64b94aaba13dcb40f2c8a, type: 3}
+  m_Script: {fileID: 11500000, guid: 2f8de4cd0beb647feb588b4eb63fb7f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponStats: {fileID: 0}
-  weaponManager: {fileID: 0}
   myResistances:
     normal: 0
     fire: 0
@@ -5331,6 +5330,9 @@ MonoBehaviour:
   regenAmount: 1
   isDead: 0
   health: 0
+  inv_duration: 0
+  weaponStats: {fileID: 0}
+  weaponManager: {fileID: 0}
   healthBarSlider: {fileID: 0}
 --- !u!65 &1539443662
 BoxCollider:
@@ -6708,8 +6710,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09a8b523bae64b94aaba13dcb40f2c8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponStats: {fileID: 0}
-  weaponManager: {fileID: 0}
   myResistances:
     normal: 0
     fire: 0
@@ -6721,7 +6721,7 @@ MonoBehaviour:
   regenAmount: 1
   isDead: 0
   health: 0
-  healthBarSlider: {fileID: 0}
+  inv_duration: 0
 --- !u!114 &1894133340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6759,11 +6759,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1920896941}
   - component: {fileID: 1920896943}
-  - component: {fileID: 1920896942}
   - component: {fileID: 1920896945}
   - component: {fileID: 1920896946}
   - component: {fileID: 1920896944}
   - component: {fileID: 1920896947}
+  - component: {fileID: 1920896942}
   m_Layer: 11
   m_Name: SimpleGun_lv1
   m_TagString: Weapon
@@ -6794,11 +6794,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1920896940}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09a8b523bae64b94aaba13dcb40f2c8a, type: 3}
+  m_Script: {fileID: 11500000, guid: 2f8de4cd0beb647feb588b4eb63fb7f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponStats: {fileID: 0}
-  weaponManager: {fileID: 0}
   myResistances:
     normal: 0
     fire: 0
@@ -6810,6 +6808,9 @@ MonoBehaviour:
   regenAmount: 1
   isDead: 0
   health: 0
+  inv_duration: 0
+  weaponStats: {fileID: 0}
+  weaponManager: {fileID: 0}
   healthBarSlider: {fileID: 0}
 --- !u!65 &1920896943
 BoxCollider:

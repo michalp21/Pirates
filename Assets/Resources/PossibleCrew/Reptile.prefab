@@ -176,6 +176,7 @@ GameObject:
   - component: {fileID: 114025841374041246}
   - component: {fileID: 114169539590356776}
   - component: {fileID: 114211596389801968}
+  - component: {fileID: 114687204238493216}
   m_Layer: 11
   m_Name: Reptile
   m_TagString: Crew
@@ -1453,6 +1454,30 @@ MonoBehaviour:
   sleepVelocity: 0.4
   animationSpeed: 0.2
   endOfPathEffect: {fileID: 0}
+--- !u!114 &114687204238493216
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1215341726415140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2d7470fa2bd74b72a40d4de88f5107d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myResistances:
+    normal: 0
+    fire: 0
+    ice: 0
+    acid: 0
+    electric: 0
+    poison: 0
+  useObjectPooling: 0
+  regenAmount: 1
+  isDead: 0
+  health: 100
+  inv_duration: 2
+  hpPrefab: {fileID: 1290525841181206, guid: 22283ae1f2bf04a5fa026c5b2f146e71, type: 2}
 --- !u!114 &114859833530096738
 MonoBehaviour:
   m_ObjectHideFlags: 1

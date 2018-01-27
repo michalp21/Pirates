@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 [RequireComponent(typeof(LineRenderer))]
 public class Laser : Damager {
@@ -81,9 +82,9 @@ public class Laser : Damager {
 			}
 		}
 
-		foreach (GameObject e in temp) {
-			e.GetComponent<Health> ().stopDrain ();
-			alreadyHit.Remove (e);
+		for (int i = 0; i < temp.Count; i++) {
+			temp[i].GetComponent<Health> ().draining--;
+			alreadyHit.Remove (temp[i]);
 		}
 
 
